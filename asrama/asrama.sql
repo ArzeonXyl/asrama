@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2024 at 03:22 PM
+-- Generation Time: Nov 21, 2024 at 03:28 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -223,6 +223,49 @@ CREATE TABLE `warga_asrama` (
 INSERT INTO `warga_asrama` (`nim_warga`, `nama_warga`, `jurusan_warga`, `alamat_warga`, `password_warga`, `jenis_kelamin_warga`, `nomor_handphone_warga`, `no_kamar`, `nim_pengurus`) VALUES
 ('23000000012', 'fathan', 'S1 Teknik Informatika', 'lumajang', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '0832193076651', '201', '230000000'),
 ('230411100040', 'M. Aldi Rahmandika', 'S1 Teknik Informatika', 'Blitar', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '0881036126290', '201', '230000000');
+
+--
+-- Triggers `warga_asrama`
+--
+DELIMITER $$
+CREATE TRIGGER `update_status_kamar_insert` AFTER INSERT ON `warga_asrama` FOR EACH ROW BEGIN
+    DECLARE jumlah INT;
+    
+    -- Hitung jumlah penghuni kamar
+    SELECT COUNT(*) INTO jumlah FROM warga_asrama WHERE no_kamar = NEW.no_kamar;
+    
+    -- Update status kamar jika jumlah mencapai 6
+    IF jumlah >= 6 THEN
+        UPDATE kamar SET status_kamar = 'Penuh' WHERE no_kamar = NEW.no_kamar;
+    END IF;
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_status_kamar_update` AFTER UPDATE ON `warga_asrama` FOR EACH ROW BEGIN
+    DECLARE jumlah INT;
+    
+    -- Jika kamar berubah (perhatikan perbedaan dengan trigger insert)
+    IF NEW.no_kamar != OLD.no_kamar THEN
+        -- Hitung jumlah penghuni di kamar baru
+        SELECT COUNT(*) INTO jumlah FROM warga_asrama WHERE no_kamar = NEW.no_kamar;
+        
+        -- Update status kamar jika jumlah penghuni mencapai 6
+        IF jumlah >= 6 THEN
+            UPDATE kamar SET status_kamar = 'Penuh' WHERE no_kamar = NEW.no_kamar;
+        END IF;
+    END IF;
+    
+    -- Jika penghuni keluar dan kamar menjadi kosong, update menjadi tersedia
+    IF OLD.no_kamar != NEW.no_kamar THEN
+        SELECT COUNT(*) INTO jumlah FROM warga_asrama WHERE no_kamar = OLD.no_kamar;
+        IF jumlah = 0 THEN
+            UPDATE kamar SET status_kamar = 'Tersisa' WHERE no_kamar = OLD.no_kamar;
+        END IF;
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
