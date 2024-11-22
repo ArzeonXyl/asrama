@@ -23,7 +23,7 @@
       </div>
      </a>
      <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="ekstrakulikuler.php">
-      <i class="fas fa-futbol text-green-600 text-2xl">
+      <i class="fas fa-futbol text-orange-600 text-2xl">
       </i>
       <div>
        <div class="text-gray-800 font-semibold">
@@ -67,6 +67,17 @@
        </div>
        <div class="text-gray-500 text-sm">
         Manage profile
+       </div>
+      </div>
+     </a>
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+      <i class="fas fa-notes-medical text-green-600 text-2xl"></i>
+      <div>
+       <div class="text-gray-800 font-semibold">
+        kesehatan
+       </div>
+       <div class="text-gray-500 text-sm">
+        Manage health
        </div>
       </div>
      </a>
