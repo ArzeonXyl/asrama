@@ -70,7 +70,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="../main/kesehatan/index.php">    
       <i class="fas fa-notes-medical text-green-600 text-2xl"></i>
       <div>
        <div class="text-gray-800 font-semibold">
