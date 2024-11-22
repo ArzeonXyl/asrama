@@ -55,8 +55,8 @@ include 'session_check.php';
 
                             echo '<div class="col-md-4 mb-4">
                                     <div class="card shadow-lg rounded-lg">
-                                        <div class="card-body">
-                                            <h5 class="card-title">' . $row['no_kamar'] . '</h5>
+                                        <div class="card-body w-100">
+                                            <h5 class="card-title p-2" style="background-color: #4a90e2; color: white; width:100%;">' . $row['no_kamar'] . '</h5>
                                             <p class="card-text">Gedung: ' . $row['id_gedung'] . '</p>
                                             <p class="card-text" style="color:' . $statusColor . ';">' . $row['status_kamar'] . '</p>
                                             <p class="card-text">Jumlah Penghuni: ' . $jumlah_penghuni . ' / ' . $kapasitas_kamar . '</p>
