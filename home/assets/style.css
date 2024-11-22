@@ -1,0 +1,106 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4a90e2; /* Blue primary */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 20px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* Make header position relative for absolute positioning of logout */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff; /* White text */
+    font-size: 1rem;
+    margin: 0 15px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #d4e9ff; /* Light blue for hover */
+}
+
+.navmenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navmenu li {
+    margin: 0 10px;
+}
+
+.mobile-nav-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .navmenu ul {
+        flex-direction: column;
+    }
+
+    .navmenu li {
+        margin: 10px 0;
+    }
+
+    .mobile-nav-toggle {
+        display: block;
+        font-size: 24px;
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        cursor: pointer;
+    }
+}
+
+.logout-container {
+    position: absolute; /* Position it absolutely within the header */
+    right: 20px; /* Align to the right */
+    top: 20px; /* Center vertically with respect to the header */
+    display: flex; /* Use flexbox for horizontal alignment */
+    align-items: center; /* Center items vertically */
+}
+
+.logout-link {
+    text-decoration: none; /* Remove underline */
+    color: #fff; /* White color for the text */
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+}
+
+.logout-icon {
+    color: #fff; /* White color for the icon */
+    font-size: 1.5rem; /* Adjust size as needed */
+    margin-right: 5px; /* Space between the icon and text */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+.logout-text {
+    color: #fff; /* White color for the text */
+    font-size: 1rem; /* Adjust size as needed */
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%; /* Pastikan card memiliki tinggi penuh */
+}
