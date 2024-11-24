@@ -70,7 +70,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">    
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
       <i class="fas fa-notes-medical text-green-600 text-2xl"></i>
       <div>
        <div class="text-gray-800 font-semibold">
@@ -81,6 +81,18 @@
        </div>
       </div>
      </a>
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="pendaftaran.php">
+    <i class="fas fa-user-check text-blue-600 text-2xl"></i>
+    <div>
+        <div class="text-gray-800 font-semibold">
+        Pendaftaran
+        </div>
+        <div class="text-gray-500 text-sm">
+        Manage registration
+        </div>
+    </div>
+    </a>
+
     </div>
 <?php
     include "../template/script.php"

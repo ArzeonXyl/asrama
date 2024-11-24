@@ -56,9 +56,13 @@
           <i class="fas fa-user mr-3"></i>
           <span>Profil</span>
         </a>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="../main/kesehatan/index.php">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="#">
           <i class="fas fa-notes-medical mr-3"></i>
           <span>kesehatan</span>
+        </a>
+        <a class="flex items-center px-6 py-2 text-gray-400" href="pendaftaran.php">
+          <i class="fas fa-user-plus mr-3"></i>
+          <span>pendaftaran</span>
         </a>
       </nav>
     </div>

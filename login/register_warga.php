@@ -52,6 +52,7 @@ if (isset($_POST['tambah'])) {
         $input['password'] = md5($input['password']);
         $_SESSION['pendaftaran'][] = $input; // Menyimpan data pendaftaran di sesi
         echo "<script>alert('Data berhasil dikirim, menunggu persetujuan admin.')</script>";
+        header('location:pemberitahuan_register.php');
     }
 }
 
