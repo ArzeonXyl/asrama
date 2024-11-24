@@ -10,28 +10,14 @@
     }
 
     // Query untuk mengambil data detail kamar
-    $sql_kamar = "SELECT * FROM kamar WHERE no_kamar = ?";
-    $stmt_kamar = $conn->prepare($sql_kamar);
-    $stmt_kamar->bind_param("s", $no_kamar);
-    $stmt_kamar->execute();
-    $result_kamar = $stmt_kamar->get_result();
-
-    if ($result_kamar->num_rows > 0) {
-        $data_kamar = $result_kamar->fetch_assoc();
-    } else {
-        die("Kamar dengan no $no_kamar tidak ditemukan.");
-    }
+    $sql_kamar = "SELECT * FROM kamar WHERE no_kamar = '$no_kamar'";
+    $query = mysqli_query($conn, $sql_kamar);
+    $result_kamar = mysqli_fetch_assoc($query);
 
     // Query untuk mengambil data warga asrama berdasarkan no_kamar
-    $sql_warga = "SELECT * FROM warga_asrama WHERE no_kamar = ?";
-    $stmt_warga = $conn->prepare($sql_warga);
-    $stmt_warga->bind_param("s", $no_kamar);
-    $stmt_warga->execute();
-    $result_warga = $stmt_warga->get_result();
-
-    $stmt_kamar->close();
-    $stmt_warga->close();
-    $conn->close();
+    $sql_warga = "SELECT * FROM warga_asrama WHERE no_kamar = '$no_kamar'";
+    $query2 = mysqli_query($conn, $sql_warga);
+    $result_warga = mysqli_fetch_all($query2, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,28 +56,28 @@
     <?php require 'assets/header.php'; ?>
 
     <main class="container mt-5">
-        <h2 class="mb-4">Detail Kamar - <?php echo htmlspecialchars($data_kamar['no_kamar']); ?></h2>
+        <h2 class="mb-4">Detail Kamar - <?= ($result_kamar['no_kamar']); ?></h2>
         <table class="table table-bordered">
             <tr>
                 <th>No Kamar</th>
-                <td><?php echo htmlspecialchars($data_kamar['no_kamar']); ?></td>
+                <td><?= ($result_kamar['no_kamar']); ?></td>
             </tr>
             <tr>
                 <th>Gedung</th>
-                <td><?php echo htmlspecialchars($data_kamar['id_gedung']); ?></td>
+                <td><?= ($result_kamar['id_gedung']); ?></td>
             </tr>
             <tr>
                 <th>Status Kamar</th>
-                <td><?php echo htmlspecialchars($data_kamar['status_kamar']); ?></td>
+                <td><?= ($result_kamar['status_kamar']); ?></td>
             </tr>
             <tr>
                 <th>Keterangan</th>
-                <td><?php echo htmlspecialchars($data_kamar['keterangan'] ?? 'Tidak ada keterangan'); ?></td>
+                <td><?= ($result_kamar['keterangan'] ?? 'Tidak ada keterangan'); ?></td>
             </tr>
         </table>
 
         <h3 class="mt-5">Warga Asrama yang Menggunakan Kamar Ini</h3>
-        <?php if ($result_warga->num_rows > 0): ?>
+        <?php if (count($result_warga) >  0): ?>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -101,12 +87,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php while ($row_warga = $result_warga->fetch_assoc()): ?>
+                    <?php $position = 0 ?>
+                    <?php while ($position < count($result_warga)): ?>
                         <tr>
-                            <td><?php echo htmlspecialchars($row_warga['nim_warga']); ?></td>
-                            <td><?php echo htmlspecialchars($row_warga['nama_warga']); ?></td>
-                            <td><?php echo htmlspecialchars($row_warga['jurusan_warga']); ?></td>
+                            <td><?= ($result_warga[$position]['nim_warga']); ?></td>
+                            <td><?= ($result_warga[$position]['nama_warga']); ?></td>
+                            <td><?= ($result_warga[$position]['jurusan_warga']); ?></td>
                         </tr>
+                        <?php $position+=1; ?>
                     <?php endwhile; ?>
                 </tbody>
             </table>
