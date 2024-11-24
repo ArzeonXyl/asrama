@@ -84,6 +84,9 @@
                         <th class="text-center">NIM Warga</th>
                         <th class="text-center">Nama</th>
                         <th class="text-center">Jurusan</th>
+                        <?php if($_SESSION['role'] == "pengurus"): ?>
+                                <th>Action</th>
+                            <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,6 +96,12 @@
                             <td><?= ($result_warga[$position]['nim_warga']); ?></td>
                             <td><?= ($result_warga[$position]['nama_warga']); ?></td>
                             <td><?= ($result_warga[$position]['jurusan_warga']); ?></td>
+                            <?php if($_SESSION['role'] == "pengurus"): ?>
+                                <td>
+                                    <button>Edit</button>
+                                    <button>Hapus</button>
+                                </td>
+                            <?php endif; ?>
                         </tr>
                         <?php $position+=1; ?>
                     <?php endwhile; ?>

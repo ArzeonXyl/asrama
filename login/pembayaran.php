@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <option value="Kartu Kredit">Kartu Kredit</option>
         <option value="E-Wallet">E-Wallet</option>
     </select>
-    <span class="error"><?= $errors['metode_pembayaran'] ?? '' ?></span>>
+    <span class="error"><?= $errors['metode_pembayaran'] ?? '' ?></span>
 
     <label for="nominal">Nominal</label>
     <input type="text" id="nominal" name="nominal" placeholder="Masukkan jumlah pembayaran" value="<?= htmlspecialchars($nominal ?? '') ?>">

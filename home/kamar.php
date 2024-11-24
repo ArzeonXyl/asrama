@@ -14,6 +14,9 @@ include 'session_check.php';
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <style>
         <?php include 'assets/style.css'; ?>
+        .outer-card{
+            border-radius: 20px;
+        }
         </style>
     </head>
 
@@ -35,11 +38,11 @@ include 'session_check.php';
                         while ($row = mysqli_fetch_assoc($result)) {
                             // Cek status kamar
                             if ($row['status_kamar'] == 'Tersedia') {
-                                $statusColor = 'green';
+                                $statusColor = '#219B9D';
                             } elseif ($row['status_kamar'] == 'Kosong') {
-                                $statusColor = 'blue';
+                                $statusColor = '#1F509A';
                             } else {
-                                $statusColor = 'red';
+                                $statusColor = '#D91656';
                             }
 
                             // Hitung jumlah penghuni di setiap kamar
@@ -54,13 +57,14 @@ include 'session_check.php';
                             $tersedia = $kapasitas_kamar - $jumlah_penghuni;
 
                             echo '<div class="col-md-4 mb-4">
-                                    <div class="card shadow-lg rounded-lg">
-                                        <div class="card-body">
-                                            <h5 class="card-title">' . $row['no_kamar'] . '</h5>
-                                            <p class="card-text">Gedung: ' . $row['id_gedung'] . '</p>
-                                            <p class="card-text" style="color:' . $statusColor . ';">' . $row['status_kamar'] . '</p>
-                                            <p class="card-text">Jumlah Penghuni: ' . $jumlah_penghuni . ' / ' . $kapasitas_kamar . '</p>
-                                            <p class="card-text">Kamar Tersedia: ' . $tersedia . '</p>
+                                    <div class="card shadow-lg outer-card" style="background-color: #E2F4FD;">
+                                    <h4 class="card-header" style="width: 100%; text-align: center; background-color: #084B83; color: white;">Kamar</h4>
+                                    <h5 class="card-title p-2" style="width: 100%; text-align: center; color: white; background-color: #17689A;">' . $row['no_kamar'] . '</h5>
+                                        <div class="card-body d-flex flex-column align-items-center">
+                                            <p class="card-text fw-bold">Gedung: ' . $row['id_gedung'] . '</p>
+                                            <p class="card-text fw-bold p-1" style="color: black">' . 'Status : '. '<span class="p-1" style="background-color: '. $statusColor.'; color: white;"> '.$row['status_kamar'].'</span>'. '</p>
+                                            <p class="card-text fw-bold">Jumlah Penghuni: ' . $jumlah_penghuni . ' / ' . $kapasitas_kamar . '</p>
+                                            <p class="card-text fw-bold">Kamar Tersedia: ' . $tersedia . '</p>
                                             <form action="detail_kamar.php" method="get">
                                                 <input type="hidden" name="no_kamar" value="' . $row['no_kamar'] . '">
                                                 <button type="submit" class="btn btn-primary">Lihat Detail Kamar</button>
@@ -72,7 +76,6 @@ include 'session_check.php';
                     } else {
                         echo "0 results";
                     }
-                    $conn->close();
                     ?>
                 </div>
             </div>
