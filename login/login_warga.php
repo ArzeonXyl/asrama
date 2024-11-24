@@ -72,6 +72,7 @@
 
             <button type="submit" name="login">Login</button>
             <button type="submit" name="register">register</button>
+            <button type="submit" name="pembayaran">pembayaran</button>
         </form>
     </div>
 </body>
