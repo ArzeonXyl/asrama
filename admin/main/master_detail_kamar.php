@@ -11,7 +11,7 @@
 ?>
 <?php 
 
-    $query = mysqli_query($conn, "SELECT * FROM warga_asrama ORDER BY no_kamar ASC");
+    $query = mysqli_query($conn, "SELECT * FROM warga_asrama JOIN pengurus ON warga_asrama.nim_pengurus = pengurus.nim_pengurus ORDER BY no_kamar ASC");
     $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
     
     $groupdata = [];
@@ -28,7 +28,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Warga Asrama</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+
     <style>
         table {
             margin-bottom: 20px;
@@ -47,7 +47,7 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h2 class="text-center">Pengelolaan Data Warga Asrama</h2>
+    <h2 class="text-center h2">Pengelolaan Data Kamar</h2>
 
     <?php foreach ($groupdata as $key => $value): ?>
         <div class="card">
@@ -62,6 +62,7 @@
                             <th>Alamat</th>
                             <th>Jenis Kelamin</th>
                             <th>Nomor Handphone</th>
+                            <th>Nama Pengurus</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -74,7 +75,8 @@
                                 <td><?= $warga_asrama["alamat_warga"] ?></td>
                                 <td><?= $warga_asrama["jenis_kelamin_warga"] ?></td>
                                 <td><?= $warga_asrama["nomor_handphone_warga"] ?></td>
-                                <td>
+                                <td><?= $warga_asrama["nama_pengurus"] ?></td>
+                                <td class="d-flex gap-2">
                                     <button type="button" onclick="window.location.href='edit_data_kamar.php?kamar=<?= $key; ?>&nim=<?= $warga_asrama['nim_warga'] ?>'" class="btn btn-warning shadow-lg rounded">Edit</button>
                                     <button type="button" onclick="erase(<?= $key ?>, <?= $warga_asrama['nim_warga'] ?>)" class="btn btn-danger shadow-lg rounded">Hapus</button>
                                 </td>

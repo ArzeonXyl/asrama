@@ -28,11 +28,11 @@ include 'session_check.php';
                     <?php
                     // Query untuk mengambil data kamar
                     $sql = "SELECT * FROM kamar";
-                    $result = $conn->query($sql);
+                    $result = mysqli_query($conn, $sql);
 
-                    if ($result->num_rows > 0) {
+                    if (mysqli_num_rows($result) > 0) {
                         // Loop melalui semua data kamar
-                        while ($row = $result->fetch_assoc()) {
+                        while ($row = mysqli_fetch_assoc($result)) {
                             // Cek status kamar
                             if ($row['status_kamar'] == 'Tersedia') {
                                 $statusColor = 'green';
@@ -45,8 +45,8 @@ include 'session_check.php';
                             // Hitung jumlah penghuni di setiap kamar
                             $no_kamar = $row['no_kamar'];
                             $sql_penghuni = "SELECT COUNT(*) AS jumlah_penghuni FROM warga_asrama WHERE no_kamar = '$no_kamar'";
-                            $result_penghuni = $conn->query($sql_penghuni);
-                            $penghuni = $result_penghuni->fetch_assoc();
+                            $result_penghuni = mysqli_query($conn, $sql_penghuni);
+                            $penghuni = mysqli_fetch_assoc($result_penghuni);
                             $jumlah_penghuni = $penghuni['jumlah_penghuni'];
 
                             // Misalnya kapasitas kamar adalah 6
