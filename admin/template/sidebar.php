@@ -44,7 +44,7 @@
             <span>Qiroah Alquran</span>
           </a>
         </div>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="#">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="../main/master_detail_kamar.php">
           <i class="fas fa-bed mr-3"></i>
           <span>Kamar</span>
         </a>
