@@ -72,7 +72,7 @@ $nominal = $_SESSION['pembayaran']['nominal'] ?? 'Nominal tidak ditemukan';
         <p><span>Nominal Pembayaran:</span> Rp <?= number_format($nominal, 0, ',', '.') ?></p>
     </div>
 
-    <a href="index.php" class="btn">Kembali ke Halaman Utama</a>
+    <a href="login_warga.php" class="btn">Kembali ke Halaman Utama</a>
 </div>
 
 </body>
