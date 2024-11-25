@@ -14,7 +14,7 @@
           <i class="fas fa-tachometer-alt mr-3"></i>
           <span>Dashboard</span>
         </a>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="data-user.html">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="data.php">
           <i class="fas fa-users mr-3"></i>
           <span>Data User</span>
         </a>
