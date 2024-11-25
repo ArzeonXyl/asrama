@@ -52,7 +52,7 @@
     <?php foreach ($groupdata as $key => $value): ?>
         <div class="card">
             <h4 class="card-header bg-info">Kamar: <?= $key; ?></h4>
-            <div class="p-3">
+            <div class="p-3" style="overflow-x: auto;">
                 <table class="table table-bordered">
                     <thead>
                         <tr>
