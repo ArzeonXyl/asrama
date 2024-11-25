@@ -2,19 +2,18 @@
     include '../connect.php';
     include 'session_check.php';
 
-    // Mendapatkan `no_kamar` dari URL
     if (isset($_GET['no_kamar'])) {
         $no_kamar = $_GET['no_kamar'];
     } else {
         die("No kamar tidak ditemukan!");
     }
 
-    // Query untuk mengambil data detail kamar
+
     $sql_kamar = "SELECT * FROM kamar WHERE no_kamar = '$no_kamar'";
     $query = mysqli_query($conn, $sql_kamar);
     $result_kamar = mysqli_fetch_assoc($query);
 
-    // Query untuk mengambil data warga asrama berdasarkan no_kamar
+
     $sql_warga = "SELECT * FROM warga_asrama WHERE no_kamar = '$no_kamar'";
     $query2 = mysqli_query($conn, $sql_warga);
     $result_warga = mysqli_fetch_all($query2, MYSQLI_ASSOC);

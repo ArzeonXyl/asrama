@@ -14,29 +14,25 @@ include 'session_check.php';
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
         <style>
         <?php include 'assets/style.css'; ?>
-        .outer-card{
-            border-radius: 20px;
-        }
         </style>
     </head>
 
     <body>
         <?php require 'assets/header.php'; ?>
 
-        <!-- Konten lainnya -->
         <main>
             <h2 class="text-center">Berikut Daftar Kamar yang Ada di Asrama</h2>
             <div class="container mt-5">
+            <div class="d-flex justify-content-end mb-2">
+                <button class="rounded shadow-lg" onclick="window.location.href='search_data_kamar.php'" style="width: 100px; height: 40px; background-color: #2192FF; border: none; color: white;">Search</button>
+            </div>
                 <div class="row">
                     <?php
-                    // Query untuk mengambil data kamar
                     $sql = "SELECT * FROM kamar";
                     $result = mysqli_query($conn, $sql);
 
                     if (mysqli_num_rows($result) > 0) {
-                        // Loop melalui semua data kamar
                         while ($row = mysqli_fetch_assoc($result)) {
-                            // Cek status kamar
                             if ($row['status_kamar'] == 'Tersedia') {
                                 $statusColor = '#219B9D';
                             } elseif ($row['status_kamar'] == 'Kosong') {
@@ -45,14 +41,12 @@ include 'session_check.php';
                                 $statusColor = '#D91656';
                             }
 
-                            // Hitung jumlah penghuni di setiap kamar
                             $no_kamar = $row['no_kamar'];
                             $sql_penghuni = "SELECT COUNT(*) AS jumlah_penghuni FROM warga_asrama WHERE no_kamar = '$no_kamar'";
                             $result_penghuni = mysqli_query($conn, $sql_penghuni);
                             $penghuni = mysqli_fetch_assoc($result_penghuni);
                             $jumlah_penghuni = $penghuni['jumlah_penghuni'];
 
-                            // Misalnya kapasitas kamar adalah 6
                             $kapasitas_kamar = 6;
                             $tersedia = $kapasitas_kamar - $jumlah_penghuni;
 
