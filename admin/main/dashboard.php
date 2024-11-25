@@ -46,7 +46,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="./manage_fasilitas.php">
       <i class="fas fa-concierge-bell text-yellow-600 text-2xl">
       </i>
       <div>
