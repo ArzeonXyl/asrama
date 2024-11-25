@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>Form Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,20 +30,48 @@
             margin-bottom: 20px;
             color: #333;
         }
-        .login-container label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #555;
+        .input-container {
+            position: relative;
+            margin-bottom: 30px;
         }
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
+        .input-container input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 10px 10px 10px 30px;
+            border: none;
+            border-bottom: 2px solid #ddd;
+            outline: none;
+            font-size: 14px;
             box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .input-container input:focus {
+            border-bottom: 2px solid #007bff;
+        }
+        .input-container input::placeholder {
+            color: transparent; /* Menyembunyikan placeholder saat fokus */
+        }
+        .input-container label {
+            position: absolute;
+            top: 10px;
+            left: 30px;
+            font-size: 14px;
+            color: #aaa;
+            transition: all 0.3s ease;
+            pointer-events: none; /* Agar label tidak mengganggu klik */
+        }
+        .input-container input:focus + label,
+        .input-container input:not(:placeholder-shown) + label {
+            top: -10px;
+            font-size: 12px;
+            color: #007bff;
+        }
+        .input-container i {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #aaa;
+            font-size: 16px;
         }
         .login-container button {
             width: 100%;
@@ -53,10 +82,10 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .login-container button:hover {
-            background-color: #009bff;
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -64,15 +93,19 @@
     <div class="login-container">
         <h2>Login Warga Asrama</h2>
         <form action="proses_login_warga.php" method="POST">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
-
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password">
-
+            <div class="input-container">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" name="username" placeholder=" " required>
+                <label for="username">Masukkan Username</label>
+            </div>
+            <div class="input-container">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" name="password" placeholder=" " required>
+                <label for="password">Masukkan Password</label>
+            </div>
             <button type="submit" name="login">Login</button>
-            <button type="submit" name="register">register</button>
-            <button type="submit" name="pembayaran">pembayaran</button>
+            <button type="submit" name="register">Register</button>
+            <button type="submit" name="pembayaran">Pembayaran</button>
         </form>
     </div>
 </body>
