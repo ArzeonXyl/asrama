@@ -28,20 +28,22 @@ include 'session_check.php';
             </div>
                 <div class="row">
                     <?php
-                    $sql = "SELECT * FROM kamar";
-                    $result = mysqli_query($conn, $sql);
+                    $query = mysqli_query($conn, "SELECT * FROM kamar");
+                    $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
+                    ?>
 
-                    if (mysqli_num_rows($result) > 0) {
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            if ($row['status_kamar'] == 'Tersedia') {
+                    <?php if (mysqli_num_rows($query) > 0): ?>
+                        <?php foreach ($result as $data): ?>
+                            <?php  
+                            if ($data['status_kamar'] == 'Tersedia') {
                                 $statusColor = '#219B9D';
-                            } elseif ($row['status_kamar'] == 'Kosong') {
+                            } elseif ($data['status_kamar'] == 'Kosong') {
                                 $statusColor = '#1F509A';
                             } else {
                                 $statusColor = '#D91656';
                             }
 
-                            $no_kamar = $row['no_kamar'];
+                            $no_kamar = $data['no_kamar'];
                             $sql_penghuni = "SELECT COUNT(*) AS jumlah_penghuni FROM warga_asrama WHERE no_kamar = '$no_kamar'";
                             $result_penghuni = mysqli_query($conn, $sql_penghuni);
                             $penghuni = mysqli_fetch_assoc($result_penghuni);
@@ -49,28 +51,28 @@ include 'session_check.php';
 
                             $kapasitas_kamar = 6;
                             $tersedia = $kapasitas_kamar - $jumlah_penghuni;
-
-                            echo '<div class="col-md-4 mb-4">
-                                    <div class="card shadow-lg outer-card" style="background-color: #E2F4FD;">
-                                    <h4 class="card-header" style="width: 100%; text-align: center; background-color: #084B83; color: white;">Kamar</h4>
-                                    <h5 class="card-title p-2" style="width: 100%; text-align: center; color: white; background-color: #17689A;">' . $row['no_kamar'] . '</h5>
-                                        <div class="card-body d-flex flex-column align-items-center">
-                                            <p class="card-text fw-bold">Gedung: ' . $row['id_gedung'] . '</p>
-                                            <p class="card-text fw-bold p-1" style="color: black">' . 'Status : '. '<span class="p-1" style="background-color: '. $statusColor.'; color: white;"> '.$row['status_kamar'].'</span>'. '</p>
-                                            <p class="card-text fw-bold">Jumlah Penghuni: ' . $jumlah_penghuni . ' / ' . $kapasitas_kamar . '</p>
-                                            <p class="card-text fw-bold">Kamar Tersedia: ' . $tersedia . '</p>
-                                            <form action="detail_kamar.php" method="get">
-                                                <input type="hidden" name="no_kamar" value="' . $row['no_kamar'] . '">
-                                                <button type="submit" class="btn btn-primary">Lihat Detail Kamar</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>';
-                        }
-                    } else {
-                        echo "0 results";
-                    }
-                    ?>
+                        ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-lg outer-card" style="background-color: #E2F4FD;">
+                            <h4 class="card-header" style="width: 100%; text-align: center; background-color: #084B83; color: white;">Kamar</h4>
+                            <h5 class="card-title p-2" style="width: 100%; text-align: center; color: white; background-color: #17689A;"><?= $no_kamar ?></h5>
+                                <div class="card-body d-flex flex-column align-items-center">
+                                    <p class="card-text fw-bold">Gedung: <?= $data['id_gedung'] ?>  </p>
+                                    <p class="card-text fw-bold p-1" style="color: black">Status : <span class="p-1" style="background-color: <?= $statusColor ?>; color: white;"> <?= $data['status_kamar']  ?></span></p>
+                                    <p class="card-text fw-bold">Jumlah Penghuni: <?= $jumlah_penghuni ?> / <?= $kapasitas_kamar ?></p>
+                                    <p class="card-text fw-bold">Kamar Tersedia: <?= $tersedia ?></p>
+                                    <form action="detail_kamar.php" method="get">
+                                        <input type="hidden" name="no_kamar" value="<?= $no_kamar ?>">
+                                        <button type="submit" class="btn btn-primary">Lihat Detail Kamar</button>
+                                    </form>
+                                </div>
+                        </div>
+                    </div>
+                        <?php endforeach; ?>
+                    
+                        <?php else: echo "0 results";?>
+   
+                    <?php endif; ?>
                 </div>
             </div>
         </main>

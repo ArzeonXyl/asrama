@@ -89,7 +89,7 @@
                             <p class="card-text fw-bold">Jumlah Penghuni: <?= $jumlah_penghuni ?> / <?= $kapasitas_kamar ?></p>
                             <p class="card-text fw-bold">Kamar Tersedia: <?= $tersedia ?></p>
                             <form action="detail_kamar.php" method="get">
-                                <input type="hidden" name="no_kamar" value="' . $row['no_kamar'] . '">
+                                <input type="hidden" name="no_kamar" value="<?= $no_kamar ?>">
                                 <button type="submit" class="btn btn-primary">Lihat Detail Kamar</button>
                             </form>
                         </div>
