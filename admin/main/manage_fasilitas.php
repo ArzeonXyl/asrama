@@ -2,17 +2,8 @@
     include "../template/head.php";
     include "../template/sidebar.php";
     include "../template/top-bar.php";
+    include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
 
-$servername = "localhost";
-$username = "";
-$password = "";
-$database = "asrama";
-
-$conn = new mysqli($servername, $username, $password, $database);
-
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
 
 if (isset($_POST['tambah'])) {
     $id_fasilitas = $_POST['id_fasilitas'];

@@ -77,3 +77,6 @@ echo"<table class='table'>
     echo "</tbody>
 </table>";
 ?>
+<?php
+    include "../template/script.php"
+?>
