@@ -28,19 +28,19 @@
           </div>
         </div>
         <div class="hidden" id="ekstrakulikulerMenu">
-          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa-arab.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa_arab.php">
             <span>Bahasa Arab</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="C:\xampp\htdocs\dashboard_asrama\main\ekstra\bahasa_inggris.php">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa_inggris.php">
             <span>Bahasa Inggris</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="arduino.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="arduino.php">
             <span>Arduino</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="sholawat.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="sholawat.php">
             <span>Sholawat</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="qiroah-alquran.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="qiroah.php">
             <span>Qiroah Alquran</span>
           </a>
         </div>
