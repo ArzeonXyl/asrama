@@ -95,12 +95,12 @@
         <form action="proses_login_warga.php" method="POST">
             <div class="input-container">
                 <i class="fas fa-user"></i>
-                <input type="text" id="username" name="username" placeholder=" " required>
+                <input type="text" id="username" name="username" placeholder=" " >
                 <label for="username">Masukkan Username</label>
             </div>
             <div class="input-container">
                 <i class="fas fa-lock"></i>
-                <input type="password" id="password" name="password" placeholder=" " required>
+                <input type="password" id="password" name="password" placeholder=" " >
                 <label for="password">Masukkan Password</label>
             </div>
             <button type="submit" name="login">Login</button>
