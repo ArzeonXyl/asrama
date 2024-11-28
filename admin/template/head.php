@@ -1,5 +1,9 @@
 <?php
-  session_start()
+      session_start();
+      if (!isset($_SESSION['logged_in']) OR $_SESSION['logged_in'] == false) {
+          header("Location: ../../login/login_warga.php");
+          exit();
+      }
 ?>
 <html lang="en">
 <head>
@@ -14,6 +18,9 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
+    }
+    th{
+      border: transparent;
     }
   </style>
 </head>

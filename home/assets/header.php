@@ -13,7 +13,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="kamar.php">Kamar</a></li>
-            <li><a href="#services">Ekstrakulikuler</a></li>
+            <li><a href="ekstra.php">Ekstrakulikuler</a></li>
             <li><a href="fasilitas.php">Fasilitas</a></li>
             <li><a href="#portfolio">Berita</a></li>
             <li><a href="profil.php">Profil</a></li>
