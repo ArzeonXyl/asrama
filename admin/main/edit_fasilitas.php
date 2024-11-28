@@ -4,7 +4,7 @@
     include "../template/top-bar.php";
 
 $servername = "localhost";
-$username = "";
+$username = "root";
 $password = "";
 $database = "asrama";
 
