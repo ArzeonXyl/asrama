@@ -1,6 +1,6 @@
 <?php
 include '../connect.php';
-include 'session_check.php';
+// include 'session_check.php';
 
 // Ambil data pengguna dari sesi
 $role = $_SESSION['role']; // Role pengguna

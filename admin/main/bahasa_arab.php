@@ -37,7 +37,7 @@
         }
     }
 ?>
-<h1 class="text-center mb-4 font-bold font-size-xl">Ekstrakulikuler Bahasa Arab</h1>
+<h1 class="text-center mb-4 font-bold font-siz e-xl">Ekstrakulikuler Bahasa Arab</h1>
 <form action="bahasa_arab.php" method="POST">
     <label for="jadwal">Jadwal: <input type="text" value="<?= $result2['jadwal_ekstrakulikuler'] ?>" name="jadwal"></label><br>
     <label for="dosen">Dosen: <input type="text" value="<?= $result2['nama_dosen'] ?>" name="dosen"></label><br>
