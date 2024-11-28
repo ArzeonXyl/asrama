@@ -1,9 +1,5 @@
 <?php
-    include '../connect.php';
-    session_start();
-    if ($_SESSION['logged_in']== false){
-        header('location:../login/login_warga.php');
-    }
+    include "session_check.php"
 ?>
 <!DOCTYPE html>
 <html lang="en">
