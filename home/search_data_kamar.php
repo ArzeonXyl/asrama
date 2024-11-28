@@ -5,9 +5,9 @@
     $error_search = "";
     if(isset($_POST['search'])){
         $search = $_POST['nama'];
-        $query = mysqli_query($conn, "SELECT * FROM warga_asrama JOIN kamar ON warga_asrama.no_kamar = kamar.no_kamar WHERE nama_warga='$search'");
-        $query2 = mysqli_query($conn, "SELECT * FROM kamar WHERE id_gedung='$search'");
-        $query3 = mysqli_query($conn, "SELECT * FROM kamar WHERE no_kamar='$search'");
+        $query = mysqli_query($conn, "SELECT * FROM warga_asrama, kamar, gedung WHERE warga_asrama.no_kamar = kamar.no_kamar AND kamar.id_gedung = gedung.id_gedung AND nama_warga='$search'");
+        $query2 = mysqli_query($conn, "SELECT * FROM kamar, gedung WHERE kamar.id_gedung = gedung.id_gedung AND nama_gedung='$search'");
+        $query3 = mysqli_query($conn, "SELECT * FROM kamar, gedung WHERE  kamar.id_gedung = gedung.id_gedung AND no_kamar='$search'");
         
         if(mysqli_num_rows($query) > 0){
             $result = mysqli_fetch_all($query, MYSQLI_ASSOC);
@@ -84,7 +84,7 @@
                     <h4 class="card-header" style="width: 100%; text-align: center; background-color: #084B83; color: white;">Kamar</h4>
                     <h5 class="card-title p-2" style="width: 100%; text-align: center; color: white; background-color: #17689A;"><?= $no_kamar ?></h5>
                         <div class="card-body d-flex flex-column align-items-center">
-                            <p class="card-text fw-bold">Gedung: <?= $data['id_gedung'] ?>  </p>
+                            <p class="card-text fw-bold">Gedung: <?= $data['nama_gedung'] ?>  </p>
                             <p class="card-text fw-bold p-1" style="color: black">Status : <span class="p-1" style="background-color: <?= $statusColor ?>; color: white;"> <?= $data['status_kamar']  ?></span></p>
                             <p class="card-text fw-bold">Jumlah Penghuni: <?= $jumlah_penghuni ?> / <?= $kapasitas_kamar ?></p>
                             <p class="card-text fw-bold">Kamar Tersedia: <?= $tersedia ?></p>
