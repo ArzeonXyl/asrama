@@ -5,11 +5,15 @@ body {
 }
 
 header {
-    background-color: #4a90e2; /* Blue primary */
-    color: #fff; /* White text */
+    background-color: #4a90e2;
+    color: #fff;
     padding: 20px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 
 .header-content {
     display: flex;
@@ -35,6 +39,7 @@ h1.text-center {
 
 nav {
     margin-top: 10px;
+    
 }
 
 nav a {

@@ -1,6 +1,6 @@
 <?php
     include '../connect.php';
-    include 'session_check.php';
+    // include 'session_check.php';
 
     if (isset($_GET['no_kamar'])) {
         $no_kamar = $_GET['no_kamar'];
