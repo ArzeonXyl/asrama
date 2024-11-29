@@ -12,6 +12,7 @@ header {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 
@@ -150,6 +151,7 @@ nav a:hover {
 .profile-body .btn:hover {
     background-color: #3b78c1;
 }
+
 .kamar:hover{
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transform: scale(1.07);

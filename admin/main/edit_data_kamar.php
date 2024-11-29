@@ -1,13 +1,21 @@
 <?php 
-    require $_SERVER['DOCUMENT_ROOT'] . "/asrama/connect.php";
-    session_start();
+    include '../template/head.php';
+    include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+    include '../template/sidebar.php';
+    include '../template/top-bar.php';
+
     $no_kamar = $_GET['kamar'];
     $nim = $_GET['nim'];
     
     $query = mysqli_query($conn, "SELECT * FROM warga_asrama WHERE no_kamar='$no_kamar' AND nim_warga='$nim'");
     $result = mysqli_fetch_assoc($query);
 
-    // $query2 = mysqli_query($conn, "SELECT *")
+    $query_kamar = mysqli_query($conn, "SELECT * FROM kamar");
+    $data_1 = mysqli_fetch_all($query_kamar, MYSQLI_ASSOC);
+
+    $query_pengurus = mysqli_query($conn, "SELECT * FROM pengurus");
+    $data_2 = mysqli_fetch_all($query_pengurus, MYSQLI_ASSOC);
+
 ?>
 
 
@@ -17,58 +25,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
 </head>
 <body>
     <form action="" method="post">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="card bg-light shadow-lg" style="width: 50%;">
-                <div class="card-header bg-light mt-2"><h3>Edit  Warga : <?= $result['nama_warga']?></h3></div>
+            <div class="card bg-light shadow-lg" style="width: 30%;">
+                <div class="card-header bg-light mt-2"><h1 class="h3">Edit  Warga : <?= $result['nama_warga']?></h1></div>
                 <div class="card-body">
-                    <div class="mb-3">
-                        <label for="" class="form-label">NIM </label>
-                        <input type="text" class="form-control bg-secondary text-light" name="nim" value="<?= $result['nim_warga']?>" disabled>
-                    </div>
-                    <div class="mb-1">
-                        <label for="" class="form-label">Nama</label>
-                        <input type="text" class="form-control bg-secondary text-light" name="nama" value="<?= $result['nama_warga']?>" disabled>
-                    </div>
-                    <div class="mb-1">
-                        <label for="" class="form-label">Jurusan</label>
-                        <input type="text" class="form-control bg-secondary text-light" name="jurusan" value="<?= $result['jurusan_warga']?>" disabled>
-                    </div>
-                    <div class="mb-1">
-                        <label for="" class="form-label">Alamat</label>
-                        <textarea class="form-control bg-secondary text-light" id="" rows="3" name="alamat" disabled><?= $result['alamat_warga']?></textarea>
-                    </div>
-                    <div class="mb-1">
-                        <label for="" class="form-label">Password</label>
-                        <input type="password" class="form-control bg-secondary text-light" id="" name="password" value="<?= $result['password_warga']?>" disabled>
-                    </div>
-                    <div class="mb-1">
-                        <label for="" class="form-label">Jenis Kelamin</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault1" value="Laki-Laki" <?= $result['jenis_kelamin_warga'] == "Laki-Laki" ?  "checked" : ""; ?> disabled>
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Laki-Laki
-                            </label>
-                            </div>
-                            <div class="form-check">
-                            <input class="form-check-input" type="radio" name="gender" id="flexRadioDefault2" value="Perempuan" <?= $result['jenis_kelamin_warga'] == "perempuan" ?  "checked" : ""; ?> disabled>
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                Perempuan
-                            </label>
-                            </div>
-                    </div>
                     <div class="mb-1">
                         <label for="" class="form-label">No Kamar</label>
-                        <input type="tel" class="form-control bg-secondary text-light" id="" name="nokamar" value="<?= $result['no_kamar']?>">
+                        <select name="pengurus" id=""class="form-control form-control-md bg-light" style="width: 100%;">
+                            <option value="">~~Pilih Kamar~~</option>
+                            <?php foreach($data_1 as $kamar):?>
+                                <option value="<?= $kamar['no_kamar'] ?>" <?= isset($no_kamar) && $no_kamar == $kamar['no_kamar'] ? 'selected' : "" ?>><?= $kamar['no_kamar'] ?></option>
+                            <?php endforeach;?>
+                        </select>
                     </div>
                     <div class="mb-3">
                         <label for="" class="form-label">Pengurus</label>
-                        <select name="pengurus" id=""class="form-control form-control-md bg-secondary text-light" style="width: 100%;">
-                            <option value="">~~Pilih Pengurus~~</option>
+                        <select name="pengurus" id=""class="form-control form-control-md bg-light" style="width: 100%;">
+                            <option value="none">~~Pilih Pengurus~~</option>
+                            <?php foreach($data_2 as $pengurus):?>
+                                <option value="<?= $pengurus['nim_pengurus'] ?>" <?= !empty($pengurus['nim_pengurus']) ? 'selected' : "" ?>><?= $pengurus['nama_pengurus'] ?></option>
+                            <?php endforeach;?>
                         </select>
                     </div>
                     <div class="d-flex justify-content-center gap-2">
@@ -81,5 +61,6 @@
     </div>
 
     </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
