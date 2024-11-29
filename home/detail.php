@@ -32,6 +32,7 @@ $conn->close();
     <title><?= $fasilitas_item['nama_fasilitas'] ?></title>
     <style>
         /* Reset dan pengaturan dasar */
+        <?php include './assets/style.css';?>
         header h1 {
             font-size: 24px;
             margin: 0;
