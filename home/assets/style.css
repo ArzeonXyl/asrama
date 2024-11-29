@@ -4,11 +4,12 @@ body {
     padding: 0;
 }
 
-header {
+header{
     background-color: #4a90e2; /* Blue primary */
     color: #fff; /* White text */
     padding: 20px 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
 }
 
 .header-content {
@@ -145,6 +146,7 @@ nav a:hover {
 .profile-body .btn:hover {
     background-color: #3b78c1;
 }
+
 .kamar:hover{
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
     transform: scale(1.07);
