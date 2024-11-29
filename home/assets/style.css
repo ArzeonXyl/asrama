@@ -26,11 +26,13 @@ header {
 }
 
 .logo img {
-    width: 100px; /* Sesuaikan ukuran logo */
+    width: 20%; /* Sesuaikan ukuran logo */
     height: auto;
 }
 
 .title {
+    position: absolute;
+    width: 100%;
     flex-grow: 1; /* Agar h1 berada di tengah */
     text-align: center; /* Menjaga h1 agar berada di tengah */
 }
@@ -186,4 +188,10 @@ position: fixed;
 #gotop a{
     border-top-right-radius: 10px;
     border-bottom-left-radius: 10px;
+}
+
+.navmenu ul li a:hover{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #1F509A;
 }

@@ -1,3 +1,4 @@
+<?php require 'assets/header.php'; ?>
 <?php
 include '../connect.php';
 // include 'session_check.php';
@@ -18,7 +19,6 @@ include '../connect.php';
     </head>
 
     <body>
-        <?php require 'assets/header.php'; ?>
 
         <main>
             <div class="m-0 mb-2 border border-2 mx-5 my-5 shadow-lg">
