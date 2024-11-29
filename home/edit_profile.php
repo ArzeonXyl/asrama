@@ -1,6 +1,7 @@
+<?php require 'assets/header.php'; ?>
 <?php
 include '../connect.php';
-include 'session_check.php';
+// include 'session_check.php';
 
 // Ambil data pengguna dari sesi
 $role = $_SESSION['role']; // Role pengguna
@@ -87,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-    <?php require 'assets/header.php'; ?>
 
     <!-- Konten Edit Profil -->
     <main>

@@ -175,3 +175,6 @@
     </form>
 </body>
 </html>
+<?php
+    include "../template/script.php";
+?>
