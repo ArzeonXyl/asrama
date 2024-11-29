@@ -1,10 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
-    header("Location: ../login/login_warga.php");
-    exit(); // Tambahkan exit untuk memastikan eksekusi berhenti setelah redirect
-}
-?>
 <header>
     <div class="header-content">
         <div class="logo">
