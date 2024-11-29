@@ -174,3 +174,16 @@ footer {
     width: 100%;
     margin-top: auto; /* Memastikan footer tetap berada di bawah */
 }
+#gotop{
+position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    display: none; 
+    z-index: 1000;
+     
+}
+
+#gotop a{
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
