@@ -84,4 +84,7 @@ include '../connect.php';
         <script src="assets/script.js"></script>
     </body>
                             
+<?php
+    include "assets/footer.php";
+?>
 </html>

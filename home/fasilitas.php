@@ -1,3 +1,4 @@
+<?php require './assets/header.php';?>
 <?php
 // Koneksi ke database
 $servername = "localhost";
@@ -162,7 +163,7 @@ $fasilitas_emot = [
 </style>
 </head>
 <body>
-    <?php require 'assets/header.php'; ?>
+
     <header>
         <h1>Fasilitas Asrama</h1>
         <a href="notifikasi.php">
@@ -200,8 +201,8 @@ $fasilitas_emot = [
         <?php endif; ?>
     </div>
 
-    <footer>
-        &copy; 2024 Asrama Mahasiswa
-    </footer>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>

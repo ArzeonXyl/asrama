@@ -111,9 +111,8 @@ $conn->close();
         <p><?= $fasilitas_item['aturan_penggunaan'] ?></p>
         <p><strong>Jumlah Fasilitas:</strong> <?= $fasilitas_item['jumlah_fasilitas'] ?></p>
     </div>
-
-    <footer>
-        &copy; 2024 Asrama Mahasiswa
-    </footer>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>

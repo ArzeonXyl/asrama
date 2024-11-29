@@ -115,3 +115,6 @@
 </body>
 
 </html>
+<?php
+    include "assets/footer.php"
+?>

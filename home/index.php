@@ -21,3 +21,6 @@
     <h1>SELAMAT DATANG <?=$_SESSION['nama']?></h1>
 </body>
 </html>
+<?php
+    include "assets/footer.php"
+?>

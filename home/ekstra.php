@@ -99,3 +99,6 @@ if (isset($_GET['submit'])) {
     </div>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>
