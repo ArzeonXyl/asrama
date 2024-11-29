@@ -11,3 +11,27 @@ function typeWriter(){
 }
 
 typeWriter()
+
+
+document.addEventListener('scroll', function () {
+    const scroll = window.scrollY || document.documentElement.scrollTop;
+        const gotop = document.getElementById('gotop');
+        
+        if (scroll > 100) {
+            gotop.style.display = 'block';
+        } else {
+            gotop.style.display = 'none';
+        }
+    });
+
+    document.getElementById('gotop').addEventListener('click', function (event) {
+        event.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    });
+
+
+
+

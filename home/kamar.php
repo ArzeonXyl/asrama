@@ -1,3 +1,4 @@
+<?php require 'assets/header.php'; ?>
 <?php
 include '../connect.php';
 // include 'session_check.php';
@@ -18,14 +19,13 @@ include '../connect.php';
     </head>
 
     <body>
-        <?php require 'assets/header.php'; ?>
 
         <main>
             <div class="m-0 mb-2 border border-2 mx-5 my-5 shadow-lg">
                 <div class="m-0 p-1 shadow-lg" style="background-color: #37AFE1; color: white; font-family: Lucida Sans;">
                     <h2 class="text-center" id="titlekamar"></h2>
                 </div>
-           
+            <div class="d-flex">
             <div class="container mt-5">
                 <div class="d-flex justify-content-end mb-2">
                     <button class="rounded shadow-lg" onclick="window.location.href='search_data_kamar.php'" style="width: 100px; height: 40px; background-color: #2192FF; border: none; color: white;">Search</button>
@@ -72,16 +72,58 @@ include '../connect.php';
                                     </div>
                             </div>
                         </div>
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                         
-                            <?php else: echo "0 results";?>
-    
+                        <?php else: echo "0 results";?>
+                        
                         <?php endif; ?>
                     </div>
                 </div>
+                <div class="gotop" id="gotop">
+                    <a href="#home" class="bg-secondary p-2 shadow-lg">
+                        <img src="./assets/img/arrow-up.png" alt="Go to top" width="30">
+                    </a>
+                </div>
+
+            </div>
             </div>
         </main>
-        <script src="assets/script.js"></script>
+
+        <script>
+            var text = "Berikut Daftar Kamar di Asrama"
+            var output = document.getElementById("titlekamar")
+
+            var i = 0
+            function typeWriter(){
+                if (i < text.length){
+                    output.textContent += text.charAt(i);
+                    i++
+                    setTimeout(typeWriter, 50);
+                }
+            }
+
+            typeWriter()
+
+
+            document.addEventListener('scroll', function () {
+                const scroll = window.scrollY || document.documentElement.scrollTop;
+                    const gotop = document.getElementById('gotop');
+                    
+                    if (scroll > 100) {
+                        gotop.style.display = 'block';
+                    } else {
+                        gotop.style.display = 'none';
+                    }
+                });
+
+            document.getElementById('gotop').addEventListener('click', function (event) {
+                event.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                });
+            });
+        </script>
     </body>
                             
 <?php

@@ -1,3 +1,4 @@
+<?php require 'assets/header.php'; ?>
 <?php
     // include "session_check.php"
 ?>
@@ -11,13 +12,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets//style.css">
     <style>
-        <?php include 'assets/style.css'; ?> /* Jika style dipisahkan */
+        /* <?php require 'assets/style.css'; ?>  */
     </style>
 </head>
 
 <body>
-    <?php require 'assets/header.php'; ?>
+
     <h1>SELAMAT DATANG <?=$_SESSION['nama']?></h1>
 </body>
 </html>
