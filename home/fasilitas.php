@@ -1,3 +1,4 @@
+<?php require './assets/header.php';?>
 <?php
 // Koneksi ke database
 $servername = "localhost"; // Ganti dengan server MySQL Anda
@@ -150,7 +151,6 @@ $conn->close();
     </style>
 </head>
 <body>
-    <?php require './assets/header.php';?>
     <header>
         <h1>Fasilitas Asrama</h1>
         <a href="notifikasi.php">
@@ -178,8 +178,8 @@ $conn->close();
         <?php endforeach; ?>
     </div>
 
-    <footer>
-        &copy; 2024 Asrama Mahasiswa
-    </footer>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>

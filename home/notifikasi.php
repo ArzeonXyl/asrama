@@ -101,3 +101,6 @@ $result = $conn->query($sql);
 <?php
 $conn->close();
 ?>
+<?php
+    include "assets/footer.php";
+?>
