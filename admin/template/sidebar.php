@@ -14,7 +14,7 @@
           <i class="fas fa-tachometer-alt mr-3"></i>
           <span>Dashboard</span>
         </a>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="data-user.html">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="data.php">
           <i class="fas fa-users mr-3"></i>
           <span>Data User</span>
         </a>
@@ -28,23 +28,23 @@
           </div>
         </div>
         <div class="hidden" id="ekstrakulikulerMenu">
-          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa-arab.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa_arab.php">
             <span>Bahasa Arab</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="C:\xampp\htdocs\dashboard_asrama\main\ekstra\bahasa_inggris.php">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="bahasa_inggris.php">
             <span>Bahasa Inggris</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="arduino.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="arduino.php">
             <span>Arduino</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="sholawat.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="sholawat.php">
             <span>Sholawat</span>
           </a>
-          <a class="flex items-center px-6 py-2 text-gray-400" href="qiroah-alquran.html">
+          <a class="flex items-center px-6 py-2 text-gray-400" href="qiroah.php">
             <span>Qiroah Alquran</span>
           </a>
         </div>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="#">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="../main/master_detail_kamar.php">
           <i class="fas fa-bed mr-3"></i>
           <span>Kamar</span>
         </a>

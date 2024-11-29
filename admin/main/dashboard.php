@@ -10,7 +10,7 @@
     include "../template/top-bar.php"
 ?>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="data.php">
       <i class="fas fa-users text-blue-600 text-2xl">
       </i>
       <div>
@@ -34,7 +34,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="master_detail_kamar.php">
       <i class="fas fa-bed text-purple-600 text-2xl">
       </i>
       <div>
@@ -70,7 +70,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="">
       <i class="fas fa-notes-medical text-green-600 text-2xl"></i>
       <div>
        <div class="text-gray-800 font-semibold">
