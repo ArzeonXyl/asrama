@@ -58,7 +58,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="#">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="./profil_admin.php">
       <i class="fas fa-user text-red-600 text-2xl">
       </i>
       <div>
