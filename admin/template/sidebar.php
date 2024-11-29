@@ -52,7 +52,7 @@
           <i class="fas fa-concierge-bell mr-3"></i>
           <span>Fasilitas</span>
         </a>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="#">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="../main/profil_admin.php">
           <i class="fas fa-user mr-3"></i>
           <span>Profil</span>
         </a>
