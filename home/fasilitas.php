@@ -163,7 +163,7 @@ $fasilitas_emot = [
 </style>
 </head>
 <body>
-    <?php require 'assets/header.php'; ?>
+
     <header>
         <h1>Fasilitas Asrama</h1>
         <a href="notifikasi.php">

@@ -172,5 +172,5 @@ footer {
     padding: 20px 0;
     text-align: center;
     width: 100%;
-    margin-top: auto; /* Membuat footer berada di bawah */
+    margin-top: auto; /* Memastikan footer tetap berada di bawah */
 }
