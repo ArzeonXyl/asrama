@@ -24,10 +24,9 @@ $result = $conn->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Notifikasi Pembaruan Fasilitas</title>
     <style>
-        <?php include './assets/style.css';?>
-
         header h1 {
             font-size: 28px;
             margin: 0;
@@ -44,14 +43,6 @@ $result = $conn->query($sql);
             margin: 20px 0;
             border-radius: 5px;
             font-size: 18px;
-        }
-
-        footer {
-            margin-top: 40px;
-            padding: 10px;
-            background-color: #004080;
-            color: white;
-            font-size: 14px;
         }
 
         .back {
@@ -91,10 +82,6 @@ $result = $conn->query($sql);
         
         <a href="fasilitas.php" class="back">Kembali</a>
     </div>
-
-    <footer>
-        &copy; 2024 Asrama Mahasiswa
-    </footer>
 </body>
 </html>
 
