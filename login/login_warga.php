@@ -91,7 +91,7 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Login Warga Asrama</h2>
+        <h2>Login Asrama</h2>
         <form action="proses_login_warga.php" method="POST">
             <div class="input-container">
                 <i class="fas fa-user"></i>

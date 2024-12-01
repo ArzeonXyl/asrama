@@ -2,11 +2,15 @@
 session_start();
 include '../connect.php';
 
-// Pastikan ada data di session['pendaftaran']
-if (isset($_SESSION['pendaftaran']) && count($_SESSION['pendaftaran']) > 0) {
-    $pendaftaran = $_SESSION['pendaftaran'][count($_SESSION['pendaftaran']) - 1]; // Mengambil data pendaftaran terakhir
+// Ambil data pendaftaran terakhir dari tabel pendaftaran
+$nim = mysqli_real_escape_string($conn, $_GET['nim'] ?? '');
+
+if (!empty($nim)) {
+    $sql = "SELECT * FROM pendaftaran WHERE nim_pendaftaran = '$nim'";
+    $result = mysqli_query($conn, $sql);
+    $pendaftaran = mysqli_fetch_assoc($result);
 } else {
-    $pendaftaran = null; // Jika tidak ada data pendaftaran
+    $pendaftaran = null;
 }
 ?>
 
@@ -28,10 +32,10 @@ if (isset($_SESSION['pendaftaran']) && count($_SESSION['pendaftaran']) > 0) {
             <div class="card-body">
                 <h2 class="card-title text-center text-primary">Pendaftaran Berhasil</h2>
                 <?php if ($pendaftaran): ?>
-                    <p>Nama: <?= htmlspecialchars($pendaftaran['nama']) ?></p>
-                    <p>NIM: <?= htmlspecialchars($pendaftaran['NIM']) ?></p>
+                    <p>Nama: <?= htmlspecialchars($pendaftaran['nama_pendaftaran']) ?></p>
+                    <p>NIM: <?= htmlspecialchars($pendaftaran['nim_pendaftaran']) ?></p>
                     <p>Anda telah berhasil terdaftar dan sedang menunggu persetujuan admin.</p>
-                    <p class="text-warning">Harap melakukan pembayaran untuk melanjutkan proses pendaftaran jika sudah disetujio oleh admin.</p>
+                    <p class="text-warning">Harap melakukan pembayaran untuk melanjutkan proses pendaftaran jika sudah disetujui oleh admin.</p>
                 <?php else: ?>
                     <p class="text-danger">Data pendaftaran tidak ditemukan.</p>
                 <?php endif; ?>

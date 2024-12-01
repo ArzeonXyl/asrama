@@ -7,10 +7,14 @@
     <div class="flex items-center space-x-4 relative">
         <!-- Ikon bel dengan jumlah pendaftar baru -->
         <i class="fas fa-bell text-gray-500 relative cursor-pointer text-3xl" id="notifBell">
-            <!-- Menampilkan jumlah pendaftar baru jika ada -->
-            <?php if (isset($_SESSION['pendaftaran']) && count($_SESSION['pendaftaran']) > 0): ?>
+            <?php
+            $notif_count_query = "SELECT COUNT(*) as total FROM pendaftaran";
+            $notif_count_result = mysqli_query($conn, $notif_count_query);
+            $notif_count = mysqli_fetch_assoc($notif_count_result)['total'];
+            if ($notif_count > 0):
+            ?>
                 <span class="absolute top-0 right-0 rounded-full bg-red-500 text-white text-xs px-2 py-1 min-w-[20px] text-center">
-                    <?php echo count($_SESSION['pendaftaran']); ?>
+                    <?php echo $notif_count; ?>
                 </span>
             <?php endif; ?>
         </i>
@@ -33,53 +37,62 @@
 </div>
 
 <!-- Modal Notifikasi -->
-<div id="notificationModal" class="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+<div id="notificationModal" class="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 hidden z-50">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-96 relative">
         <h2 class="text-lg font-semibold mb-4">Pemberitahuan</h2>
-        <p>Anda memiliki <strong>
-            <?php echo isset($_SESSION['pendaftaran']) ? count($_SESSION['pendaftaran']) : 0; ?>
-        </strong> pendaftar baru yang menunggu persetujuan.</p>
-        <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded" id="closeModal">Tutup</button>
+        <div class="max-h-60 overflow-y-auto">
+            <?php
+            $notif_query = "SELECT * FROM pendaftaran ORDER BY nim_pendaftaran DESC LIMIT 5";
+            $notif_result = mysqli_query($conn, $notif_query);
+            $notif_count = mysqli_num_rows($notif_result);
+            if ($notif_count > 0):
+            ?>
+                <ul class="space-y-2">
+                <?php while ($notif = mysqli_fetch_assoc($notif_result)): ?>
+                    <li class="p-2 hover:bg-gray-100 rounded">
+                        <strong><?= htmlspecialchars($notif['nama_pendaftaran']) ?></strong>
+                        <br>
+                        <span class="text-sm text-gray-600">NIM: <?= htmlspecialchars($notif['nim_pendaftaran']) ?></span>
+                    </li>
+                <?php endwhile; ?>
+                </ul>
+                <p class="mt-4 text-sm text-gray-600">Total pendaftar baru: <?php echo $notif_count; ?></p>
+            <?php else: ?>
+                <p class="text-gray-600">Tidak ada pendaftar baru.</p>
+            <?php endif; ?>
+        </div>
+        <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" id="closeModal">Tutup</button>
     </div>
 </div>
+
 <style>
-  /* Memperbesar ikon bel */
 #notifBell {
-    font-size: 2rem; /* Menambah ukuran ikon bel */
+    font-size: 2rem;
 }
 
-/* Mengatur posisi angka notifikasi */
 #notifBell span {
-    font-size: 0.75rem; /* Menyesuaikan ukuran teks angka */
+    font-size: 0.75rem;
     padding: 0.1rem 0.4rem;
     min-width: 20px;
     height: 20px;
-    line-height: 20px; /* Menjaga agar angka tetap terlihat di tengah lingkaran */
+    line-height: 20px;
     text-align: center;
 }
-
 </style>
 
-<!-- Modal Notifikasi -->
-<div id="notificationModal" class="fixed inset-0 flex items-center justify-center bg-gray-600 bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h2 class="text-lg font-semibold mb-4">Pemberitahuan</h2>
-        <p>Anda memiliki <strong>
-            <?php echo isset($_SESSION['pendaftaran']) ? count($_SESSION['pendaftaran']) : 0; ?>
-        </strong> pendaftar baru yang menunggu persetujuan.</p>
-        <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded" id="closeModal">Tutup</button>
-    </div>
-</div>
 <script>
-    // Menangani klik pada ikon notifikasi
-    document.getElementById('notifBell').addEventListener('click', function() {
-        // Menampilkan modal
-        document.getElementById('notificationModal').classList.remove('hidden');
-    });
+document.getElementById('notifBell').addEventListener('click', function() {
+    document.getElementById('notificationModal').classList.remove('hidden');
+});
 
-    // Menangani klik untuk menutup modal
-    document.getElementById('closeModal').addEventListener('click', function() {
-        // Menyembunyikan modal
-        document.getElementById('notificationModal').classList.add('hidden');
-    });
+document.getElementById('closeModal').addEventListener('click', function() {
+    document.getElementById('notificationModal').classList.add('hidden');
+});
+
+// Menutup modal saat mengklik area di luar modal
+document.getElementById('notificationModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        this.classList.add('hidden');
+    }
+});
 </script>
