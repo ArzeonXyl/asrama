@@ -1,3 +1,4 @@
+<?php require 'assets/header.php'; ?>
 <?php 
     include '../connect.php';
     // include 'session_check.php';
@@ -42,7 +43,6 @@
     
 </head>
 <body>
-    <?php require 'assets/header.php'; ?>
     <div class="d-flex justify-content-center mt-5">
         <div class="input-group flex-nowrap kip"  style="width: 25%;">
             <form action="" method="post" class="w-100">

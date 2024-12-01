@@ -1,8 +1,8 @@
 <?php
     include "../template/head.php";
     include "../template/sidebar.php";
-    include "../template/top-bar.php";
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+    include "../template/top-bar.php";
 
 
 if (isset($_POST['tambah'])) {
