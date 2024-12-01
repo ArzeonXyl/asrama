@@ -1,7 +1,8 @@
 <?php
     include '../connect.php';
     // include 'session_check.php';
-?>
+    ?>
+    <?php require 'assets/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +20,6 @@
 </head>
 
 <body>
-    <?php require 'assets/header.php'; ?>
 
     <!-- Konten Profil Pengguna -->
     <main>
