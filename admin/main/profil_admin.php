@@ -1,19 +1,15 @@
 <?php
-include "../template/head.php";
-include "../template/sidebar.php";
-include "../template/top-bar.php";
-$servername = "localhost";
-$username = "root"; // Ganti sesuai konfigurasi MySQL Anda
-$password = "";
-$database = "asrama";
+    include "../template/head.php";
+    include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+?>
+<?php
+    include  "../template/sidebar.php";
+?>
 
-$conn = new mysqli($servername, $username, $password, $database);
-
-// Periksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
-
+<?php
+    include  "../template/top-bar.php";
+?>
+<?php
 // Cek apakah admin sudah login
 if (!isset($_SESSION['nama_admin'])) {
     header("Location: ../../login/login_warga.php");
