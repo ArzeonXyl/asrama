@@ -1,10 +1,10 @@
 <?php
+require 'assets/header.php'; 
 include '../connect.php';
-require 'assets/header.php';
-// include 'session_check.php';
+
+
 
 // Proses penyimpanan data ke database
-
 if (isset($_GET['submit'])) {
     // Ambil data dari session dan GET
     $id = isset($_SESSION['nim']) ? $_SESSION['nim'] : null;
@@ -15,11 +15,11 @@ if (isset($_GET['submit'])) {
         // Escape input untuk keamanan SQL
         $id = mysqli_real_escape_string($conn, $id);
         $no = mysqli_real_escape_string($conn, $no);
-        
+
         // Cek apakah data sudah ada di database
         $checkQuery = "SELECT * FROM warga_ekstrakulikuler WHERE nim_warga = '$id' AND id_ekstrakulikuler = '$no'";
         $checkResult = mysqli_query($conn, $checkQuery);
-        
+
         if (mysqli_num_rows($checkResult) > 0) {
             echo "<script>alert('Anda sudah memilih ekstrakurikuler ini!');</script>";
         } else {
@@ -32,8 +32,7 @@ if (isset($_GET['submit'])) {
             }
         }
     } else {
-        echo $id . ' ' . $no;
-        // echo "<script>alert('Data tidak lengkap.');</script>";
+        echo "<script>alert('Data tidak lengkap.');</script>";
     }
 }
 ?>
@@ -71,13 +70,9 @@ if (isset($_GET['submit'])) {
                                     <span class="p-1" style="background-color:#219B9D; color: white;"><?= htmlspecialchars($row['jadwal_ekstrakulikuler']); ?></span>
                                 </p>
                                 <p class="card-text fw-bold">Dosen Pengajar: <?= htmlspecialchars($row['nama_dosen']); ?></p>
-                                <p class="card-text fw-bold">Status: <? if (isset($_SESSION['status']))  htmlspecialchars($_SESSION['status'])  ?></p>
-                                <?php if(isset($_SESSION['status'])) {
-                                    if ($_SESSION['status'] == 'Tersedia') { 
+                                <p class="card-text fw-bold">Status: <?= htmlspecialchars($row['status']); ?></p>
+                                <?php if($row['status'] != 'Tersedia') {
                                     echo "<p class='text-danger fw-bold'>Ekstrakurikuler Tidak Tersedia</p>";
-                                    }else{
-                                        echo "<p class='text-danger fw-bold'>Ekstrakurikuler Tidak Tersedia</p>";
-                                    }
                                 }
                                 elseif ($alreadySelected) { ?>
                                     <p class="text-success fw-bold">Sudah Dipilih</p>
@@ -99,6 +94,3 @@ if (isset($_GET['submit'])) {
     </div>
 </body>
 </html>
-<?php
-    include "assets/footer.php";
-?>

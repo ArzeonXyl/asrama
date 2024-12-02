@@ -23,17 +23,19 @@
 ";
 
     $result = mysqli_query($conn, $sql);
-    $sql2="SELECT * FROM ekstrakulikuler,dosen_pengajar WHERE id_ekstrakulikuler=1";
+    $sql2="SELECT * FROM ekstrakulikuler,dosen_pengajar WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
     $result2=mysqli_fetch_array(mysqli_query($conn,$sql2));
     if(isset($_POST['submit'])){
         $status=$_POST['status'];
         $jadwal=$_POST['jadwal'];
         $dosen=$_POST['dosen'];
-        $_SESSION['status']=$status;
-        $sql3="UPDATE ekstrakulikuler,dosen_pengajar  SET jadwal_ekstrakulikuler='$jadwal',nama_dosen='$dosen' WHERE id_ekstrakulikuler=1";
+        $sql3="UPDATE ekstrakulikuler,dosen_pengajar  SET jadwal_ekstrakulikuler='$jadwal',nama_dosen='$dosen' WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
+        $sql4=mysqli_query($conn,"UPDATE ekstrakulikuler SET status='$status' WHERE id_ekstrakulikuler=1");
         $result3=mysqli_query($conn,$sql3);
         if($result3){
-            echo "<script>alert('Data berhasil diubah')</script>";
+            echo "<script>alert('Data berhasil diubah')
+            ;window.location.href='bahasa_arab.php'</script>";
+            
         }
     }
 ?>
@@ -57,6 +59,7 @@
             <th scope='col'>NIM</th>
             <th scope='col'>nama</th>
             <th scope='col'>jurusan</th>
+            <th scope='col'>aksi</th>  
         </tr>
     </thead>
     <tbody>
@@ -66,8 +69,19 @@
             <tr>
                 <th scope="row"><?= $row+1 ?></th>
                 <td><?= $rows['nim_warga'] ?></td>
+                
                 <td><?= $rows['nama_warga'] ?></td>
                 <td><?= $rows['jurusan_warga'] ?></td>
+                <td>
+                    <a href="bahasa_arab.php?nim_warga=<?= $rows['nim_warga'] ?>" class="btn btn-danger"><button>Hapus</button></a>
+                    <?php $r=$rows['nim_warga']; 
+                    if (isset($_GET['nim_warga']))  {
+                        $aku=mysqli_query($conn,"DELETE FROM warga_ekstrakulikuler WHERE nim_warga='$r' and id_ekstrakulikuler=1"); 
+                        if($aku){
+                            echo "<script>alert('Data berhasil dihapus') ;window.location.href='bahasa_arab.php'</script>";
+                        }
+                    }  ?>
+                </td>
             </tr>
 <?php
         }

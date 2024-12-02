@@ -1,16 +1,10 @@
 <?php
     include "../template/head.php";
-<<<<<<< HEAD
-    include "../template/sidebar.php";
-    include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
-    include "../template/top-bar.php";
-=======
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
 ?>
 <?php
     include  "../template/sidebar.php";
 ?>
->>>>>>> e3c90afefa58e3e1c71133245dd2d0f2f862b77f
 
 <?php
     include  "../template/top-bar.php";
