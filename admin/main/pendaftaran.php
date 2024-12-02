@@ -1,180 +1,244 @@
 <?php
-    ob_start(); // Mulai output buffering
+    ob_start();
     include "../template/head.php";
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
     include "../template/sidebar.php";
     include "../template/top-bar.php";
 
-    // Pastikan sesi 'pendaftaran' diinisialisasi
-    if (!isset($_SESSION['pendaftaran'])) {
-        $_SESSION['pendaftaran'] = [];
-    }
-
     // Cek jika ada data pencarian
     $search = isset($_POST['search']) ? $_POST['search'] : '';
-    $searchBy = isset($_POST['search_by']) ? $_POST['search_by'] : 'nama'; // default pencarian berdasarkan nama
+    $searchBy = isset($_POST['search_by']) ? $_POST['search_by'] : 'nama';
 
-    // Filter data berdasarkan pencarian
-    $filteredData = $_SESSION['pendaftaran']; // Defaultnya semua data ditampilkan
-
-    // Jika ada pencarian, filter data berdasarkan nama atau NIM
+    // Query dasar untuk mengambil data dari tabel pendaftaran
+    $base_query = "SELECT * FROM pendaftaran";
+    
+    // Jika ada pencarian, tambahkan kondisi WHERE
     if ($search) {
-        $filteredData = [];
-        foreach ($_SESSION['pendaftaran'] as $index => $data) {
-            if ($searchBy == 'nama' && strpos(strtolower($data['nama']), strtolower($search)) !== false) {
-                // Jika nama cocok dengan pencarian
-                $filteredData[] = $data;
-            } elseif ($searchBy == 'nim' && strpos($data['NIM'], $search) !== false) {
-                // Jika NIM cocok dengan pencarian
-                $filteredData[] = $data;
-            }
+        if ($searchBy == 'nama') {
+            $base_query .= " WHERE nama_pendaftaran LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
+        } elseif ($searchBy == 'nim') {
+            $base_query .= " WHERE nim_pendaftaran LIKE '%" . mysqli_real_escape_string($conn, $search) . "%'";
         }
+    }
+
+    $result = mysqli_query($conn, $base_query);
+    $pendaftaran_data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $pendaftaran_data[] = $row;
     }
 
     // Proses untuk menyetujui pendaftaran
-    if (isset($_POST['setujui']) && isset($_POST['index']) && is_array($_POST['index'])) {
-        foreach ($_POST['index'] as $index) {
-            if (isset($_SESSION['pendaftaran'][$index])) {
-                $input = $_SESSION['pendaftaran'][$index];
-                $pengurus = isset($_POST['pengurus'][$index]) ? $_POST['pengurus'][$index] : null;
-                $no_kamar = isset($_POST['no_kamar'][$index]) ? $_POST['no_kamar'][$index] : null;
+    if (isset($_POST['setujui']) && isset($_POST['index'])) {
+        $success = true; // Flag untuk mengecek semua proses berhasil
+        
+        foreach ($_POST['index'] as $nim_pendaftaran) {
+            $pengurus = isset($_POST['pengurus'][$nim_pendaftaran]) ? $_POST['pengurus'][$nim_pendaftaran] : null;
+            $no_kamar = isset($_POST['no_kamar'][$nim_pendaftaran]) ? $_POST['no_kamar'][$nim_pendaftaran] : null;
 
-                if ($pengurus && $no_kamar) {
-                    $sql = "INSERT INTO warga_asrama (`nim_warga`, `nama_warga`, `jurusan_warga`, `alamat_warga`, `password_warga`, `jenis_kelamin_warga`, `nomor_handphone_warga`, `no_kamar`, `nim_pengurus`)
-                            VALUES ('{$input['NIM']}', '{$input['nama']}', '{$input['jurusan']}', '{$input['alamat']}', '{$input['password']}', '{$input['kelamin']}', '{$input['hp']}', '$no_kamar', '$pengurus')";
+            if (!$pengurus || !$no_kamar) {
+                echo "<script>alert('Mohon pilih pengurus dan nomor kamar untuk NIM: $nim_pendaftaran');</script>";
+                $success = false;
+                continue;
+            }
+
+            // Proses sisanya sama seperti sebelumnya
+            $query_pendaftar = "SELECT * FROM pendaftaran WHERE nim_pendaftaran = '" . mysqli_real_escape_string($conn, $nim_pendaftaran) . "'";
+            $result_pendaftar = mysqli_query($conn, $query_pendaftar);
+            $data_pendaftar = mysqli_fetch_assoc($result_pendaftar);
+
+            if ($data_pendaftar) {
+                // Begin transaction
+                mysqli_begin_transaction($conn);
+                try {
+                    // Insert ke tabel warga_asrama
+                    $sql = "INSERT INTO warga_asrama (
+                        nim_warga, 
+                        nama_warga, 
+                        jurusan_warga, 
+                        alamat_warga, 
+                        password_warga, 
+                        jenis_kelamin_warga, 
+                        nomor_handphone_warga, 
+                        no_kamar, 
+                        nim_pengurus
+                    ) VALUES (
+                        '{$data_pendaftar['nim_pendaftaran']}',
+                        '{$data_pendaftar['nama_pendaftaran']}',
+                        '{$data_pendaftar['jurusan_pendaftaran']}',
+                        '{$data_pendaftar['alamat_pendaftaran']}',
+                        '{$data_pendaftar['password_pendaftaran']}',
+                        '{$data_pendaftar['jenis_kelamin_pendaftaran']}',
+                        '{$data_pendaftar['nomor_handphone_pendaftaran']}',
+                        '$no_kamar',
+                        '$pengurus'
+                    )";
+
                     $query = mysqli_query($conn, $sql);
 
                     if ($query) {
-                        unset($_SESSION['pendaftaran'][$index]);
-                        echo "<script>alert('Pendaftaran berhasil disetujui dan data dimasukkan ke database.')</script>";
+                        // Hapus data dari tabel pendaftaran
+                        mysqli_query($conn, "DELETE FROM pendaftaran WHERE nim_pendaftaran = '$nim_pendaftaran'");
+                        // Update status kamar
+                        mysqli_query($conn, "UPDATE kamar SET status_kamar = 'Tidak Tersedia' WHERE no_kamar = '$no_kamar'");
+                        mysqli_commit($conn);
                     } else {
-                        echo "<script>alert('Terjadi kesalahan saat menyimpan data ke database.')</script>";
+                        throw new Exception(mysqli_error($conn));
                     }
-                } else {
-                    echo "<script>alert('Pengurus atau nomor kamar tidak valid.')</script>";
+                } catch (Exception $e) {
+                    mysqli_rollback($conn);
+                    echo "<script>alert('Error: " . $e->getMessage() . "');</script>";
+                    $success = false;
                 }
             }
         }
+        
+        if ($success) {
+            echo "<script>
+                alert('Pendaftaran berhasil disetujui.');
+                window.location.href = window.location.href;
+            </script>";
+        }
     }
 
-    // Proses penghapusan data pendaftaran
-    if (isset($_POST['hapus']) && isset($_POST['index']) && is_array($_POST['index'])) {
-        foreach ($_POST['index'] as $index) {
-            unset($_SESSION['pendaftaran'][$index]); // Hapus data dari session
+    // Proses penghapusan data pendaftaran yang dipilih
+    if (isset($_POST['hapus']) && isset($_POST['index'])) {
+        $success = true;
+        foreach ($_POST['index'] as $nim_pendaftaran) {
+            $nim_pendaftaran = mysqli_real_escape_string($conn, $nim_pendaftaran);
+            if (!mysqli_query($conn, "DELETE FROM pendaftaran WHERE nim_pendaftaran = '$nim_pendaftaran'")) {
+                $success = false;
+            }
         }
-        echo "<script>alert('Data berhasil dihapus dari daftar pendaftaran.')</script>";
+        
+        if ($success) {
+            echo "<script>
+                alert('Data berhasil dihapus.');
+                window.location.href = window.location.href;
+            </script>";
+        } else {
+            echo "<script>alert('Gagal menghapus beberapa data.');</script>";
+        }
     }
 
     // Menghapus semua data pendaftaran
     if (isset($_POST['hapus_semua'])) {
-        unset($_SESSION['pendaftaran']);
-        echo "<script>alert('Semua data pendaftaran telah dihapus.')</script>";
+        if (mysqli_query($conn, "DELETE FROM pendaftaran")) {
+            echo "<script>
+                alert('Semua data pendaftaran telah dihapus.');
+                window.location.href = window.location.href;
+            </script>";
+        } else {
+            echo "<script>alert('Gagal menghapus semua data.');</script>";
+        }
     }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pendaftaran Warga</title>
-    <script>
-        function showSuggestions(str) {
-            if (str.length == 0) {
-                document.getElementById("suggestions").innerHTML = "";
-                return;
-            }
-            var suggestions = <?php echo json_encode($_SESSION['pendaftaran']); ?>;
-            var output = '';
-            str = str.toLowerCase();
-            suggestions.forEach(function(data) {
-                if (data.nama.toLowerCase().includes(str)) {
-                    output += '<a href="#" class="list-group-item list-group-item-action" onclick="selectSuggestion(\'' + data.nama + '\')">' + data.nama + '</a>';
-                }
-            });
-            document.getElementById("suggestions").innerHTML = output;
-        }
-
-        function selectSuggestion(suggestion) {
-            document.getElementById("searchInput").value = suggestion;
-            document.getElementById("suggestions").innerHTML = "";
-        }
-    </script>
-</head>
-<body>
-    <form method="POST" action="pendaftaran.php">
-        <div class="form-group">
-            <!-- Pilih untuk mencari berdasarkan Nama atau NIM -->
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="search_by" value="nama" id="searchByNama" <?php if ($searchBy == 'nama') echo 'checked'; ?>>
-                <label class="form-check-label" for="searchByNama">Nama</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="search_by" value="nim" id="searchByNim" <?php if ($searchBy == 'nim') echo 'checked'; ?>>
-                <label class="form-check-label" for="searchByNim">NIM</label>
-            </div>
-
-            <input type="text" name="search" class="form-control" id="searchInput" placeholder="Cari..." value="<?php echo htmlspecialchars($search); ?>" onkeyup="showSuggestions(this.value)">
-            <div id="suggestions" class="list-group mt-2"></div>
-            <button type="submit" name="search_button" class="btn btn-primary mt-3">Cari</button>
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">Data Pendaftaran</h6>
         </div>
-        <table class="table table-striped table-bordered mt-4">
-            <thead>
-                <tr>
-                    <th>Pendaftar</th>
-                    <th>NIM</th>
-                    <th>Nama</th>
-                    <th>Jurusan</th>
-                    <th>Alamat</th>
-                    <th>Pengurus</th>
-                    <th>No Kamar</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if (!empty($filteredData)) {
-                    foreach ($filteredData as $index => $data) {
-                        echo "<tr>";
-                        echo "<td><input type='checkbox' name='index[]' value='{$index}'></td>";
-                        echo "<td>{$data['NIM']}</td>";
-                        echo "<td>{$data['nama']}</td>";
-                        echo "<td>{$data['jurusan']}</td>";
-                        echo "<td>{$data['alamat']}</td>";
-                        echo "<td>
-                                <select name='pengurus[{$index}]' class='form-select'>
-                                    <option value=''>Pilih Pengurus</option>";
-                                    $sql_pengurus = "SELECT nim_pengurus, nama_pengurus FROM pengurus";
-                                    $result_pengurus = mysqli_query($conn, $sql_pengurus);
-                                    while ($row = mysqli_fetch_assoc($result_pengurus)) {
-                                        echo "<option value='{$row['nim_pengurus']}'>{$row['nama_pengurus']}</option>";
-                                    }
-                        echo "</select></td>";
-                        echo "<td>
-                                <select name='no_kamar[{$index}]' class='form-select'>
-                                    <option value=''>Pilih No Kamar</option>";
-                                    $sql_kamar = "SELECT no_kamar, status_kamar FROM kamar WHERE status_kamar = 'Tersedia'";
-                                    $result_kamar = mysqli_query($conn, $sql_kamar);
-                                    while ($row = mysqli_fetch_assoc($result_kamar)) {
-                                        echo "<option value='{$row['no_kamar']}'>{$row['no_kamar']}</option>";
-                                    }
-                        echo "</select></td>";
-                        echo "<td>
-                                <button type='submit' name='setujui' class='btn btn-success'>Setujui</button>
-                                <button type='submit' name='hapus' class='btn btn-danger'>Hapus</button>
-                              </td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='8' class='text-center'>Belum ada data yang ditambahkan</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-        <button type="submit" name="hapus_semua" class="btn btn-danger">Hapus Semua</button>
-    </form>
-</body>
-</html>
+        <div class="card-body">
+            <!-- Search Form -->
+            <form method="POST" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari..." value="<?= htmlspecialchars($search) ?>">
+                            <select name="search_by" class="form-control">
+                                <option value="nama" <?= $searchBy == 'nama' ? 'selected' : '' ?>>Nama</option>
+                                <option value="nim" <?= $searchBy == 'nim' ? 'selected' : '' ?>>NIM</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Cari</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <form method="POST">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="check-all"></th>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Jurusan</th>
+                                <th>Alamat</th>
+                                <th>Jenis Kelamin</th>
+                                <th>No HP</th>
+                                <th>Pengurus</th>
+                                <th>No Kamar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($pendaftaran_data)): ?>
+                                <?php foreach ($pendaftaran_data as $data): ?>
+                                    <tr>
+                                        <td><input type="checkbox" name="index[]" value="<?= htmlspecialchars($data['nim_pendaftaran']) ?>"></td>
+                                        <td><?= htmlspecialchars($data['nim_pendaftaran']) ?></td>
+                                        <td><?= htmlspecialchars($data['nama_pendaftaran']) ?></td>
+                                        <td><?= htmlspecialchars($data['jurusan_pendaftaran']) ?></td>
+                                        <td><?= htmlspecialchars($data['alamat_pendaftaran']) ?></td>
+                                        <td><?= htmlspecialchars($data['jenis_kelamin_pendaftaran']) ?></td>
+                                        <td><?= htmlspecialchars($data['nomor_handphone_pendaftaran']) ?></td>
+                                        <td>
+                                            <select name="pengurus[<?= htmlspecialchars($data['nim_pendaftaran']) ?>]" class="form-control">
+                                                <option value="">Pilih Pengurus</option>
+                                                <?php
+                                                $sql_pengurus = "SELECT nim_pengurus, nama_pengurus FROM pengurus";
+                                                $result_pengurus = mysqli_query($conn, $sql_pengurus);
+                                                while ($row = mysqli_fetch_assoc($result_pengurus)) {
+                                                    echo "<option value='" . htmlspecialchars($row['nim_pengurus']) . "'>" . 
+                                                         htmlspecialchars($row['nama_pengurus']) . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <select name="no_kamar[<?= htmlspecialchars($data['nim_pendaftaran']) ?>]" class="form-control">
+                                                <option value="">Pilih Kamar</option>
+                                                <?php
+                                                $sql_kamar = "SELECT no_kamar FROM kamar WHERE status_kamar = 'Tersedia'";
+                                                $result_kamar = mysqli_query($conn, $sql_kamar);
+                                                while ($row = mysqli_fetch_assoc($result_kamar)) {
+                                                    echo "<option value='" . htmlspecialchars($row['no_kamar']) . "'>" . 
+                                                         htmlspecialchars($row['no_kamar']) . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="9" class="text-center">Tidak ada data pendaftaran</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" name="setujui" class="btn btn-success">Setujui Yang Dipilih</button>
+                    <button type="submit" name="hapus" class="btn btn-danger">Hapus Yang Dipilih</button>
+                    <button type="submit" name="hapus_semua" class="btn btn-danger" onclick="return confirm('Yakin ingin menghapus semua data?')">Hapus Semua</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Script untuk checkbox "pilih semua"
+    document.getElementById('check-all').onclick = function() {
+        var checkboxes = document.getElementsByName('index[]');
+        for (var checkbox of checkboxes) {
+            checkbox.checked = this.checked;
+        }
+    }
+</script>
 <?php
-    include "../template/script.php";
+    include "../template/script.php"
 ?>

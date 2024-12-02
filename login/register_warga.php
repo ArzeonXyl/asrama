@@ -13,11 +13,6 @@ $input = [
     'jurusan' => ''
 ];
 
-// Array untuk menyimpan data sementara
-if (!isset($_SESSION['pendaftaran'])) {
-    $_SESSION['pendaftaran'] = [];
-}
-
 if (isset($_POST['tambah'])) {
     // Mengambil data input
     foreach ($input as $key => $value) {
@@ -27,6 +22,15 @@ if (isset($_POST['tambah'])) {
     // Validasi input
     if (empty($input['NIM'])) {
         $errors['NIM'] = "NIM harus diisi.";
+    } else {
+        // Check if NIM already exists in pendaftaran table
+        $nim = mysqli_real_escape_string($conn, $input['NIM']);
+        $check_nim = "SELECT nim_pendaftaran FROM pendaftaran WHERE nim_pendaftaran = '$nim'";
+        $result = mysqli_query($conn, $check_nim);
+        
+        if (mysqli_num_rows($result) > 0) {
+            $errors['NIM'] = "NIM sudah terdaftar dalam sistem pendaftaran.";
+        }
     }
     if (empty($input['password'])) {
         $errors['password'] = "Password harus diisi.";
@@ -47,12 +51,40 @@ if (isset($_POST['tambah'])) {
         $errors['jurusan'] = "Jurusan harus dipilih.";
     }
 
-    // Jika tidak ada error, simpan data dalam array
+    // Jika tidak ada error, simpan data ke database
     if (empty($errors)) {
-        $input['password'] = md5($input['password']);
-        $_SESSION['pendaftaran'][] = $input; // Menyimpan data pendaftaran di sesi
-        echo "<script>alert('Data berhasil dikirim, menunggu persetujuan admin.')</script>";
-        header('location:pemberitahuan_register.php');
+        $nim = mysqli_real_escape_string($conn, $input['NIM']);
+        $nama = mysqli_real_escape_string($conn, $input['nama']);
+        $jurusan = mysqli_real_escape_string($conn, $input['jurusan']);
+        $alamat = mysqli_real_escape_string($conn, $input['alamat']);
+        $jenis_kelamin = mysqli_real_escape_string($conn, $input['kelamin']);
+        $nomor_hp = mysqli_real_escape_string($conn, $input['hp']);
+        $password = md5(mysqli_real_escape_string($conn, $input['password']));
+        
+        $sql = "INSERT INTO pendaftaran (
+            nim_pendaftaran, 
+            nama_pendaftaran, 
+            jurusan_pendaftaran, 
+            alamat_pendaftaran, 
+            jenis_kelamin_pendaftaran, 
+            nomor_handphone_pendaftaran,
+            password_pendaftaran
+        ) VALUES (
+            '$nim',
+            '$nama',
+            '$jurusan',
+            '$alamat',
+            '$jenis_kelamin',
+            '$nomor_hp',
+            '$password'
+        )";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "<script>alert('Pendaftaran berhasil! Menunggu persetujuan admin.');
+                  window.location.href='pemberitahuan_register.php?nim=" . urlencode($nim) . "';</script>";
+        } else {
+            echo "<script>alert('Error: " . mysqli_error($conn) . "');</script>";
+        }
     }
 }
 
