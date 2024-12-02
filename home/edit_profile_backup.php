@@ -1,6 +1,6 @@
 <?php
 include '../connect.php';
-include 'session_check.php';
+// include 'session_check.php';
 
 // Ambil data pengguna dari sesi
 $role = $_SESSION['role']; // Role pengguna
@@ -170,3 +170,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
+<?php
+    include "assets/footer.php";
+?>

@@ -1,6 +1,8 @@
 <?php
+require 'assets/header.php'; 
 include '../connect.php';
-include 'session_check.php';
+
+
 
 // Proses penyimpanan data ke database
 if (isset($_GET['submit'])) {
@@ -48,7 +50,6 @@ if (isset($_GET['submit'])) {
     </style>
 </head>
 <body>
-    <?php require 'assets/header.php'; ?>
     <div class="container">
         <h2 class="text-center mt-4">Pilih Ekstrakulikuler</h2>
         <div class="row">
@@ -69,8 +70,8 @@ if (isset($_GET['submit'])) {
                                     <span class="p-1" style="background-color:#219B9D; color: white;"><?= htmlspecialchars($row['jadwal_ekstrakulikuler']); ?></span>
                                 </p>
                                 <p class="card-text fw-bold">Dosen Pengajar: <?= htmlspecialchars($row['nama_dosen']); ?></p>
-                                <p class="card-text fw-bold">Status: <?= htmlspecialchars($_SESSION['status']); ?></p>
-                                <?php if($_SESSION['status'] != 'Tersedia') {
+                                <p class="card-text fw-bold">Status: <?= htmlspecialchars($row['status']); ?></p>
+                                <?php if($row['status'] != 'Tersedia') {
                                     echo "<p class='text-danger fw-bold'>Ekstrakurikuler Tidak Tersedia</p>";
                                 }
                                 elseif ($alreadySelected) { ?>

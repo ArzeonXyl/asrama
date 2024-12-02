@@ -1,13 +1,21 @@
+/* Struktur dasar */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
+    min-height: 100vh; /* Memastikan tinggi minimal 100% viewport */
+    display: flex;
+    flex-direction: column; /* Mengatur arah vertikal */
 }
 
+/* Header */
 header {
-    background-color: #4a90e2; /* Blue primary */
-    color: #fff; /* White text */
+    background-color: #4a90e2;
+    color: #fff;
     padding: 20px 30px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -18,11 +26,13 @@ header {
 }
 
 .logo img {
-    width: 100px; /* Sesuaikan ukuran logo */
+    width: 20%; /* Sesuaikan ukuran logo */
     height: auto;
 }
 
 .title {
+    position: absolute;
+    width: 100%;
     flex-grow: 1; /* Agar h1 berada di tengah */
     text-align: center; /* Menjaga h1 agar berada di tengah */
 }
@@ -85,7 +95,13 @@ nav a:hover {
     font-size: 1rem;
 }
 
-/* profile */
+/* Konten utama */
+main {
+    flex: 1; /* Memastikan bagian konten utama mengisi sisa ruang */
+    padding: 20px;
+}
+
+/* Profile */
 .profile-card {
     max-width: 500px;
     margin: 30px auto;
@@ -144,4 +160,38 @@ nav a:hover {
 
 .profile-body .btn:hover {
     background-color: #3b78c1;
+}
+
+.kamar:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    transform: scale(1.07);
+}
+
+/* Footer */
+footer {
+    background-color: #3b78c1;
+    color: #ffffff;
+    padding: 20px 0;
+    text-align: center;
+    width: 100%;
+    margin-top: auto; /* Memastikan footer tetap berada di bawah */
+}
+#gotop{
+position: fixed;
+    bottom: 20px; 
+    right: 20px; 
+    display: none; 
+    z-index: 1000;
+     
+}
+
+#gotop a{
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.navmenu ul li a:hover{
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #1F509A;
 }

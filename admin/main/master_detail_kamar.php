@@ -51,9 +51,9 @@
 
     <?php foreach ($groupdata as $key => $value): ?>
         <div class="card">
-            <h4 class="card-header bg-info">Kamar: <?= $key; ?></h4>
+            <h4 class="card-header bg-info text-light">Kamar: <?= $key; ?></h4>
             <div class="p-3" style="overflow-x: auto;">
-                <table class="table table-bordered">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>NIM</th>

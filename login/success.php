@@ -10,7 +10,7 @@ if (!isset($_SESSION['pembayaran_sukses']) || !$_SESSION['pembayaran_sukses']) {
 
 // Ambil data dari session atau dari database
 $nim = $_SESSION['pendaftaran']['NIM'] ?? 'NIM tidak ditemukan';
-$nama = $_SESSION['pendaftaran']['nama'] ?? 'Nama tidak ditemukan';
+$nama = $_SESSION['pendaftaran']['username'] ?? 'Nama tidak ditemukan';
 $nominal = $_SESSION['pembayaran']['nominal'] ?? 'Nominal tidak ditemukan';
 ?>
 

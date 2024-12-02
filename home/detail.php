@@ -28,11 +28,10 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css"> <!-- Link ke file CSS -->
     <title><?= $fasilitas_item['nama_fasilitas'] ?></title>
     <style>
         /* Reset dan pengaturan dasar */
-        <?php include './assets/style.css';?>
-
         header h1 {
             font-size: 24px;
             margin: 0;
@@ -51,18 +50,7 @@ $conn->close();
             text-align: center;
             margin: 10px 0;
         }
-
-        footer {
-            background-color: #004080;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            position: fixed;
-            width: 100%;
-            bottom: 0;
-        }
-
+        
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -111,9 +99,8 @@ $conn->close();
         <p><?= $fasilitas_item['aturan_penggunaan'] ?></p>
         <p><strong>Jumlah Fasilitas:</strong> <?= $fasilitas_item['jumlah_fasilitas'] ?></p>
     </div>
-
-    <footer>
-        &copy; 2024 Asrama Mahasiswa
-    </footer>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>
