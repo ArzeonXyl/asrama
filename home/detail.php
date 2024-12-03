@@ -28,11 +28,10 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/style.css"> <!-- Link ke file CSS -->
     <title><?= $fasilitas_item['nama_fasilitas'] ?></title>
     <style>
         /* Reset dan pengaturan dasar */
-        <?php include './assets/style.css';?>
-
         header h1 {
             font-size: 24px;
             margin: 0;

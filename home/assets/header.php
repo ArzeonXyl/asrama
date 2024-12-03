@@ -1,9 +1,9 @@
 <?php
-        session_start();
-        if (!isset($_SESSION['logged_in']) OR $_SESSION['logged_in'] == false) {
-            header("Location: ../login/login_warga.php");
-            exit();
-        }
+session_start();
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] == false) {
+    header("Location: ../login/login_warga.php");
+    exit(); // Tambahkan exit untuk memastikan eksekusi berhenti setelah redirect
+}
 ?>
 <header>
     <div class="header-content">
@@ -19,7 +19,7 @@
         <ul>
             <li><a href="index.php">Home</a></li>
             <li><a href="kamar.php">Kamar</a></li>
-            <li><a href="ekstra.php">Ekstrakulikuler</a></li>
+            <li><a href="ekstra.php">Ekstrakurikuler</a></li>
             <li><a href="fasilitas.php">Fasilitas</a></li>
             <li><a href="#portfolio">Berita</a></li>
             <li><a href="profil.php">Profil</a></li>

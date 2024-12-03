@@ -1,7 +1,7 @@
 <?php
 // Koneksi ke database
 $servername = "localhost";
-$username = "";
+$username = "root";
 $password = "";
 $database = "asrama";
 
@@ -89,7 +89,7 @@ $result = $conn->query($sql);
         }
         ?>
         
-        <a href="index.php" class="back">Kembali</a>
+        <a href="fasilitas.php" class="back">Kembali</a>
     </div>
 
     <footer>
