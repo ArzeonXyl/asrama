@@ -24,6 +24,7 @@
             $jenis_kelamin_warga = htmlspecialchars($data['jenis_kelamin_warga']);
             $no_kamar = htmlspecialchars($data['no_kamar']);
             $nama_pengurus = htmlspecialchars($data['nama_pengurus']);
+
             ?>
 
             <h1 class="mb-4 text-center bg-primary text-white">Edit Data Warga</h1>
