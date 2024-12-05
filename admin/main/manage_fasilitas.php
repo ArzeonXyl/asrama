@@ -1,10 +1,15 @@
 <?php
     include "../template/head.php";
-    include "../template/sidebar.php";
-    include "../template/top-bar.php";
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+?>
+<?php
+    include  "../template/sidebar.php";
+?>
 
-
+<?php
+    include  "../template/top-bar.php";
+?>
+<?php
 if (isset($_POST['tambah'])) {
     $id_fasilitas = $_POST['id_fasilitas'];
     $nama = $_POST['nama_fasilitas'];
