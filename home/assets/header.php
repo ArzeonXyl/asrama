@@ -28,7 +28,7 @@
             <li><a href="ekstra.php">Ekstrakulikuler</a></li>
             <li><a href="jadwal.php">Jadwal Kegiatan</a></li>
             <li><a href="fasilitas.php">Fasilitas</a></li>
-            <li><a href="#portfolio">Berita</a></li>
+            <li><a href="berita_penghuni.php">Berita</a></li>
             <li><a href="profil.php">Profil</a></li>
         </ul>
     </nav>
