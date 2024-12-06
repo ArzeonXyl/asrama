@@ -10,7 +10,6 @@
     include  "../template/top-bar.php";
 ?>
 <?php
-// Cek apakah admin sudah login
 if (!isset($_SESSION['nama_admin'])) {
     header("Location: ../../login/login_warga.php");
     exit;
@@ -25,34 +24,16 @@ $admin_login = $result->fetch_assoc();
 // Inisialisasi variabel untuk notifikasi
 $notification = "";
 
-// Logika untuk menambah admin baru
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_admin'])) {
-    $id_admin = $_POST['id_admin'];
-    $nama_admin = $_POST['nama_admin'];
-    $jenis_kelamin = $_POST['jenis_kelamin'];
-    $password_admin = password_hash($_POST['password_admin'], PASSWORD_DEFAULT);
-
-    // Query untuk menambah data baru
-    $sql_add = "INSERT INTO admin (id_admin, nama_admin, jenis_kelamin, password_admin) 
-                VALUES ('$id_admin', '$nama_admin', '$jenis_kelamin', '$password_admin')";
-
-    if ($conn->query($sql_add) === TRUE) {
-        $notification = "Admin baru berhasil ditambahkan!";
-    } else {
-        $notification = "Gagal menambah admin: " . $conn->error;
-    }
-}
-
 // Logika untuk memperbarui data admin yang sedang login
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_admin'])) {
     $nama_admin = $_POST['nama_admin'];
-    $password_admin = password_hash($_POST['password_admin'], PASSWORD_DEFAULT);
+    $password_admin = md5($_POST['password_admin']); // Hash password menggunakan MD5
 
     // Query untuk memperbarui data
     $sql_update = "UPDATE admin SET 
                     nama_admin='$nama_admin', 
                     password_admin='$password_admin'
-                    WHERE id_admin='$id_admin_login'";
+                    WHERE id_admin='{$admin_login['id_admin']}'";
 
     if ($conn->query($sql_update) === TRUE) {
         $notification = "Data berhasil diperbarui!";
@@ -61,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_admin'])) {
     }
 
     // Refresh data admin yang sedang login
-    $result = $conn->query("SELECT * FROM admin WHERE id_admin = '$id_admin_login'");
+    $result = $conn->query("SELECT * FROM admin WHERE id_admin = '{$admin_login['id_admin']}'");
     $admin_login = $result->fetch_assoc();
 }
 ?>
@@ -108,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_admin'])) {
             display: block;
             margin-bottom: 5px;
         }
-        input[type="text"], input[type="password"], select {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
@@ -169,34 +150,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_admin'])) {
                     <input type="password" id="password_admin" name="password_admin" placeholder="Password baru" required>
                 </div>
                 <button type="submit" class="btn">Perbarui Data</button>
-            </form>
-        </section>
-
-        <!-- Form untuk menambah admin baru -->
-        <section>
-            <div class="section-title">Tambah Admin Baru</div>
-            <form action="" method="POST">
-                <input type="hidden" name="add_admin" value="1">
-                <div class="form-group">
-                    <label for="id_admin">ID Admin</label>
-                    <input type="text" id="id_admin" name="id_admin" placeholder="Masukkan ID Admin" required>
-                </div>
-                <div class="form-group">
-                    <label for="nama_admin">Nama Lengkap</label>
-                    <input type="text" id="nama_admin" name="nama_admin" placeholder="Nama lengkap" required>
-                </div>
-                <div class="form-group">
-                    <label for="jenis_kelamin">Jenis Kelamin</label>
-                    <select name="jenis_kelamin" id="jenis_kelamin" required>
-                        <option value="Laki-laki">Laki-laki</option>
-                        <option value="Perempuan">Perempuan</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="password_admin">Password</label>
-                    <input type="password" id="password_admin" name="password_admin" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn">Tambah Admin</button>
             </form>
         </section>
     </div>

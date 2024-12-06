@@ -9,6 +9,7 @@
 <?php
     include  "../template/top-bar.php";
 ?>
+
 <?php
 if (isset($_POST['tambah'])) {
     $id_fasilitas = $_POST['id_fasilitas'];
@@ -45,6 +46,7 @@ $result = $conn->query($sql);
 $sql_gedung = "SELECT id_gedung, nama_gedung FROM gedung";
 $result_gedung = $conn->query($sql_gedung);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +74,7 @@ $result_gedung = $conn->query($sql_gedung);
             color: #003366;
         }
 
-        input[type="text"], input[type="number"], select {
+        input[type="text"], input[type="number"], select, textarea {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
@@ -130,7 +132,11 @@ $result_gedung = $conn->query($sql_gedung);
             <input type="text" name="id_fasilitas" placeholder="ID Fasilitas" required>
             <input type="text" name="nama_fasilitas" placeholder="Nama Fasilitas" required>
             <input type="number" name="jumlah_fasilitas" placeholder="Jumlah Fasilitas" required>
-            <input type="text" name="aturan_penggunaan" placeholder="Aturan Penggunaan" required>
+            
+            <!-- Aturan Penggunaan: Menggunakan textarea untuk input multi-baris -->
+            <label for="aturan_penggunaan">Aturan Penggunaan</label>
+            <textarea name="aturan_penggunaan" rows="5" placeholder="Tuliskan aturan penggunaan di sini..." required></textarea>
+
             <label for="id_gedung">Pilih Gedung</label>
             <select name="id_gedung" required>
                 <option value="">Pilih Gedung</option>
@@ -164,7 +170,7 @@ $result_gedung = $conn->query($sql_gedung);
                             <td><?php echo $row['id_fasilitas']; ?></td>
                             <td><?php echo $row['nama_fasilitas']; ?></td>
                             <td><?php echo $row['jumlah_fasilitas']; ?></td>
-                            <td><?php echo $row['aturan_penggunaan']; ?></td>
+                            <td><?php echo nl2br($row['aturan_penggunaan']); ?></td> <!-- Menampilkan aturan dengan baris baru -->
                             <td>
                                 <?php
                                 $gedung_sql = "SELECT nama_gedung FROM gedung WHERE id_gedung = '{$row['id_gedung']}'";
@@ -187,6 +193,7 @@ $result_gedung = $conn->query($sql_gedung);
     </div>
 </body>
 </html>
+
 <?php $conn->close(); ?>
 <?php include "../template/script.php";?>
 <?php include "../template/footer.php";?>
