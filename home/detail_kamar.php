@@ -1,3 +1,4 @@
+<?php require 'assets/header.php'; ?>
 <?php
     include '../connect.php';
     // include 'session_check.php';
@@ -52,7 +53,6 @@
 </head>
 
 <body>
-    <?php require 'assets/header.php'; ?>
 
     <main class="container mt-5">
         <h2 class="mb-4">Detail Kamar - <?= ($result_kamar['no_kamar']); ?></h2>
