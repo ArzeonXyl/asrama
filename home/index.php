@@ -186,7 +186,7 @@
                 <h5 class="mt-3">Divisi Peribadatan</h5>
             </div>
             <div class="col-md-4 text-center">
-                <img src="organisasi/kreatif.jpg" alt="Kreatif" class="img-fluid rounded-circle" style="max-width: 120px;">
+                <img src="organisasi/kominfo.jpg" alt="Kreatif" class="img-fluid rounded-circle" style="max-width: 120px;">
                 <h5 class="mt-3">Divisi Kreatif</h5>
             </div>
             <div class="col-md-4 text-center">
