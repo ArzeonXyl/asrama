@@ -38,13 +38,13 @@ $conn->close();
         }
 
         h1 {
-            font-size: 28px;
+            font-size: 40px;
             margin-bottom: 20px;
             text-align: center;
         }
 
         p {
-            font-size: 16px;
+            font-size: 21px;
             line-height: 1.6;
             color: #666;
             text-align: center;
@@ -98,6 +98,7 @@ $conn->close();
         <p><strong>Aturan Penggunaan:</strong></p>
         <p><?= $fasilitas_item['aturan_penggunaan'] ?></p>
         <p><strong>Jumlah Fasilitas:</strong> <?= $fasilitas_item['jumlah_fasilitas'] ?></p>
+        <a href="fasilitas.php" class="back" style="display: inline-block; padding: 10px 20px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">Kembali</a>
     </div>
 </body>
 </html>

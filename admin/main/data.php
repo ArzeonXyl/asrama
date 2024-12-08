@@ -50,15 +50,18 @@ if (isset($_GET['jurusan'])){
     $result = mysqli_query($conn, $sql);
 }else{
     $input['jurusan'] = '';
-    $sql = "SELECT * FROM warga_asrama,pengurus Order by jurusan_warga";
-    $result = mysqli_query($conn, $sql);
+    $sql1="SELECT * FROM warga_asrama,pengurus where warga_asrama.nim_pengurus=pengurus.nim_pengurus"; 
+    $result=mysqli_query($conn,$sql1);
 }
 if (isset($_GET['nim'])){
     $nim = $_GET['nim'];
+    $sql2="DELETE from warga_ekstrakulikuler WHERE nim_warga='$nim'";
+    $sql1="DELETE from pembayaran WHERE nim_warga='$nim'";
     $sql="DELETE from warga_asrama where nim_warga='$nim'";
+    $query=mysqli_query($conn,$sql2);
+    $query=mysqli_query($conn,$sql1);
     $query=mysqli_query($conn,$sql);
 }
-
 echo"<table class='table table-striped table-bordered mt-4'>
     <thead>
         <tr>
@@ -74,6 +77,7 @@ echo"<table class='table table-striped table-bordered mt-4'>
         </tr>
     </thead>
     <tbody>";
+    var_dump(mysqli_fetch_all($result));
     foreach ($result as $index => $data) {
         echo "<tr>";
         echo "<th scope='row'>" . ($index + 1) . "</th>";

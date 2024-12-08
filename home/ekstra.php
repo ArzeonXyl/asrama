@@ -70,6 +70,7 @@ if (isset($_GET['submit'])) {
                                     <span class="p-1" style="background-color:#219B9D; color: white;"><?= htmlspecialchars($row['jadwal_ekstrakulikuler']); ?></span>
                                 </p>
                                 <p class="card-text fw-bold">Dosen Pengajar: <?= htmlspecialchars($row['nama_dosen']); ?></p>
+                                <p class="card-text fw-bold">Materi: <?= htmlspecialchars($row['materi']); ?></p>
                                 <p class="card-text fw-bold">Status: <?= htmlspecialchars($row['status']); ?></p>
                                 <?php if($row['status'] != 'Tersedia') {
                                     echo "<p class='text-danger fw-bold'>Ekstrakurikuler Tidak Tersedia</p>";
