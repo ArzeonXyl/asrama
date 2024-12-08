@@ -1,0 +1,78 @@
+<?php
+require "../connect.php";
+
+// Cek apakah pengguna sudah login
+if (!isset($_SESSION['logged_in'])) {
+    echo '<script>alert("Harap login terlebih dahulu!"); window.location.href = "login.php";</script>';
+    exit;
+}
+
+// Cek apakah ID komentar diberikan
+if (!isset($_GET['edit_komentar_id'])) {
+    echo '<script>alert("ID komentar tidak ditemukan!"); window.location.href = "komentar_penghuni.php";</script>';
+    exit;
+}
+
+$editId = (int)$_GET['edit_komentar_id'];
+
+// Ambil data komentar berdasarkan ID
+$query = "SELECT * FROM komentar WHERE id_komentar = $editId";
+$result = mysqli_query($conn, $query);
+
+if ($result->num_rows === 0) {
+    echo '<script>alert("Komentar tidak ditemukan!"); window.location.href = "komentar_penghuni.php";</script>';
+    exit;
+}
+
+$komentar = $result->fetch_assoc();
+
+// Periksa hak akses (hanya admin atau pemilik komentar yang bisa mengedit)
+if ($_SESSION['role'] !== 'admin' && $_SESSION['user_id'] !== $komentar['user_id']) {
+    echo '<script>alert("Anda tidak memiliki izin untuk mengedit komentar ini!"); window.location.href = "komentar_penghuni.php";</script>';
+    exit;
+}
+
+// Proses update komentar
+if (isset($_POST['update_komentar'])) {
+    $updatedKomentar = $conn->real_escape_string($_POST['komentar']);
+
+    $updateQuery = "UPDATE komentar SET isi_komentar = '$updatedKomentar' WHERE id_komentar = $editId";
+    if ($conn->query($updateQuery)) {
+        echo '<script>alert("Komentar berhasil diperbarui!"); window.location.href = "komentar_penghuni.php";</script>';
+    } else {
+        echo '<div class="alert alert-danger">Terjadi kesalahan: ' . $conn->error . '</div>';
+    }
+}
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>asrama</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+    <?php include 'assets/style.css'; ?>
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Edit Komentar</h1>
+
+    <!-- Formulir untuk mengedit komentar -->
+    <form method="POST">
+        <div class="mb-3">
+            <textarea name="komentar" class="form-control" required><?php echo htmlspecialchars($komentar['isi_komentar']); ?></textarea>
+        </div>
+        <button type="submit" name="update_komentar" class="btn btn-success">Perbarui Komentar</button>
+        <a href="komentar_penghuni.php" class="btn btn-secondary">Kembali</a>
+    </form>
+</div>
+
+<!-- Link ke Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
