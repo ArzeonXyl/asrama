@@ -21,37 +21,118 @@
     WHERE 
         e.id_ekstrakulikuler = '1'
 ";
+// Cek jika ada data pencarian
+$search = isset($_POST['search']) ? $_POST['search'] : '';
+$searchBy = isset($_POST['search_by']) ? $_POST['search_by'] : 'nama';
 
-    $result = mysqli_query($conn, $sql);
-    $sql2="SELECT * FROM ekstrakulikuler,dosen_pengajar WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
-    $result2=mysqli_fetch_array(mysqli_query($conn,$sql2));
-    if(isset($_POST['submit'])){
-        $status=$_POST['status'];
-        $jadwal=$_POST['jadwal'];
-        $dosen=$_POST['dosen'];
-        $sql3="UPDATE ekstrakulikuler,dosen_pengajar  SET jadwal_ekstrakulikuler='$jadwal',nama_dosen='$dosen' WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
-        $sql4=mysqli_query($conn,"UPDATE ekstrakulikuler SET status='$status' WHERE id_ekstrakulikuler=1");
-        $result3=mysqli_query($conn,$sql3);
-        if($result3){
-            echo "<script>alert('Data berhasil diubah')
-            ;window.location.href='bahasa_arab.php'</script>";
-            
+// Query dasar
+$base_query = "
+    SELECT 
+        wa.nim_warga, 
+        wa.nama_warga, 
+        wa.jurusan_warga 
+    FROM 
+        warga_asrama wa
+    INNER JOIN 
+        warga_ekstrakulikuler we ON wa.nim_warga = we.nim_warga
+    WHERE 
+        we.id_ekstrakulikuler = 1
+";
+
+// Jika ada pencarian, tambahkan kondisi
+if ($search) {
+    $escaped_search = mysqli_real_escape_string($conn, $search);
+    if ($searchBy == 'nama') {
+        $base_query .= " AND wa.nama_warga LIKE '%$escaped_search%'";
+    } elseif ($searchBy == 'nim') {
+        $base_query .= " AND wa.nim_warga LIKE '%$escaped_search%'";
+    }
+}
+
+// Eksekusi query
+$result = mysqli_query($conn, $base_query);
+
+// Ambil data hasil pencarian
+$pendaftaran_data = [];
+if ($result) {
+    while ($row = mysqli_fetch_assoc($result)) {
+        $pendaftaran_data[] = $row;
+    }
+}
+
+if(isset($_POST['submit'])){
+    $status=$_POST['status'];
+    $jadwal=$_POST['jadwal'];
+    $dosen=$_POST['dosen'];
+    $materi=htmlspecialchars($_POST['materi']);
+    echo $materi;
+    $sql3="UPDATE ekstrakulikuler,dosen_pengajar  SET jadwal_ekstrakulikuler='$jadwal',nama_dosen='$dosen',status='$status',materi='$materi' WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
+    $result3=mysqli_query($conn,$sql3);
+    if($result3){
+        echo "<script>alert('Data berhasil diubah')
+        ;window.location.href='bahasa_arab.php'</script>";
+        
         }
     }
+    
+        $result = mysqli_query($conn, $sql);
+        $sql2="SELECT * FROM ekstrakulikuler,dosen_pengajar WHERE id_ekstrakulikuler=1 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
+        $result2=mysqli_fetch_array(mysqli_query($conn,$sql2));
+        $status=$result2['status'];
 ?>
 <h1 class="text-center mb-4 font-bold font-siz e-xl">Ekstrakulikuler Bahasa Arab</h1>
 <form action="bahasa_arab.php" method="POST">
-    <label for="jadwal">Jadwal: <input type="text" value="<?= $result2['jadwal_ekstrakulikuler'] ?>" name="jadwal"></label><br>
-    <label for="dosen">Dosen: <input type="text" value="<?= $result2['nama_dosen'] ?>" name="dosen"></label><br>
-    <label for="status">Status: 
-    <select name="status" id="status">
-        <option value="Tersedia" <?= isset($status) && $status == 'Tersedia' ? 'selected' : '' ?>>Tersedia</option>
-        <option value="Tidak Tersedia" <?= isset($status) && $status == 'Tidak Tersedia' ? 'selected' : '' ?>>Tidak Tersedia</option>
-    </select>
-</label><br>
+    <div class="mb-3 row align-items-center">
+        <label for="jadwal" class="col-sm-3 col-form-label">Jadwal:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="jadwal" name="jadwal" value="<?= $result2['jadwal_ekstrakulikuler'] ?>">
+        </div>
+    </div>
 
-    <button type="submit" class="btn btn-primary" name="submit">Simpan</button>
+    <div class="mb-3 row align-items-center">
+        <label for="dosen" class="col-sm-3 col-form-label">Dosen:</label>
+        <div class="col-sm-9">
+            <input type="text" class="form-control" id="dosen" name="dosen" value="<?= $result2['nama_dosen'] ?>">
+        </div>
+    </div>
+
+    <div class="mb-3 row align-items-center">
+        <label for="materi" class="col-sm-3 col-form-label">Materi:</label>
+        <div class="col-sm-9">
+            <textarea class="form-control" id="materi" name="materi" rows="4"><?= $result2['materi'] ?></textarea>
+        </div>
+    </div>
+
+    <div class="mb-3 row align-items-center">
+        <label for="status" class="col-sm-3 col-form-label">Status:</label>
+        <div class="col-sm-9">
+            <select class="form-select" id="status" name="status">
+                <option value="Tersedia" <?=isset($status) && $status  == 'Tersedia' ? 'selected' : '' ;$status?>>Tersedia</option>
+                <option value="Tidak Tersedia" <?= isset($status) && $status == 'Tidak Tersedia' ? 'selected' : '' ?>>Tidak Tersedia</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary" name="submit" >Submit</button>
+    </div>
 </form>
+<form method="POST" class="mb-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <input type="text" name="search" class="form-control" placeholder="Cari..." value="<?= htmlspecialchars($search) ?>">
+                            <select name="search_by" class="form-control">
+                                <option value="nama" <?= $searchBy == 'nama' ? 'selected' : '' ?>>Nama</option>
+                                <option value="nim" <?= $searchBy == 'nim' ? 'selected' : '' ?>>NIM</option>
+                            </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="submit">Cari</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
 <table class="table table-striped table-bordered mt-4">
     <thead>
         <tr>
@@ -64,7 +145,7 @@
     </thead>
     <tbody>
 <?php
-        foreach ($result as $row => $rows) {
+        foreach ($pendaftaran_data as $row => $rows) {
 ?>
             <tr>
                 <th scope="row"><?= $row+1 ?></th>
