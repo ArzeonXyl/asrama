@@ -74,7 +74,7 @@ if(isset($_POST['submit'])){
     $result2=mysqli_fetch_array(mysqli_query($conn,$sql2));
     $status=$result2['status'];
 ?>
-<h1 class="text-center mb-4 font-bold font-siz e-xl">Ekstrakulikuler Bahasa Arab</h1>
+<h1 class="text-center mb-4 font-bold font-siz e-xl">Ekstrakulikuler Bahasa Inggris</h1>
 <form action="bahasa_arab.php" method="POST">
     <div class="mb-3 row align-items-center">
         <label for="jadwal" class="col-sm-3 col-form-label">Jadwal:</label>
