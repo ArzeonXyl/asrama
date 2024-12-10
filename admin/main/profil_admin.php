@@ -10,7 +10,6 @@
     include  "../template/top-bar.php";
 ?>
 <?php
-// Cek apakah admin sudah login
 if (!isset($_SESSION['nama_admin'])) {
     header("Location: ../../login/login_warga.php");
     exit;

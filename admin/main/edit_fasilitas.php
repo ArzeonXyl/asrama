@@ -1,10 +1,15 @@
 <?php
     include "../template/head.php";
-    include "../template/sidebar.php";
-    include "../template/top-bar.php";
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+?>
+<?php
+    include  "../template/sidebar.php";
+?>
 
-
+<?php
+    include  "../template/top-bar.php";
+?>
+<?php
 // Ambil data fasilitas berdasarkan id yang diberikan
 if (isset($_GET['id'])) {
     $id_fasilitas = $_GET['id'];
