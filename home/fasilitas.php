@@ -53,11 +53,10 @@ $fasilitas_emot = [
     <style>
     /* Emoticon diperbesar */
     .front span.emot {
-        font-size: 72px; /* Ukuran font diperbesar */
+        font-size: 72px;
         margin-bottom: 10px;
     }
 
-    /* Ukuran default tetap */
     header h1 {
         font-size: 28px;
         margin: 0;
@@ -89,16 +88,16 @@ $fasilitas_emot = [
     .grid {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
         gap: 20px;
         padding: 20px;
+        justify-content: flex-start;
     }
 
     .grid-item {
-        width: 180px;
+        flex: 1 1 calc(25% - 20px); /* Membagi menjadi 4 kolom */
+        max-width: calc(25% - 20px);
         height: 330px;
         perspective: 1000px;
-        padding: 50px;
         cursor: pointer;
         display: flex;
         flex-direction: column;
@@ -160,27 +159,27 @@ $fasilitas_emot = [
         text-align: center;
         padding: 0 10px;
     }
-</style>
+    </style>
 </head>
 <body>
 
-    <header>
-        <h1>Fasilitas Asrama</h1>
-        <a href="notifikasi.php">
-            <i class="fas fa-bell notification-icon"></i>
-        </a>
-    </header>
+<header>
+    <h1>Fasilitas Asrama</h1>
+    <a href="notifikasi.php">
+        <i class="fas fa-bell notification-icon"></i>
+    </a>
+</header>
 
-    <div class="underline"></div>
+<div class="underline"></div>
 
-    <div class="grid">
-        <?php if (!empty($fasilitas)): ?>
-            <?php foreach ($fasilitas as $fasilitas_item): ?>
+<div class="grid">
+    <?php if (!empty($fasilitas)): ?>
+        <?php foreach ($fasilitas as $fasilitas_item): ?>
             <?php 
-                // Ambil emoticon berdasarkan nama fasilitas
-                $emot = isset($fasilitas_emot[$fasilitas_item['nama_fasilitas']]) 
-                        ? $fasilitas_emot[$fasilitas_item['nama_fasilitas']] 
-                        : "🏢"; // Default emoticon
+            // Ambil emoticon berdasarkan nama fasilitas
+            $emot = isset($fasilitas_emot[$fasilitas_item['nama_fasilitas']]) 
+                    ? $fasilitas_emot[$fasilitas_item['nama_fasilitas']] 
+                    : "🏢"; // Default emoticon
             ?>
             <div class="grid-item" onclick="window.location.href='detail.php?id=<?= htmlspecialchars($fasilitas_item['id_fasilitas'], ENT_QUOTES, 'UTF-8') ?>'">
                 <div class="card">
@@ -195,14 +194,12 @@ $fasilitas_emot = [
                 <div class="name"><?= htmlspecialchars($fasilitas_item['nama_fasilitas'], ENT_QUOTES, 'UTF-8') ?></div>
                 <p class="description"><?= htmlspecialchars($fasilitas_item['jumlah_fasilitas'], ENT_QUOTES, 'UTF-8') ?> unit tersedia.</p>
             </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p style="text-align: center; font-size: 18px; color: #666;">Tidak ada data fasilitas tersedia.</p>
-        <?php endif; ?>
-    </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p style="text-align: center; font-size: 18px; color: #666;">Tidak ada data fasilitas tersedia.</p>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
-<?php
-    include "assets/footer.php";
-?>
+<?php include "assets/footer.php"; ?>

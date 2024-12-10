@@ -80,7 +80,7 @@ $result = $conn->query($sql);
         }
         ?>
         
-        <a href="fasilitas.php" class="back">Kembali</a>
+        <a href="fasilitas.php" class="back" style="display: inline-block; padding: 10px 20px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">Kembali</a>
     </div>
 </body>
 </html>

@@ -4,9 +4,7 @@
     include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
     include "../template/top-bar.php";
 ?>
-<?php
-    include  "../template/top-bar.php";
-?>
+
 <?php
 // Ambil data fasilitas berdasarkan id yang diberikan
 if (isset($_GET['id'])) {
