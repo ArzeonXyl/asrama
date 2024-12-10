@@ -26,31 +26,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if (empty($nominal)) {
         $errors['nominal'] = 'Nominal pembayaran harus diisi.';
+    } elseif ((int)$nominal < 900000) {
+        $errors['nominal'] = 'Minimal pembayaran adalah Rp 900.000';
     }
     if (empty($tanggal_pembayaran)) {
         $errors['tanggal_pembayaran'] = 'Tanggal pembayaran harus diisi.';
     }
 
-    // Jika tidak ada error, proses pembayaran
+    // Jika tidak ada error, arahkan ke halaman upload bukti
     if (empty($errors)) {
-        // Mengambil ID pembayaran terakhir dan menambahkannya
-        $cek_id = "SELECT MAX(id_pembayaran) FROM pembayaran";
-        $result = mysqli_query($conn, $cek_id);
-        $row = mysqli_fetch_row($result);
-        $id = $row[0] + 1; // Auto increment ID, based on max ID
-
-        // Lakukan query untuk insert pembayaran ke database
-        $tambah_pembayaran = "INSERT INTO pembayaran (id_pembayaran, nim_warga, nominal, tanggal_pembayaran, metode_pembayaran) 
-                              VALUES('$id', '$nim_sesion', '$nominal', '$tanggal_pembayaran', '$metode_pembayaran')";
-        if (mysqli_query($conn, $tambah_pembayaran)) {
-            // Pembayaran berhasil
-            echo "<script>alert('Pembayaran berhasil!'); window.location.href = 'success.php';</script>";
-            $_SESSION['pembayaran_sukses'] = true;
-            $_SESSION['pembayaran']['nominal'] = $nominal;  // Simpan nominal pembayaran
-
-        } else {
-            echo "Error: " . mysqli_error($conn);
-        }
+        $_SESSION['pembayaran'] = [
+            'metode_pembayaran' => $metode_pembayaran,
+            'nominal' => $nominal,
+            'tanggal_pembayaran' => $tanggal_pembayaran
+        ];
+        echo "<script>alert('Pembayaran berhasil! Silakan upload bukti pembayaran.'); window.location.href = 'upload_bukti.php';</script>";
         exit();
     }
 }
@@ -99,34 +89,175 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .error {
             color: red;
         }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .payment-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-option img {
+            width: 120px;
+            height: 60px;
+            object-fit: contain;
+            margin-bottom: 10px;
+        }
+        .payment-section {
+            margin-bottom: 30px;
+        }
+
+        .payment-section h4 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 18px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-option.selected {
+            border-color: #007bff;
+            background-color: #f8f9ff;
+        }
     </style>
 </head>
 <body>
-<form method="POST">
+<div class="container">
     <h2>Detail Pembayaran</h2>
-    <label for="NIM">NIM</label>
-    <p>Lanjutkan pembayaran dengan NIM:</p>
-    <span><?= htmlspecialchars($nim_sesion) ?></span>
+    
+    <div class="payment-info">
+        <p>NIM: <?= htmlspecialchars($nim_sesion) ?></p>
+        <p>Nominal yang harus dibayar: Rp 900.000</p>
+    </div>
 
-    <label for="metode_pembayaran">Metode Pembayaran</label>
-    <select id="metode_pembayaran" name="metode_pembayaran">
-        <option value="">Pilih Metode</option>
-        <option value="Transfer Bank">Transfer Bank</option>
-        <option value="Kartu Kredit">Kartu Kredit</option>
-        <option value="E-Wallet">E-Wallet</option>
-    </select>
-    <span class="error"><?= $errors['metode_pembayaran'] ?? '' ?></span>
+    <form method="POST" id="paymentForm">
+        <h3>Pilih Metode Pembayaran</h3>
+        
+        <!-- Bank Transfer Section -->
+        <div class="payment-section">
+            <h4>Transfer Bank</h4>
+            <div class="payment-grid">
+                <div class="payment-option" data-method="BCA">
+                    <img src="img_pembayaran/BCA.svg" alt="BCA">
+                    <p>Bank BCA</p>
+                </div>
+                <div class="payment-option" data-method="BRI">
+                    <img src="img_pembayaran/BRI.svg" alt="BRI">
+                    <p>Bank BRI</p>
+                </div>
+                <div class="payment-option" data-method="BTN">
+                    <img src="img_pembayaran/BTN.svg" alt="BTN">
+                    <p>Bank BTN</p>
+                </div>
+                <div class="payment-option" data-method="BNI">
+                    <img src="img_pembayaran/BNI.svg" alt="BNI">
+                    <p>Bank BNI</p>
+                </div>
+            </div>
+        </div>
 
-    <label for="nominal">Nominal</label>
-    <input type="text" id="nominal" name="nominal" placeholder="Masukkan jumlah pembayaran" value="<?= htmlspecialchars($nominal ?? '') ?>">
-    <span class="error"><?= $errors['nominal'] ?? '' ?></span>
+        <!-- E-Wallet Section -->
+        <div class="payment-section">
+            <h4>E-Wallet</h4>
+            <div class="payment-grid">
+                <div class="payment-option" data-method="GoPay">
+                    <img src="img_pembayaran/GoPay.svg" alt="GoPay">
+                    <p>GoPay</p>
+                </div>
+                <div class="payment-option" data-method="DANA">
+                    <img src="img_pembayaran/DANA.svg" alt="DANA">
+                    <p>DANA</p>
+                </div>
+                <div class="payment-option" data-method="OVO">
+                    <img src="img_pembayaran/OVO.svg" alt="OVO">
+                    <p>OVO</p>
+                </div>
+                <div class="payment-option" data-method="ShopeePay">
+                    <img src="img_pembayaran/ShopeePay.svg" alt="ShopeePay">
+                    <p>ShopeePay</p>
+                </div>
+                <div class="payment-option" data-method="LinkAja">
+                    <img src="img_pembayaran/LinkAja.svg" alt="LinkAja">
+                    <p>LinkAja</p>
+                </div>
+            </div>
+        </div>
 
-    <label for="tanggal_pembayaran">Tanggal Pembayaran</label>
-    <input type="date" id="tanggal_pembayaran" name="tanggal_pembayaran" value="<?= htmlspecialchars($tanggal_pembayaran ?? '') ?>">
-    <span class="error"><?= $errors['tanggal_pembayaran'] ?? '' ?></span>
+        <!-- Retail Store Section -->
+        <div class="payment-section">
+            <h4>Minimarket</h4>
+            <div class="payment-grid">
+                <div class="payment-option" data-method="Indomaret">
+                    <img src="img_pembayaran/Indomaret.svg" alt="Indomaret">
+                    <p>Indomaret</p>
+                </div>
+                <div class="payment-option" data-method="Alfamart">
+                    <img src="img_pembayaran/Alfamart.svg" alt="Alfamart">
+                    <p>Alfamart</p>
+                </div>
+            </div>
+        </div>
 
-    <button type="submit">Bayar</button>
-    <button type="button" onclick="window.location.href='login_warga.php'">Kembali</button>
-</form>
+        <input type="hidden" id="metode_pembayaran" name="metode_pembayaran" required>
+        <input type="hidden" id="nominal" name="nominal" value="900000">
+        
+        <div class="form-group">
+            <label for="tanggal_pembayaran">Tanggal Pembayaran</label>
+            <input type="date" id="tanggal_pembayaran" name="tanggal_pembayaran" required>
+            <span class="error"><?= $errors['tanggal_pembayaran'] ?? '' ?></span>
+        </div>
+
+        <div class="buttons">
+            <button type="submit">Bayar Sekarang</button>
+            <button type="button" onclick="window.location.href='login_warga.php'">Kembali</button>
+        </div>
+    </form>
+</div>
+
+<script>
+document.querySelectorAll('.payment-option').forEach(option => {
+    option.addEventListener('click', function() {
+        // Remove selected class from all options
+        document.querySelectorAll('.payment-option').forEach(opt => {
+            opt.classList.remove('selected');
+        });
+        
+        // Add selected class to clicked option
+        this.classList.add('selected');
+        
+        // Update hidden input with the payment method name
+        document.getElementById('metode_pembayaran').value = this.dataset.method;
+    });
+});
+
+// Form validation
+document.getElementById('paymentForm').addEventListener('submit', function(e) {
+    if (!document.getElementById('metode_pembayaran').value) {
+        e.preventDefault();
+        alert('Silakan pilih metode pembayaran');
+    }
+});
+</script>
+
 </body>
 </html>
