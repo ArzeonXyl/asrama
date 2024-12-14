@@ -1,6 +1,8 @@
 <?php
 require "../connect.php";
 
+session_start();
+
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['logged_in'])) {
     echo '<script>alert("Harap login terlebih dahulu!"); window.location.href = "login.php";</script>';
@@ -14,6 +16,8 @@ if (!isset($_GET['edit_komentar_id'])) {
 }
 
 $editId = (int)$_GET['edit_komentar_id'];
+$nim_warga = $_SESSION['nim']; // NIM pengguna yang login
+$role = $_SESSION['role']; // Peran pengguna (admin atau user)
 
 // Ambil data komentar berdasarkan ID
 $query = "SELECT * FROM komentar WHERE id_komentar = $editId";
@@ -27,7 +31,7 @@ if ($result->num_rows === 0) {
 $komentar = $result->fetch_assoc();
 
 // Periksa hak akses (hanya admin atau pemilik komentar yang bisa mengedit)
-if ($_SESSION['role'] !== 'admin' && $_SESSION['user_id'] !== $komentar['user_id']) {
+if ($role !== 'admin' && $nim_warga !== $komentar['nim_warga']) {
     echo '<script>alert("Anda tidak memiliki izin untuk mengedit komentar ini!"); window.location.href = "komentar_penghuni.php";</script>';
     exit;
 }
@@ -37,10 +41,10 @@ if (isset($_POST['update_komentar'])) {
     $updatedKomentar = $conn->real_escape_string($_POST['komentar']);
 
     $updateQuery = "UPDATE komentar SET isi_komentar = '$updatedKomentar' WHERE id_komentar = $editId";
-    if ($conn->query($updateQuery)) {
-        echo '<script>alert("Komentar berhasil diperbarui!"); window.location.href = "komentar_penghuni.php";</script>';
+    if (mysqli_query($conn, $updateQuery)) {
+        echo '<script>window.location.href = "komentar_penghuni.php";</script>';
     } else {
-        echo '<div class="alert alert-danger">Terjadi kesalahan: ' . $conn->error . '</div>';
+        echo '<div class="alert alert-danger">Terjadi kesalahan: ' . mysqli_error($conn) . '</div>';
     }
 }
 ?>
@@ -50,7 +54,7 @@ if (isset($_POST['update_komentar'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>asrama</title>
+    <title>Edit Komentar</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">

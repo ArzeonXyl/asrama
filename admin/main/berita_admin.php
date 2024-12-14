@@ -3,15 +3,15 @@ require "../../connect.php";
 
 // Penanganan penambahan berita
 if (isset($_POST['tambah_berita'])) {
-    $judul = $mysqli->real_escape_string($_POST['judul']);
-    $konten = $mysqli->real_escape_string($_POST['konten']);
+    $judul = mysqli_real_escape_string($conn, $_POST['judul']);
+    $konten = mysqli_real_escape_string($conn, $_POST['konten']);
     $tanggal = date('Y-m-d'); // Ambil tanggal saat ini
 
     $query = "INSERT INTO berita (judul_berita, isi_berita, tanggal_berita) VALUES ('$judul', '$konten', '$tanggal')";
-    if ($mysqli->query($query)) {
+    if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Berita berhasil ditambahkan!</div>";
     } else {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . $mysqli->error . "</div>";
+        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . mysqli_error($error) . "</div>";
     }
 }
 
@@ -19,10 +19,10 @@ if (isset($_POST['tambah_berita'])) {
 if (isset($_GET['hapus_id'])) {
     $hapusId = (int) $_GET['hapus_id'];
     $query = "DELETE FROM berita WHERE id_berita = $hapusId";
-    if ($mysqli->query($query)) {
+    if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Berita berhasil dihapus!</div>";
     } else {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . $mysqli->error . "</div>";
+        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . mysqli_error($error) . "</div>";
     }
 }
 
@@ -31,10 +31,10 @@ $daftarBerita = [];
 $query = "SELECT * FROM berita ORDER BY tanggal_berita DESC"; // Mengurutkan berdasarkan tanggal terbaru
 $result = mysqli_query($conn, $query);
 
-$result = $mysqli->query($query);
+$result = mysqli_query($conn, $query);
 
 if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $daftarBerita[] = $row;
     }
 }
