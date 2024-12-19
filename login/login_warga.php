@@ -105,7 +105,6 @@
             </div>
             <button type="submit" name="login">Login</button>
             <button type="submit" name="register">Register</button>
-            <button type="submit" name="pembayaran">Pembayaran</button>
         </form>
     </div>
 </body>

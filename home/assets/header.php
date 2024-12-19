@@ -8,7 +8,7 @@
 <header>
     <div class="header-content">
         <div class="logo">
-            <img src="assets/img/logo_asrama.jpg" alt="Logo Asrama">
+            <img src="assets/img/logo_asrama.png" alt="Logo Asrama">
         </div>
         <div class="title">
             <h1 class="text-center">Selamat Datang di Asrama</h1>
@@ -30,6 +30,12 @@
             <li><a href="fasilitas.php">Fasilitas</a></li>
             <li><a href="berita_penghuni.php">Berita</a></li>
             <li><a href="profil.php">Profil</a></li>
+            <?php
+            if (isset($_SESSION['nama']) && ($_SESSION['nama'] == 'pengurus 1' || $_SESSION['nama'] == 'pengurus 2')) {
+                echo '<li><a href="info_pembayaran.php">pembayaran warga</a></li>';
+            }
+            ?>
+
         </ul>
     </nav>
     

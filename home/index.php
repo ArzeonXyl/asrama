@@ -18,15 +18,20 @@
         /* Welcome Section */
         .welcome {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
+            min-height: 90vh;
+            justify-content: center;
             background-color: #4a90e2;
+            
         }
-
         .welcome .welcome-text {
-            font-size: 24px;
+            display: flex;
+            align-items: center;
+            font-size: 50px;
             font-weight: bold;
+            min-height: 90vh;
+            color: white;
+            flex-direction: column;
+            padding-top: 100px;
         }
 
         .welcome .welcome-image {
@@ -88,16 +93,13 @@
 
 <body>
     <!-- Section Welcome -->
-    <section class="welcome">
-        <h1 class="text-center my-4">SELAMAT DATANG <?=$_SESSION['nama']?></h1>
+    <div class="welcome">
         <div class="welcome-text">
-            <p>Selamat datang, <?=$_SESSION['nama']?>! Semoga harimu menyenankan.</p>
+            <p>Selamat datang, <?=$_SESSION['nama']?></p>
+            <p>Semoga Harimu Menyenangkan</p>
         </div>
-        <div class="welcome-image">
-            <!-- Gambar animasi orang di sini -->
-        </div>
-        <p>a</p>
-    </section>
+    </div>
+
 
     <!-- Section Visi Misi -->
     <section class="container py-5" data-aos="fade-up" data-aos-duration="1000">
