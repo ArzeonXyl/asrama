@@ -21,6 +21,7 @@ include '../connect.php';
                 <th>No</th>
                 <th>Nama Kegiatan</th>
                 <th>Dosen Pengajar</th>
+                <th>Materi</th>
                 <th>Jadwal</th>
             </tr>
             </thead>
@@ -29,12 +30,14 @@ include '../connect.php';
                 <th scope="row">1</th>
                 <td>Kajian Fiqih</td>
                 <td>Dr. H. Ahmad</td>
+                <td>Fiqih tharah</td>
                 <td>Senin, 18.00 WIB</td>
             </tr>
             <tr>
                 <th scope="row">2</th>
                 <td>Kajian Akhlak</td>
                 <td>Dr. Mukidin</td>
+                <td>Akhlak seorang mahasiswa</td>
                 <td>Selasa, 18.00 WIB</td>
             </tr>
             <?php 
@@ -46,6 +49,7 @@ include '../connect.php';
                     echo "<th scope='row'>" . $no++ . "</th>";
                     echo "<td>" . $row['nama_ekstrakulikuler'] . "</td>";
                     echo "<td>" . $row['nama_dosen'] . "</td>";
+                    echo "<td>" . $row['materi'] . "</td>";
                     echo "<td>" . $row['jadwal_ekstrakulikuler'] . " WIB</td>";
                     echo "</tr>";
                 }           
