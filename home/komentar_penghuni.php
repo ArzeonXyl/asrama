@@ -1,37 +1,54 @@
 <?php
-require "../../connect.php";
+require "../connect.php";
+require "assets/header.php";
+
+// Ambil data dari sesi
+$role = $_SESSION['role']; // Role pengguna (admin atau user)
+$nama_warga = $_SESSION['nama']; // Nama pengguna yang login
+$nim_warga = $_SESSION['nim']; // NIM pengguna yang login
 
 // Penanganan penambahan komentar
 if (isset($_POST['tambah_komentar'])) {
-    $nama = $mysqli->real_escape_string($_POST['nama']);
-    $komentar = $mysqli->real_escape_string($_POST['komentar']);
-    $id_berita = isset($_POST['id_berita']) ? (int)$_POST['id_berita'] : 1; // Default ke ID berita 1 jika tidak disediakan
+    $nim_warga = mysqli_real_escape_string($conn, $_SESSION['nim']);
+    $komentar = mysqli_real_escape_string($conn, $_POST['komentar']);
+    $id_berita = isset($_POST['id_berita']) ? (int)$_POST['id_berita'] : 1;
 
-    $query = "INSERT INTO komentar (isi_komentar, id_berita) VALUES ('$komentar', '$id_berita')";
-    if ($mysqli->query($query)) {
+    // Tambahkan komentar ke database
+    $query = "INSERT INTO komentar (nim_warga, isi_komentar, id_berita) VALUES ('$nim_warga', '$komentar', '$id_berita')";
+    if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Komentar berhasil ditambahkan!</div>";
     } else {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . $mysqli->error . "</div>";
+        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . mysqli_error($conn) . "</div>";
     }
 }
 
 // Penanganan penghapusan komentar
 if (isset($_GET['hapus_komentar_id'])) {
     $hapusId = (int)$_GET['hapus_komentar_id'];
-    $query = "DELETE FROM komentar WHERE id_komentar = $hapusId";
-    if ($mysqli->query($query)) {
-        echo "<div class='alert alert-success'>Komentar berhasil dihapus!</div>";
+
+    // Validasi apakah admin atau pemilik komentar
+    $queryCheck = "SELECT * FROM komentar WHERE id_komentar = $hapusId AND (nim_warga = '$nim_warga' OR '$role' = 'admin')";
+    $resultCheck = mysqli_query($conn, $queryCheck);
+
+    if (mysqli_num_rows($resultCheck) > 0) {
+        // Hapus komentar jika validasi lolos
+        $queryDelete = "DELETE FROM komentar WHERE id_komentar = $hapusId";
+        if (mysqli_query($conn, $queryDelete)) {
+            echo "<div class='alert alert-success'>Komentar berhasil dihapus!</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Terjadi kesalahan: " . mysqli_error($conn) . "</div>";
+        }
     } else {
-        echo "<div class='alert alert-danger'>Terjadi kesalahan: " . $mysqli->error . "</div>";
+        echo "<div class='alert alert-danger'>Anda tidak memiliki izin untuk menghapus komentar ini.</div>";
     }
 }
 
 // Ambil data komentar dari database
 $komentarPenghuni = [];
 $query = "SELECT * FROM komentar ORDER BY id_komentar DESC";
-$result = $mysqli->query($query);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
+$result = mysqli_query($conn, $query);
+if ($result && mysqli_num_rows($result) > 0) {
+    while ($row = mysqli_fetch_assoc($result)) {
         $komentarPenghuni[] = $row;
     }
 }
@@ -42,9 +59,13 @@ if ($result->num_rows > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Komentar Penghuni</title>
-    <!-- Link ke Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Asrama</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+    <?php include 'assets/style.css'; ?>
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -54,7 +75,7 @@ if ($result->num_rows > 0) {
         <form method="POST" class="mb-4">
             <input type="hidden" name="id_berita" value="1"> <!-- Ganti dengan ID berita sesuai -->
             <div class="mb-3">
-                <input type="text" name="nama" class="form-control" placeholder="Nama Penghuni" required>
+                <input type="text" name="nim_warga" class="form-control" value="<?php echo $nim_warga; ?>" readonly>
             </div>
             <div class="mb-3">
                 <textarea name="komentar" class="form-control" placeholder="Komentar" required></textarea>
@@ -66,9 +87,16 @@ if ($result->num_rows > 0) {
         <ul class="list-group">
             <?php foreach ($komentarPenghuni as $komentar) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <strong>ID Berita:</strong> <?php echo $komentar['id_berita']; ?> | 
-                    <?php echo $komentar['isi_komentar']; ?>
-                    <a href="?hapus_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                    <div>
+                        <strong><?php echo htmlspecialchars($komentar['nim_warga']); ?></strong> : 
+                        <?php echo htmlspecialchars($komentar['isi_komentar']); ?>
+                    </div>
+                    <div>
+                        <?php if ($role === 'admin' || $nim_warga === $komentar['nim_warga']) : ?>
+                            <a href="edit_komentar.php?edit_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="?hapus_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                        <?php endif; ?>
+                    </div>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -78,3 +106,6 @@ if ($result->num_rows > 0) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php
+    include "assets/footer.php";
+?>
