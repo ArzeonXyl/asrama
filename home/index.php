@@ -102,21 +102,22 @@
 
 
     <!-- Section Visi Misi -->
+    <!-- Section Visi Misi -->
     <section class="container py-5" data-aos="fade-up" data-aos-duration="1000">
         <h2 class="text-center mb-4">Visi dan Misi Asrama</h2> <!-- Menambahkan Judul -->
         <div class="row">
             <div class="col-md-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 rounded">
+                    <h5 class="card-header text-center" >Visi Asrama</h5>
                     <div class="card-body bg-primary text-white d-flex justify-content-center align-items-center">
-                        <h5 class="card-title">Visi Asrama</h5>
                         <p class="card-text">Visi Asrama akan dijelaskan di sini. Ini adalah deskripsi tentang visi yang ingin dicapai oleh pengelola asrama.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 rounded">
+                    <h5 class="card-header text-center">Misi Asrama</h5>
                     <div class="card-body bg-light text-dark d-flex justify-content-center align-items-center">
-                        <h5 class="card-title">Misi Asrama</h5>
                         <ul class="card-text">
                             <li>Misi pertama: Menyediakan lingkungan yang aman dan nyaman untuk para penghuni asrama.</li>
                             <li>Misi kedua: Meningkatkan kualitas hidup penghuni melalui program-program kegiatan positif.</li>
