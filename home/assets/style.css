@@ -195,3 +195,26 @@ position: fixed;
     border-radius: 10px;
     background-color: #1F509A;
 }
+#jml_warga{
+    display: none;
+}
+
+#terisi {
+    background-color: #A1EEBD;
+    width: 40px;
+    height: 20px;
+}
+
+#kosong {
+    background-color: #BCCCDC;
+    width: 40px;
+    height: 20px;
+}
+
+.denah_kamar{
+    display: flex;
+    gap: 10px;
+    padding: 20px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
