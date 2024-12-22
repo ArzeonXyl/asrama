@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2024 at 02:12 PM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Waktu pembuatan: 22 Des 2024 pada 18.22
+-- Versi server: 10.4.32-MariaDB
+-- Versi PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `admin`
+-- Struktur dari tabel `admin`
 --
 
 CREATE TABLE `admin` (
@@ -35,7 +35,7 @@ CREATE TABLE `admin` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `admin`
+-- Dumping data untuk tabel `admin`
 --
 
 INSERT INTO `admin` (`id_admin`, `nama_admin`, `jenis_kelamin`, `password_admin`) VALUES
@@ -44,7 +44,7 @@ INSERT INTO `admin` (`id_admin`, `nama_admin`, `jenis_kelamin`, `password_admin`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `berita`
+-- Struktur dari tabel `berita`
 --
 
 CREATE TABLE `berita` (
@@ -54,10 +54,21 @@ CREATE TABLE `berita` (
   `tanggal_berita` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `berita`
+--
+
+INSERT INTO `berita` (`id_berita`, `judul_berita`, `isi_berita`, `tanggal_berita`) VALUES
+(1, 'Idul Fitri 1445 H: Momen Kebahagiaan dan Silaturahmi', 'Idul Fitri 1445 H yang jatuh pada bulan April 2024 diprediksi menjadi salah satu perayaan besar di Indonesia. Hari raya ini dirayakan oleh umat Muslim setelah menjalani ibadah puasa selama satu bulan penuh di bulan Ramadan.\r\n\r\nTradisi mudik kembali menjadi sorotan. Jutaan orang melakukan perjalanan ke kampung halaman untuk bersilaturahmi dengan keluarga besar. Pemerintah telah mempersiapkan berbagai infrastruktur untuk mendukung kelancaran arus mudik, termasuk penambahan jalur tol dan peningkatan layanan transportasi umum.\r\n\r\nSelain mudik, tradisi unik seperti saling memaafkan, berbagi hidangan khas lebaran, dan memberikan amplop berisi uang kepada anak-anak turut mewarnai perayaan. Hidangan khas seperti ketupat, opor ayam, dan rendang menjadi simbol kebersamaan.\r\n\r\nPerayaan Idul Fitri juga memberikan dampak positif bagi perekonomian. Sektor ritel dan pariwisata mengalami lonjakan pendapatan selama musim libur lebaran. Pasar tradisional dan pusat perbelanjaan ramai dikunjungi pembeli yang mempersiapkan kebutuhan lebaran.\r\n\r\nNamun, di balik kemeriahan, Idul Fitri juga menjadi momen introspeksi. Umat Muslim diingatkan untuk menjaga kesucian hati dan hubungan baik dengan sesama manusia, sebagaimana esensi dari ibadah puasa yang telah dijalani.', '2024-12-20'),
+(2, 'Hari Kemerdekaan Indonesia ke-79', 'Tanggal 17 Agustus 2024 akan menjadi peringatan Hari Kemerdekaan Indonesia yang ke-79. Perayaan ini menjadi pengingat perjuangan para pahlawan dalam merebut kemerdekaan dari penjajah.\r\n\r\nSeperti tahun-tahun sebelumnya, upacara bendera akan digelar di Istana Merdeka, Jakarta. Presiden dan pejabat tinggi negara akan menghadiri acara tersebut, bersama dengan masyarakat dari berbagai lapisan.\r\n\r\nDi berbagai daerah, lomba-lomba tradisional seperti panjat pinang, balap karung, dan tarik tambang diadakan untuk memeriahkan suasana. Kegiatan ini tidak hanya menjadi hiburan, tetapi juga mempererat rasa persatuan.\r\n\r\nMomentum kemerdekaan juga dimanfaatkan untuk menanamkan rasa nasionalisme di kalangan generasi muda. Sekolah-sekolah menggelar kegiatan seperti lomba pidato, pembuatan poster, dan seminar sejarah perjuangan bangsa.\r\n\r\nNamun, Hari Kemerdekaan juga menjadi pengingat akan tantangan yang masih dihadapi bangsa. Pembangunan infrastruktur, pendidikan, dan kesejahteraan masyarakat terus menjadi prioritas agar cita-cita kemerdekaan dapat terwujud sepenuhnya.\r\n', '2024-12-20'),
+(3, 'Hari Pendidikan Nasional 2024: Mengukir Masa Depan Bangsa', 'Hari Pendidikan Nasional (Hardiknas) yang diperingati setiap tanggal 2 Mei menjadi momen penting untuk merefleksikan kemajuan dunia pendidikan di Indonesia. Tahun 2024, peringatan ini mengangkat tema \"Pendidikan Inklusif untuk Semua.\"\r\n\r\nDi berbagai daerah, sekolah-sekolah menggelar upacara bendera untuk mengenang jasa Ki Hajar Dewantara sebagai Bapak Pendidikan Nasional. Selain itu, kegiatan seperti seminar, lomba pidato, dan workshop tentang inovasi pendidikan turut memeriahkan peringatan ini.\r\n\r\nPemerintah juga meluncurkan beberapa program baru untuk meningkatkan akses pendidikan di daerah terpencil. Program digitalisasi sekolah menjadi salah satu sorotan, dengan distribusi perangkat teknologi untuk mendukung proses belajar-mengajar.\r\n\r\nNamun, tantangan di dunia pendidikan masih menjadi pekerjaan rumah. Masalah seperti kesenjangan kualitas pendidikan antara kota dan desa, serta aksesibilitas pendidikan bagi anak-anak berkebutuhan khusus, menjadi isu yang terus dibahas.\r\n\r\nHari Pendidikan Nasional menjadi pengingat bahwa pendidikan adalah kunci untuk membangun bangsa yang maju. Semua pihak, mulai dari pemerintah, pendidik, hingga masyarakat, diharapkan dapat berperan aktif dalam menciptakan sistem pendidikan yang lebih baik.\r\n\r\n', '2024-12-20'),
+(4, 'Hari Pahlawan 2024: Menghargai Jasa Pahlawan Bangsa', 'Hari Pahlawan yang jatuh pada tanggal 10 November selalu menjadi momen penting bagi bangsa Indonesia. Tahun 2024, tema peringatan ini adalah “Bersama Melanjutkan Perjuangan.”\r\n\r\nDi berbagai daerah, masyarakat mengadakan upacara penghormatan di makam pahlawan. Tradisi ini menjadi simbol penghargaan atas jasa para pahlawan yang telah berjuang untuk kemerdekaan Indonesia.\r\n\r\nSekolah dan universitas turut memeriahkan peringatan Hari Pahlawan dengan menggelar lomba-lomba bertema perjuangan, seperti drama sejarah, poster, dan esai. Kegiatan ini bertujuan untuk menanamkan rasa cinta tanah air pada generasi muda.\r\n\r\nMedia massa juga berperan penting dalam mengingatkan masyarakat akan pentingnya Hari Pahlawan. Dokumenter, film sejarah, dan artikel tentang perjuangan para pahlawan sering dipublikasikan menjelang peringatan ini.\r\n\r\nHari Pahlawan tidak hanya tentang mengenang masa lalu, tetapi juga memotivasi masyarakat untuk berkontribusi bagi bangsa. Nilai-nilai kepahlawanan, seperti keberanian, kejujuran, dan pengorbanan, diharapkan dapat terus hidup dalam kehidupan sehari-hari.', '2024-12-20'),
+(5, 'Maulid Nabi Muhammad SAW 2024: Mengenang Keteladanan Sang Nabi', 'Maulid Nabi Muhammad SAW yang jatuh pada 15 Rabiul Awal 1446 H atau 25 September 2024 dirayakan dengan penuh khidmat oleh umat Muslim di seluruh dunia. Peringatan ini menjadi momen untuk mengenang keteladanan Nabi Muhammad SAW.\r\n\r\nDi Indonesia, perayaan Maulid Nabi diwarnai dengan pengajian, zikir, dan sholawat di masjid-masjid. Banyak daerah yang juga menggelar tradisi khas, seperti Grebeg Maulid di Yogyakarta dan Sekaten di Surakarta.\r\n\r\nSelain itu, Maulid Nabi menjadi ajang untuk mempererat hubungan sosial. Kegiatan berbagi makanan dan bantuan kepada yang membutuhkan menjadi bagian dari perayaan ini, sesuai dengan nilai-nilai kebaikan yang diajarkan Nabi Muhammad SAW.\r\n\r\nPemerintah dan organisasi Islam turut mengadakan acara besar, seperti tabligh akbar dan seminar keislaman, yang dihadiri oleh ulama-ulama terkemuka. Acara ini bertujuan untuk memperkuat pemahaman umat tentang ajaran Islam.\r\n\r\nMaulid Nabi bukan hanya sekadar tradisi, tetapi juga momen untuk merefleksikan nilai-nilai luhur Nabi Muhammad SAW. Umat Muslim diingatkan untuk terus meneladani sifat-sifat seperti kejujuran, kesabaran, dan kasih sayang dalam kehidupan sehari-hari.\r\n\r\n', '2024-12-20');
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dosen_pengajar`
+-- Struktur dari tabel `dosen_pengajar`
 --
 
 CREATE TABLE `dosen_pengajar` (
@@ -68,7 +79,7 @@ CREATE TABLE `dosen_pengajar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `dosen_pengajar`
+-- Dumping data untuk tabel `dosen_pengajar`
 --
 
 INSERT INTO `dosen_pengajar` (`NIP`, `nama_dosen`, `alamat`, `jenis_kelamin`) VALUES
@@ -77,7 +88,7 @@ INSERT INTO `dosen_pengajar` (`NIP`, `nama_dosen`, `alamat`, `jenis_kelamin`) VA
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ekstrakulikuler`
+-- Struktur dari tabel `ekstrakulikuler`
 --
 
 CREATE TABLE `ekstrakulikuler` (
@@ -90,7 +101,7 @@ CREATE TABLE `ekstrakulikuler` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `ekstrakulikuler`
+-- Dumping data untuk tabel `ekstrakulikuler`
 --
 
 INSERT INTO `ekstrakulikuler` (`id_ekstrakulikuler`, `nama_ekstrakulikuler`, `jadwal_ekstrakulikuler`, `materi`, `status`, `dosen_NIP`) VALUES
@@ -99,7 +110,7 @@ INSERT INTO `ekstrakulikuler` (`id_ekstrakulikuler`, `nama_ekstrakulikuler`, `ja
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ekstrakulikuler_fasilitas`
+-- Struktur dari tabel `ekstrakulikuler_fasilitas`
 --
 
 CREATE TABLE `ekstrakulikuler_fasilitas` (
@@ -110,7 +121,7 @@ CREATE TABLE `ekstrakulikuler_fasilitas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `fasilitas`
+-- Struktur dari tabel `fasilitas`
 --
 
 CREATE TABLE `fasilitas` (
@@ -122,7 +133,7 @@ CREATE TABLE `fasilitas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `fasilitas`
+-- Dumping data untuk tabel `fasilitas`
 --
 
 INSERT INTO `fasilitas` (`id_fasilitas`, `nama_fasilitas`, `jumlah_fasilitas`, `id_gedung`, `aturan_penggunaan`) VALUES
@@ -132,7 +143,7 @@ INSERT INTO `fasilitas` (`id_fasilitas`, `nama_fasilitas`, `jumlah_fasilitas`, `
 -- --------------------------------------------------------
 
 --
--- Table structure for table `gedung`
+-- Struktur dari tabel `gedung`
 --
 
 CREATE TABLE `gedung` (
@@ -143,7 +154,7 @@ CREATE TABLE `gedung` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `gedung`
+-- Dumping data untuk tabel `gedung`
 --
 
 INSERT INTO `gedung` (`id_gedung`, `nama_gedung`, `jumlah_kamar`, `jumlah_lantai`) VALUES
@@ -156,7 +167,7 @@ INSERT INTO `gedung` (`id_gedung`, `nama_gedung`, `jumlah_kamar`, `jumlah_lantai
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kamar`
+-- Struktur dari tabel `kamar`
 --
 
 CREATE TABLE `kamar` (
@@ -167,13 +178,13 @@ CREATE TABLE `kamar` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `kamar`
+-- Dumping data untuk tabel `kamar`
 --
 
 INSERT INTO `kamar` (`no_kamar`, `lantai`, `status_kamar`, `id_gedung`) VALUES
 ('001', 1, 'Tersedia', 1),
 ('002', 1, 'Tersedia', 1),
-('003', 1, 'Tersedia', 1),
+('003', 1, '', 1),
 ('004', 1, 'Tersedia', 1),
 ('005', 1, 'Tersedia', 1),
 ('006', 1, 'Kosong', 1),
@@ -425,19 +436,32 @@ INSERT INTO `kamar` (`no_kamar`, `lantai`, `status_kamar`, `id_gedung`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `komentar`
+-- Struktur dari tabel `komentar`
 --
 
 CREATE TABLE `komentar` (
   `id_komentar` int(11) NOT NULL,
   `isi_komentar` varchar(1000) NOT NULL,
-  `id_berita` int(11) NOT NULL
+  `id_berita` int(11) NOT NULL,
+  `nim_warga` varchar(50) NOT NULL,
+  `nama_warga` varchar(50) NOT NULL,
+  `tanggal` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `komentar`
+--
+
+INSERT INTO `komentar` (`id_komentar`, `isi_komentar`, `id_berita`, `nim_warga`, `nama_warga`, `tanggal`) VALUES
+(17, 'Selamat Hari Raya Idul Fitri', 1, '230411100040', 'ALDI', '2024-12-22 19:08:52'),
+(21, 'minal aidzin', 1, '230411100112', 'fariel', '2024-12-22 22:58:13'),
+(42, 'Selamat HUT RI ke 79', 2, '230411100112', 'fariel', '2024-12-23 00:17:38'),
+(43, 'Selamat Hari Pahlawan', 4, '230411100040', 'ALDI', '2024-12-23 00:18:27');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `komentar_warga`
+-- Struktur dari tabel `komentar_warga`
 --
 
 CREATE TABLE `komentar_warga` (
@@ -448,7 +472,7 @@ CREATE TABLE `komentar_warga` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pembayaran`
+-- Struktur dari tabel `pembayaran`
 --
 
 CREATE TABLE `pembayaran` (
@@ -461,7 +485,7 @@ CREATE TABLE `pembayaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pembayaran`
+-- Dumping data untuk tabel `pembayaran`
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `nim_warga`, `nominal`, `tanggal_pembayaran`, `metode_pembayaran`, `bukti_pembayaran`) VALUES
@@ -469,6 +493,7 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `nim_warga`, `nominal`, `tanggal_pemb
 ('1', '230411100040', 100000, '2024-11-24', 'bank', ''),
 ('10', '12', 900000, '2024-12-02', 'BCA', ''),
 ('12', '333', 900000, '2024-12-02', 'BRI', 'bukti_pembayaran/BRI_333_1733153541.png'),
+('13', '230411100112', 900000, '2024-12-13', 'pengurus 1', 'bukti_pembayaran/pengurus_1_230411100112_1734877896.jpeg'),
 ('2', '23000000012', 10000000, '2024-11-24', 'Transfer Bank', ''),
 ('3', '230411100041', 10000000, '2024-11-24', 'E-Wallet', ''),
 ('4', '230411100175', 10000000, '2024-11-28', 'Transfer Bank', ''),
@@ -481,7 +506,7 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `nim_warga`, `nominal`, `tanggal_pemb
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pendaftaran`
+-- Struktur dari tabel `pendaftaran`
 --
 
 CREATE TABLE `pendaftaran` (
@@ -497,7 +522,7 @@ CREATE TABLE `pendaftaran` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pendaftaran`
+-- Dumping data untuk tabel `pendaftaran`
 --
 
 INSERT INTO `pendaftaran` (`nim_pendaftaran`, `nama_pendaftaran`, `password_pendaftaran`, `jurusan_pendaftaran`, `alamat_pendaftaran`, `jenis_kelamin_pendaftaran`, `nomor_handphone_pendaftaran`, `no_kamar`, `nim_pengurus_pendaftaran`) VALUES
@@ -507,7 +532,7 @@ INSERT INTO `pendaftaran` (`nim_pendaftaran`, `nama_pendaftaran`, `password_pend
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pengurus`
+-- Struktur dari tabel `pengurus`
 --
 
 CREATE TABLE `pengurus` (
@@ -521,7 +546,7 @@ CREATE TABLE `pengurus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `pengurus`
+-- Dumping data untuk tabel `pengurus`
 --
 
 INSERT INTO `pengurus` (`nim_pengurus`, `password_pengurus`, `nama_pengurus`, `jurusan_pengurus`, `nomor_handphone_pengurus`, `jenis_kelamin_pengurus`, `alamat_pengurus`) VALUES
@@ -530,7 +555,7 @@ INSERT INTO `pengurus` (`nim_pengurus`, `password_pengurus`, `nama_pengurus`, `j
 -- --------------------------------------------------------
 
 --
--- Table structure for table `warga_asrama`
+-- Struktur dari tabel `warga_asrama`
 --
 
 CREATE TABLE `warga_asrama` (
@@ -546,7 +571,7 @@ CREATE TABLE `warga_asrama` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `warga_asrama`
+-- Dumping data untuk tabel `warga_asrama`
 --
 
 INSERT INTO `warga_asrama` (`nim_warga`, `nama_warga`, `jurusan_warga`, `alamat_warga`, `password_warga`, `jenis_kelamin_warga`, `nomor_handphone_warga`, `no_kamar`, `nim_pengurus`) VALUES
@@ -563,11 +588,12 @@ INSERT INTO `warga_asrama` (`nim_warga`, `nama_warga`, `jurusan_warga`, `alamat_
 ('230411100042', 'RAFI ARIFUDIN', 'S1 Psikologi', 'blitar', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '0881036126290', '002', '230000000'),
 ('230411100045', 'info', 'S1 Sosiologi', 'blitar', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '0881036126290', '002', '230000000'),
 ('230411100049', 'M ALDI RAHMANDIKAa', 'S1 Teknik Mekatronika', 'blitar', '123', 'Laki-laki', '0832193076651', '003', '230000000'),
+('230411100112', 'fariel', 'S1 Teknik Informatika', 'sidoarjo', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '08819798395', '003', '230000000'),
 ('230411100175', 'dio', 'S1 Teknik Informatika', 'sumenep', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '08978767677', '004', '230000000'),
 ('333', 'info', 'S1 Teknik Mekatronika', 'blitar', '202cb962ac59075b964b07152d234b70', 'Laki-laki', '0881036126290', '003', '230000000');
 
 --
--- Triggers `warga_asrama`
+-- Trigger `warga_asrama`
 --
 DELIMITER $$
 CREATE TRIGGER `update_status_kamar_insert` AFTER INSERT ON `warga_asrama` FOR EACH ROW BEGIN
@@ -621,7 +647,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `warga_ekstrakulikuler`
+-- Struktur dari tabel `warga_ekstrakulikuler`
 --
 
 CREATE TABLE `warga_ekstrakulikuler` (
@@ -630,7 +656,7 @@ CREATE TABLE `warga_ekstrakulikuler` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `warga_ekstrakulikuler`
+-- Dumping data untuk tabel `warga_ekstrakulikuler`
 --
 
 INSERT INTO `warga_ekstrakulikuler` (`nim_warga`, `id_ekstrakulikuler`) VALUES
@@ -641,90 +667,91 @@ INSERT INTO `warga_ekstrakulikuler` (`nim_warga`, `id_ekstrakulikuler`) VALUES
 --
 
 --
--- Indexes for table `admin`
+-- Indeks untuk tabel `admin`
 --
 ALTER TABLE `admin`
   ADD PRIMARY KEY (`id_admin`);
 
 --
--- Indexes for table `berita`
+-- Indeks untuk tabel `berita`
 --
 ALTER TABLE `berita`
   ADD PRIMARY KEY (`id_berita`);
 
 --
--- Indexes for table `dosen_pengajar`
+-- Indeks untuk tabel `dosen_pengajar`
 --
 ALTER TABLE `dosen_pengajar`
   ADD PRIMARY KEY (`NIP`);
 
 --
--- Indexes for table `ekstrakulikuler`
+-- Indeks untuk tabel `ekstrakulikuler`
 --
 ALTER TABLE `ekstrakulikuler`
   ADD PRIMARY KEY (`id_ekstrakulikuler`),
   ADD KEY `dosen_NIP` (`dosen_NIP`);
 
 --
--- Indexes for table `ekstrakulikuler_fasilitas`
+-- Indeks untuk tabel `ekstrakulikuler_fasilitas`
 --
 ALTER TABLE `ekstrakulikuler_fasilitas`
   ADD PRIMARY KEY (`id_ekstrakulikuler`,`id_fasilitas`);
 
 --
--- Indexes for table `fasilitas`
+-- Indeks untuk tabel `fasilitas`
 --
 ALTER TABLE `fasilitas`
   ADD PRIMARY KEY (`id_fasilitas`);
 
 --
--- Indexes for table `gedung`
+-- Indeks untuk tabel `gedung`
 --
 ALTER TABLE `gedung`
   ADD PRIMARY KEY (`id_gedung`);
 
 --
--- Indexes for table `kamar`
+-- Indeks untuk tabel `kamar`
 --
 ALTER TABLE `kamar`
   ADD PRIMARY KEY (`no_kamar`),
   ADD KEY `id_gedung` (`id_gedung`);
 
 --
--- Indexes for table `komentar`
+-- Indeks untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
   ADD PRIMARY KEY (`id_komentar`),
-  ADD KEY `id_berita` (`id_berita`);
+  ADD KEY `id_berita` (`id_berita`),
+  ADD KEY `nim_warga` (`nim_warga`);
 
 --
--- Indexes for table `komentar_warga`
+-- Indeks untuk tabel `komentar_warga`
 --
 ALTER TABLE `komentar_warga`
   ADD PRIMARY KEY (`nim_warga`,`id_komentar`),
   ADD KEY `id_komentar` (`id_komentar`);
 
 --
--- Indexes for table `pembayaran`
+-- Indeks untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD PRIMARY KEY (`id_pembayaran`),
   ADD KEY `nim_warga` (`nim_warga`);
 
 --
--- Indexes for table `pendaftaran`
+-- Indeks untuk tabel `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   ADD PRIMARY KEY (`nim_pendaftaran`);
 
 --
--- Indexes for table `pengurus`
+-- Indeks untuk tabel `pengurus`
 --
 ALTER TABLE `pengurus`
   ADD PRIMARY KEY (`nim_pengurus`);
 
 --
--- Indexes for table `warga_asrama`
+-- Indeks untuk tabel `warga_asrama`
 --
 ALTER TABLE `warga_asrama`
   ADD PRIMARY KEY (`nim_warga`),
@@ -732,84 +759,85 @@ ALTER TABLE `warga_asrama`
   ADD KEY `nim_pengurus` (`nim_pengurus`);
 
 --
--- Indexes for table `warga_ekstrakulikuler`
+-- Indeks untuk tabel `warga_ekstrakulikuler`
 --
 ALTER TABLE `warga_ekstrakulikuler`
   ADD PRIMARY KEY (`nim_warga`,`id_ekstrakulikuler`),
   ADD KEY `id_ekstrakulikuler` (`id_ekstrakulikuler`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `admin`
+-- AUTO_INCREMENT untuk tabel `admin`
 --
 ALTER TABLE `admin`
   MODIFY `id_admin` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `berita`
+-- AUTO_INCREMENT untuk tabel `berita`
 --
 ALTER TABLE `berita`
-  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_berita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `gedung`
+-- AUTO_INCREMENT untuk tabel `gedung`
 --
 ALTER TABLE `gedung`
   MODIFY `id_gedung` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `komentar`
+-- AUTO_INCREMENT untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
-  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_komentar` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `ekstrakulikuler`
+-- Ketidakleluasaan untuk tabel `ekstrakulikuler`
 --
 ALTER TABLE `ekstrakulikuler`
   ADD CONSTRAINT `ekstrakulikuler_ibfk_1` FOREIGN KEY (`dosen_NIP`) REFERENCES `dosen_pengajar` (`NIP`);
 
 --
--- Constraints for table `kamar`
+-- Ketidakleluasaan untuk tabel `kamar`
 --
 ALTER TABLE `kamar`
   ADD CONSTRAINT `kamar_ibfk_1` FOREIGN KEY (`id_gedung`) REFERENCES `gedung` (`id_gedung`);
 
 --
--- Constraints for table `komentar`
+-- Ketidakleluasaan untuk tabel `komentar`
 --
 ALTER TABLE `komentar`
-  ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`id_berita`) REFERENCES `berita` (`id_berita`);
+  ADD CONSTRAINT `komentar_ibfk_1` FOREIGN KEY (`id_berita`) REFERENCES `berita` (`id_berita`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `komentar_ibfk_2` FOREIGN KEY (`nim_warga`) REFERENCES `warga_asrama` (`nim_warga`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `komentar_warga`
+-- Ketidakleluasaan untuk tabel `komentar_warga`
 --
 ALTER TABLE `komentar_warga`
   ADD CONSTRAINT `komentar_warga_ibfk_1` FOREIGN KEY (`nim_warga`) REFERENCES `warga_asrama` (`nim_warga`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `komentar_warga_ibfk_2` FOREIGN KEY (`id_komentar`) REFERENCES `komentar` (`id_komentar`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pembayaran`
+-- Ketidakleluasaan untuk tabel `pembayaran`
 --
 ALTER TABLE `pembayaran`
   ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`nim_warga`) REFERENCES `warga_asrama` (`nim_warga`);
 
 --
--- Constraints for table `warga_asrama`
+-- Ketidakleluasaan untuk tabel `warga_asrama`
 --
 ALTER TABLE `warga_asrama`
   ADD CONSTRAINT `warga_asrama_ibfk_1` FOREIGN KEY (`no_kamar`) REFERENCES `kamar` (`no_kamar`),
   ADD CONSTRAINT `warga_asrama_ibfk_2` FOREIGN KEY (`nim_pengurus`) REFERENCES `pengurus` (`nim_pengurus`);
 
 --
--- Constraints for table `warga_ekstrakulikuler`
+-- Ketidakleluasaan untuk tabel `warga_ekstrakulikuler`
 --
 ALTER TABLE `warga_ekstrakulikuler`
   ADD CONSTRAINT `warga_ekstrakulikuler_ibfk_1` FOREIGN KEY (`nim_warga`) REFERENCES `warga_asrama` (`nim_warga`),

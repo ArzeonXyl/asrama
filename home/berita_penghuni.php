@@ -9,6 +9,7 @@ $daftarBeritaPenghuni = [];
 if ($result && mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_assoc($result)) {
         $daftarBeritaPenghuni[] = [
+            'id_berita' => $row['id_berita'],
             'judul' => $row['judul_berita'],
             'konten' => $row['isi_berita'],
             'tanggal' => $row['tanggal_berita']
@@ -40,7 +41,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         <strong><?php echo $berita['judul']; ?></strong> <br>
                         <small><em><?php echo $berita['tanggal']; ?></em></small><br>
                         <p><?php echo nl2br($berita['konten']); ?></p>
-                        <a href="komentar_penghuni.php" class="btn btn-link">Beri Komentar</a>
+                        <a href="komentar_penghuni.php?id=<?php echo $berita['id_berita']; ?>" class="btn btn-link">Beri Komentar</a>
                     </li>
                 <?php endforeach; ?>
             <?php else : ?>
