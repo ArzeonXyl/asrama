@@ -14,6 +14,7 @@
             <h1 class="text-center">Selamat Datang di Asrama</h1>
         </div>
         <div class="logout-container">
+            <span class="me-3"><?= $_SESSION['nama']  ?></span>
             <a href="../login/logout.php" class="logout-link">
                 <i class="fas fa-sign-out-alt logout-icon"></i>
                 <span class="logout-text">Logout</span>
@@ -35,7 +36,6 @@
                 echo '<li><a href="info_pembayaran.php">pembayaran warga</a></li>';
             }
             ?>
-
         </ul>
     </nav>
     
