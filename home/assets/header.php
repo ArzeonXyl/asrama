@@ -14,6 +14,7 @@
             <h1 class="text-center">Selamat Datang di Asrama</h1>
         </div>
         <div class="logout-container">
+            <span class="me-3"><?= $_SESSION['nama']  ?></span>
             <a href="../login/logout.php" class="logout-link">
                 <i class="fas fa-sign-out-alt logout-icon"></i>
                 <span class="logout-text">Logout</span>
@@ -32,7 +33,7 @@
             <li><a href="profil.php">Profil</a></li>
             <?php
             if (isset($_SESSION['nama']) && ($_SESSION['nama'] == 'pengurus 1' || $_SESSION['nama'] == 'pengurus 2')) {
-                echo '<li><a href="info_pembayaran.php">pembayaran warga</a></li>';
+                echo '<li><a href="info_pembayaran.php">Pembayaran Warga</a></li>';
             }
             ?>
 

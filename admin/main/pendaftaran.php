@@ -75,7 +75,7 @@
 
                     $query = mysqli_query($conn, $sql);
 
-                    if ($query) {
+                    if ($query == true) {
                         // Hapus data dari tabel pendaftaran
                         mysqli_query($conn, "DELETE FROM pendaftaran WHERE nim_pendaftaran = '$nim_pendaftaran'");
                         // Update status kamar

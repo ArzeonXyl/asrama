@@ -64,9 +64,6 @@ $conn->close();
             margin: 10px 0;
         }
 
-        footer {
-            margin-top: 40px;
-        }
 
         @media (max-width: 768px) {
             header h1 {
@@ -100,8 +97,6 @@ $conn->close();
         <p><strong>Jumlah Fasilitas:</strong> <?= $fasilitas_item['jumlah_fasilitas'] ?></p>
         <a href="fasilitas.php" class="back" style="display: inline-block; padding: 10px 20px; background-color: #4a90e2; color: white; text-decoration: none; border-radius: 5px; font-size: 16px; transition: background-color 0.3s;">Kembali</a>
     </div>
+    <?php include 'assets/footer.php'; ?>
 </body>
 </html>
-<?php
-    include "assets/footer.php";
-?>
