@@ -46,7 +46,7 @@
        </div>
       </div>
      </a>
-     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="berita_admin.php">
+     <a class="bg-white p-6 rounded-lg shadow flex items-center space-x-4 hover:bg-gray-100" href="../../home/berita_penghuni.php">
       <i class="fas fa-newspaper text-grey-600 text-2xl">
       </i>
       <div>

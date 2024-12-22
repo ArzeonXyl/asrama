@@ -33,10 +33,9 @@
             <li><a href="profil.php">Profil</a></li>
             <?php
             if (isset($_SESSION['nama']) && ($_SESSION['nama'] == 'pengurus 1' || $_SESSION['nama'] == 'pengurus 2')) {
-                echo '<li><a href="info_pembayaran.php">Pembayaran Warga</a></li>';
+                echo '<li><a href="info_pembayaran.php">pembayaran warga</a></li>';
             }
             ?>
-
         </ul>
     </nav>
     
