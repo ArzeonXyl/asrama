@@ -10,11 +10,12 @@ $nim_warga = $_SESSION['nim']; // NIM pengguna yang login
 // Penanganan penambahan komentar
 if (isset($_POST['tambah_komentar'])) {
     $nim_warga = mysqli_real_escape_string($conn, $_SESSION['nim']);
+    $nama_warga = mysqli_real_escape_string($conn, $_SESSION['nama']);
     $komentar = mysqli_real_escape_string($conn, $_POST['komentar']);
     $id_berita = isset($_POST['id_berita']) ? (int)$_POST['id_berita'] : 1;
 
     // Tambahkan komentar ke database
-    $query = "INSERT INTO komentar (nim_warga, isi_komentar, id_berita) VALUES ('$nim_warga', '$komentar', '$id_berita')";
+    $query = "INSERT INTO komentar (nim_warga, nama_warga, isi_komentar, id_berita) VALUES ('$nim_warga', '$nama_warga', '$komentar', '$id_berita')";
     if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Komentar berhasil ditambahkan!</div>";
     } else {
@@ -75,7 +76,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         <form method="POST" class="mb-4">
             <input type="hidden" name="id_berita" value="1"> <!-- Ganti dengan ID berita sesuai -->
             <div class="mb-3">
-                <input type="text" name="nim_warga" class="form-control" value="<?php echo $nim_warga; ?>" readonly>
+                <input type="text" name="nim_warga" class="form-control" value="<?php echo $nama_warga; ?>" readonly>
             </div>
             <div class="mb-3">
                 <textarea name="komentar" class="form-control" placeholder="Komentar" required></textarea>
@@ -88,7 +89,7 @@ if ($result && mysqli_num_rows($result) > 0) {
             <?php foreach ($komentarPenghuni as $komentar) : ?>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        <strong><?php echo htmlspecialchars($komentar['nim_warga']); ?></strong> : 
+                        <strong><?php echo htmlspecialchars($komentar['nama_warga']); ?></strong> : 
                         <?php echo htmlspecialchars($komentar['isi_komentar']); ?>
                     </div>
                     <div>

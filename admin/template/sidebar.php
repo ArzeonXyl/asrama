@@ -1,5 +1,5 @@
-    <!-- Sidebar -->
-    <div class="bg-gray-900 text-white w-64 min-h-screen">
+<!-- Sidebar -->
+<div class="bg-gray-900 text-white w-64 min-h-screen">
       <div class="p-6">
         <div class="flex items-center space-x-2">
           <div class="bg-blue-600 p-2 rounded">
@@ -47,6 +47,10 @@
         <a class="flex items-center px-6 py-2 text-gray-400" href="../main/master_detail_kamar.php">
           <i class="fas fa-bed mr-3"></i>
           <span>Kamar</span>
+        </a>
+        <a class="flex items-center px-6 py-2 text-gray-400" href="../main/berita_admin.php">
+          <i class="fas fa-newspaper mr-3"></i>
+          <span>Berita</span>
         </a>
         <a class="flex items-center px-6 py-2 text-gray-400" href="../main/manage_fasilitas.php">
           <i class="fas fa-concierge-bell mr-3"></i>
