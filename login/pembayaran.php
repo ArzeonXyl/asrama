@@ -216,6 +216,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <p>Alfamart</p>
                 </div>
             </div>
+            <h4>Pengurus</h4>
+            <div class="payment-grid">
+                <div class="payment-option" data-method="pengurus 1">
+                    <p>pengurus 1</p>
+                </div>
+                <div class="payment-option" data-method="pengurus 2">
+                    <p>Pengurus 2</p>
+                </div>
+            </div>
         </div>
 
         <input type="hidden" id="metode_pembayaran" name="metode_pembayaran" required>

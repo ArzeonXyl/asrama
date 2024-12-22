@@ -14,8 +14,8 @@ if (isset($_POST['tambah_komentar'])) {
     $komentar = mysqli_real_escape_string($conn, $_POST['komentar']);
     $id_berita = isset($_POST['id_berita']) ? (int)$_POST['id_berita'] : 1;
 
-    // Tambahkan komentar ke database
-    $query = "INSERT INTO komentar (nim_warga, nama_warga, isi_komentar, id_berita) VALUES ('$nim_warga', '$nama_warga', '$komentar', '$id_berita')";
+    // Tambahkan komentar ke database dengan tanggal
+    $query = "INSERT INTO komentar (nim_warga, nama_warga, isi_komentar, id_berita, tanggal) VALUES ('$nim_warga', '$nama_warga', '$komentar', '$id_berita', NOW())";
     if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Komentar berhasil ditambahkan!</div>";
     } else {
@@ -71,6 +71,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 <body>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Komentar Penghuni</h1>
+        <a href="berita_penghuni.php"><button class="btn btn-primary mb-4 bi bi-arrow-left-circle"> Kembali</button></a>
 
         <!-- Formulir untuk menambah komentar -->
         <form method="POST" class="mb-4">
@@ -91,6 +92,8 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <div>
                         <strong><?php echo htmlspecialchars($komentar['nama_warga']); ?></strong> : 
                         <?php echo htmlspecialchars($komentar['isi_komentar']); ?>
+                        <br>
+                        <small class="text-muted"> <?php echo $komentar['tanggal']; ?></small>
                     </div>
                     <div>
                         <?php if ($role === 'admin' || $nim_warga === $komentar['nim_warga']) : ?>
