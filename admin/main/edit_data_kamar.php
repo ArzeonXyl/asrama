@@ -77,7 +77,7 @@
                 </div>
                 <div class="modal-body text-center">
                     <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
-                    <p>Profil Anda berhasil diperbarui!</p>
+                    <p>Kamar Warga berhasil diperbarui!</p>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <a href="master_detail_kamar.php" class="btn btn-primary">Kembali</a>

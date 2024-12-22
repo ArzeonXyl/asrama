@@ -13,7 +13,6 @@ if (isset($_POST['login'])) {
         $row_admin = mysqli_fetch_assoc($result_admin);
         if ($row_admin['password_admin'] === $password) {
             // Login admin berhasil
-            $_SESSION['username'] = $row_admin['username_admin'];
             $_SESSION['nama_admin'] = $row_admin['nama_admin'];
             $_SESSION['role'] = 'admin';
             $_SESSION['logged_in'] = true;

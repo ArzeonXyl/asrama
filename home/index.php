@@ -18,32 +18,30 @@
         /* Welcome Section */
         .welcome {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 50px;
+            min-height: 90vh;
+            justify-content: center;
             background-color: #4a90e2;
+            
         }
-
         .welcome .welcome-text {
-            font-size: 24px;
+            display: flex;
+            align-items: center;
+            font-size: 50px;
             font-weight: bold;
+            min-height: 90vh;
+            color: white;
+            flex-direction: column;
+            padding-top: 100px;
         }
 
-        .welcome {
-            /* Set gambar sebagai background penuh */
-            background-image: url('assets/img/images.jpg'); /* Ganti dengan path gambar Anda */
-            background-size: cover; /* Pastikan gambar mencakup seluruh area */
-            background-position: center; /* Pusatkan gambar */
-            background-repeat: no-repeat; /* Hindari pengulangan gambar */
-            height: 100vh; /* Set tinggi section menjadi penuh layar */
-            color: #fff; /* Ubah warna teks agar kontras dengan background */
-            display: flex; /* Gunakan flexbox untuk tata letak */
-            flex-direction: column; /* Atur elemen ke arah vertikal */
-            justify-content: center; /* Posisikan konten di tengah secara vertikal */
-            align-items: center; /* Posisikan konten di tengah secara horizontal */
-            text-align: center; /* Teks berada di tengah */
+        .welcome .welcome-image {
+            width: 150px;
+            height: 150px;
+            background-image: url('path_to_your_animated_image.gif'); /* Ganti dengan path gambar animasi */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
         }
-
 
         /* Visi Misi Section */
         .visi-misi {
@@ -95,16 +93,15 @@
 
 <body>
     <!-- Section Welcome -->
-    <section class="welcome">
-        <h1 class="text-center my-4">SELAMAT DATANG <?=$_SESSION['nama']?></h1>
+    <div class="welcome">
         <div class="welcome-text">
-            <p>Selamat datang, <?=$_SESSION['nama']?>! Semoga harimu menyenankan.</p>
+            <p>Selamat datang, <?=$_SESSION['nama']?></p>
+            <p>Semoga Harimu Menyenangkan</p>
         </div>
-        <div class="welcome-image">
-            <!-- Gambar animasi orang di sini -->
-        </div>
-    </section>
+    </div>
 
+
+    <!-- Section Visi Misi -->
     <!-- Section Visi Misi -->
     <section class="container py-5" data-aos="fade-up" data-aos-duration="1000">
         <h2 class="text-center mb-4">Visi dan Misi Asrama</h2> <!-- Menambahkan Judul -->
@@ -192,7 +189,7 @@
                 <h5 class="mt-3">Divisi Peribadatan</h5>
             </div>
             <div class="col-md-4 text-center">
-                <img src="organisasi/kreatif.jpg" alt="Kreatif" class="img-fluid rounded-circle" style="max-width: 120px;">
+                <img src="organisasi/kominfo.jpg" alt="Kreatif" class="img-fluid rounded-circle" style="max-width: 120px;">
                 <h5 class="mt-3">Divisi Kreatif</h5>
             </div>
             <div class="col-md-4 text-center">

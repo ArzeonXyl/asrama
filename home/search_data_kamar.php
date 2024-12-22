@@ -46,6 +46,7 @@
                 $result = mysqli_fetch_all($query4, MYSQLI_ASSOC);
             }
             else{
+
                 $error_search = "data tidak ditemukan";
             }
         }
@@ -144,6 +145,10 @@
             </div>
             <div class="modal-body">
                 <div>Pilih terkait dengan status kamar:</div>
+                <div>
+                    <input type="radio" name="status_kamar" value="Kosong" id="empty">
+                    <label for="Kosong">Kosong</label>
+                </div>
                 <div>
                     <input type="radio" name="status_kamar" value="Tersedia" id="tersedia">
                     <label for="tersedia">Tersedia</label>
