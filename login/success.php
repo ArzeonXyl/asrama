@@ -1,16 +1,24 @@
 <?php
+    include "../connect.php"
+?>
+<?php
 session_start();
 
 // Pastikan session pembayaran berhasil
-if (!isset($_SESSION['pembayaran_sukses']) || !$_SESSION['pembayaran_sukses']) {
-    // Jika session tidak ada atau pembayaran gagal, arahkan kembali
-    header('Location: pembayaran.php');
-    exit();
-}
+// if (!isset($_SESSION['pembayaran_sukses']) || !$_SESSION['pembayaran_sukses']) {
+//     // Jika session tidak ada atau pembayaran gagal, arahkan kembali
+//     header('Location: pembayaran.php');
+//     exit();
+// }
 
 // Ambil data dari session atau dari database
 $nim = $_SESSION['pendaftaran']['NIM'] ?? 'NIM tidak ditemukan';
-$nama = $_SESSION['pendaftaran']['username'] ?? 'Nama tidak ditemukan';
+$q_nama = "SELECT nama_warga FROM warga_asrama WHERE nim_warga='$nim'";
+$result= mysqli_query($conn,$q_nama);
+if ($result && mysqli_num_rows($result)>0){
+    $row = mysqli_fetch_assoc($result);
+    $nama = $row['nama_warga'];
+}
 $nominal = $_SESSION['pembayaran']['nominal'] ?? 'Nominal tidak ditemukan';
 ?>
 

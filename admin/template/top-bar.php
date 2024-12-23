@@ -27,7 +27,7 @@
             </div>
             <i class="fas fa-chevron-down text-gray-500 cursor-pointer" id="profileMenuButton"></i>
             <div class="absolute right-0 mt-12 w-48 bg-white rounded-lg shadow-lg py-2 hidden" id="profileMenu">
-                <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="../../login/logout.php">
+                <a class="block px-4 py-2 text-gray-800 hover:bg-gray-100" href="../../login/logout_admin.php">
                     <i class="fas fa-sign-out-alt mr-2"></i>
                     Logout
                 </a>

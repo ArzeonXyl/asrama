@@ -25,11 +25,11 @@ if (isset($_POST['tambah'])) {
     } else {
         // Check if NIM already exists in pendaftaran table
         $nim = mysqli_real_escape_string($conn, $input['NIM']);
-        $check_nim = "SELECT nim_pendaftaran FROM pendaftaran WHERE nim_pendaftaran = '$nim'";
+        $check_nim = "SELECT nim_pendaftaran FROM pendaftaran, warga_asrama WHERE nim_pendaftaran = '$nim' OR nim_warga= '$nim'";
         $result = mysqli_query($conn, $check_nim);
         
         if (mysqli_num_rows($result) > 0) {
-            $errors['NIM'] = "NIM sudah terdaftar dalam sistem pendaftaran.";
+            $errors['NIM'] = "NIM sudah terdaftar dalam sistem pendaftaran atau sudah terdaftar.";
         }
     }
     if (empty($input['password'])) {
