@@ -145,12 +145,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="container">
     <h2>Detail Pembayaran</h2>
     
+    <!-- <div class="payment-info">
+        <p>NIM: <?= htmlspecialchars($nim_sesion) ?></p>
+        <p>Nominal yang harus dibayar: Rp 900.000</p>
+    </div> -->
+
+    <form method="POST" id="paymentForm">
     <div class="payment-info">
         <p>NIM: <?= htmlspecialchars($nim_sesion) ?></p>
         <p>Nominal yang harus dibayar: Rp 900.000</p>
     </div>
-
-    <form method="POST" id="paymentForm">
         <h3>Pilih Metode Pembayaran</h3>
         
         <!-- Bank Transfer Section -->
