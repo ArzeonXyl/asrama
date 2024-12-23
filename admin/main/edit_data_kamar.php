@@ -20,9 +20,14 @@
     if(isset($_POST['save'])){
         $kamar = $_POST['kamar'];
         $pengurus = $_POST['pengurus'];
-
-        $update = mysqli_query($conn, "UPDATE warga_asrama SET no_kamar = '$kamar', nim_pengurus = '$pengurus' WHERE nim_warga = '$nim'");
-        $success = true;
+        if($kamar != "none" && $pengurus != "none"){
+            $update = mysqli_query($conn, "UPDATE warga_asrama SET no_kamar = '$kamar', nim_pengurus = '$pengurus' WHERE nim_warga = '$nim'");
+            $success = true;
+            $_SESSION['status'] = true;
+        }else{
+            $success = true;
+            $_SESSION['status'] = false;
+        }
     }
 
 ?>
@@ -45,7 +50,7 @@
                     <div class="mb-1">
                         <label for="" class="form-label">No Kamar</label>
                         <select name="kamar" id=""class="form-select form-control-md bg-light" style="width: 100%;">
-                            <option value="">~~Pilih Kamar~~</option>
+                            <option value="none">~~Pilih Kamar~~</option>
                             <?php foreach($data_1 as $kamar):?>
                                 <option value="<?= $kamar['no_kamar'] ?>" <?= isset($no_kamar) && $no_kamar == $kamar['no_kamar'] ? 'selected' : "" ?>><?= $kamar['no_kamar'] ?></option>
                             <?php endforeach;?>
@@ -76,8 +81,14 @@
                     <h5 class="modal-title" id="statusModalLabel">Edit Kamar</h5>
                 </div>
                 <div class="modal-body text-center">
-                    <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
-                    <p>Kamar Warga berhasil diperbarui!</p>
+                    <?php if($_SESSION['status'] == true): ?>
+                        <i class="fas fa-check-circle fa-5x text-success mb-3"></i>
+                        <p>Kamar Warga berhasil diperbarui!</p>
+                    <?php else:  
+                        echo "<i class='fa fa-times-circle fa-5x text-danger mb-3'></i>";
+                        echo "<p>Kamar gagal diperbarui!</p>"; 
+                    ?>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-footer justify-content-center">
                     <a href="master_detail_kamar.php" class="btn btn-primary">Kembali</a>
