@@ -1,8 +1,12 @@
 <?php
-require "../connect.php";
 
-session_start();
+include '../connect.php'; 
+require 'assets/header.php'; 
 
+$id_berita = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+if ($id_berita === 0) {
+    die("ID berita tidak ditemukan.");
+}
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['logged_in'])) {
     echo '<script>alert("Harap login terlebih dahulu!"); window.location.href = "login.php";</script>';
@@ -42,7 +46,7 @@ if (isset($_POST['update_komentar'])) {
 
     $updateQuery = "UPDATE komentar SET isi_komentar = '$updatedKomentar' WHERE id_komentar = $editId";
     if (mysqli_query($conn, $updateQuery)) {
-        echo '<script>window.location.href = "komentar_penghuni.php";</script>';
+        echo '<script>window.location.href = "komentar_penghuni.php?id=' . $id_berita . '";</script>';
     } else {
         echo '<div class="alert alert-danger">Terjadi kesalahan: ' . mysqli_error($conn) . '</div>';
     }
@@ -72,7 +76,7 @@ if (isset($_POST['update_komentar'])) {
             <textarea name="komentar" class="form-control" required><?php echo htmlspecialchars($komentar['isi_komentar']); ?></textarea>
         </div>
         <button type="submit" name="update_komentar" class="btn btn-success">Perbarui Komentar</button>
-        <a href="komentar_penghuni.php" class="btn btn-secondary">Kembali</a>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='komentar_penghuni.php?id=<?php echo $id_berita; ?>'">Kembali</button>
     </form>
 </div>
 
@@ -80,3 +84,6 @@ if (isset($_POST['update_komentar'])) {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php
+    include "assets/footer.php"
+?>

@@ -110,7 +110,7 @@
                 <div class="card h-100 rounded">
                     <h5 class="card-header text-center" >Visi Asrama</h5>
                     <div class="card-body bg-primary text-white d-flex justify-content-center align-items-center">
-                        <p class="card-text">Visi Asrama akan dijelaskan di sini. Ini adalah deskripsi tentang visi yang ingin dicapai oleh pengelola asrama.</p>
+                        <p class="card-text">Mewujudkan lingkungan kondusif bagi proses pendalaman spiritual, perbaikan ahlaq, pengembangan intelektual dan pemantapan minat bakat  serta kepedulian social mahasiswa sebagai generasi penerus bangsa yang bertaqwa, berahlaqul karimah, cerdas dan professional serta peduli sesama.</p>
                     </div>
                 </div>
             </div>
@@ -118,12 +118,12 @@
                 <div class="card h-100 rounded">
                     <h5 class="card-header text-center">Misi Asrama</h5>
                     <div class="card-body bg-light text-dark d-flex justify-content-center align-items-center">
-                        <ul class="card-text">
-                            <li>Misi pertama: Menyediakan lingkungan yang aman dan nyaman untuk para penghuni asrama.</li>
-                            <li>Misi kedua: Meningkatkan kualitas hidup penghuni melalui program-program kegiatan positif.</li>
-                            <li>Misi ketiga: Menjalin kerjasama yang baik dengan pihak-pihak terkait untuk mendukung kegiatan asrama.</li>
-                            <li>Misi keempat: Menciptakan suasana kebersihan, kedisiplinan, dan keagamaan yang harmonis di lingkungan asrama.</li>
-                        </ul>
+                        <ol class="card-text">
+                            <li>Mengantarkan mahasiswa memiliki kemantapan akidah dan kedalaman spiritual, dan keluhuran akhlak.</li>
+                            <li>Mendukung mahasiswa dalam memperoleh keluasan ilmu, prestasi dan kemantapan profesional.</li>
+                            <li>Memberikan mahasiswa keterampilan tambahan dan dukungan pengembangan minat dan bakat.</li>
+                            <li>Memberikan bekal empati dan kepedulian sosial dan kemasyarakatan.</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -204,5 +204,8 @@
     <script>
         AOS.init();
     </script>
+    <?php
+        include('assets/footer.php')
+    ?>
 </body>
 </html>

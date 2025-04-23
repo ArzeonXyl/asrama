@@ -44,6 +44,9 @@ include '../connect.php';
                 $nim=$_SESSION['nim'];
                 $result = mysqli_query($conn, "SELECT * FROM ekstrakulikuler,dosen_pengajar,warga_ekstrakulikuler where warga_ekstrakulikuler.id_ekstrakulikuler=ekstrakulikuler.id_ekstrakulikuler AND ekstrakulikuler.dosen_NIP=dosen_pengajar.nip");
                 $no=3;
+                if($_SESSION['role']=='pengurus'){
+                    $result=mysqli_query($conn,"SELECT * FROM ekstrakulikuler,dosen_pengajar where ekstrakulikuler.dosen_NIP=dosen_pengajar.nip");
+                }
                 foreach ($result as $row) {
                     echo "<tr>";
                     echo "<th scope='row'>" . $no++ . "</th>";

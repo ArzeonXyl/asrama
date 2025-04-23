@@ -27,11 +27,19 @@ if ($role === 'pengurus') {
     $data = mysqli_fetch_assoc($result);
 
     // Ambil data dari database
-    $nama = $data['nama_warga'];
-    $jurusan = $data['jurusan_warga'];
-    $alamat = $data['alamat_warga'];
-    $no_hp = $data['nomor_handphone_warga'];
-}
+    if ($_SESSION ['role']== 'warga'){
+        $nama = $data['nama_warga'];
+        $jurusan = $data['jurusan_warga'];
+        $alamat = $data['alamat_warga'];
+        $no_hp = $data['nomor_handphone_warga'];
+    }else{
+        $nama = $data['nama_pengurus'];
+        $jurusan = $data['jurusan_pengurus'];
+        $alamat = $data['alamat_pengurus'];
+        $no_hp = $data['nomor_handphone_pengurus'];
+    }
+    }
+
 
 // Proses jika form disubmit
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -40,13 +48,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $alamat_baru = $_POST['alamat'];
     $no_hp_baru = $_POST['no_hp'];
 
-    if ($role === 'pengurus') {
+    if ($role == 'pengurus') {
         // Update untuk tabel pengurus
         $query = "UPDATE pengurus SET 
                     nama_pengurus = '$nama_baru', 
                     jurusan_pengurus = '$jurusan_baru', 
                     alamat_pengurus = '$alamat_baru', 
-                    no_handphone_pengurus = '$no_hp_baru' 
+                    nomor_handphone_pengurus = '$no_hp_baru' 
                   WHERE nim_pengurus = '$id_pengurus'";
     } else {
         // Update untuk tabel warga asrama

@@ -55,7 +55,7 @@ if (isset($_POST['login'])) {
     $result_warga = mysqli_query($conn, $query_warga);
     if (mysqli_num_rows($result_warga) > 0) {
         // Cek apakah warga sudah membayar
-        $query_pembayaran = "SELECT nim_warga FROM pembayaran WHERE nim_warga = '$username'";
+        $query_pembayaran = "SELECT nim_warga FROM pembayaran WHERE nim_warga = '$username' AND bukti_pembayaran IS NOT NULL AND TRIM(bukti_pembayaran) != ''";
         $result_pembayaran = mysqli_query($conn, $query_pembayaran);
         if (mysqli_num_rows($result_pembayaran) > 0) {
             $row_warga = mysqli_fetch_assoc($result_warga);

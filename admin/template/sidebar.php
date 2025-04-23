@@ -60,7 +60,7 @@
           <i class="fas fa-user mr-3"></i>
           <span>Profil</span>
         </a>
-        <a class="flex items-center px-6 py-2 text-gray-400" href="#">
+        <a class="flex items-center px-6 py-2 text-gray-400" href="kesehatan.php">
           <i class="fas fa-notes-medical mr-3"></i>
           <span>kesehatan</span>
         </a>

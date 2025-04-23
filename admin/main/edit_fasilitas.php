@@ -126,3 +126,4 @@ $result_gedung = $conn->query($sql_gedung);
 <?php
 $conn->close();
 ?>
+

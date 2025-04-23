@@ -65,7 +65,6 @@ if(isset($_POST['submit'])){
     $jadwal=$_POST['jadwal'];
     $dosen=$_POST['dosen'];
     $materi=htmlspecialchars($_POST['materi']);
-    echo $materi;
     $sql3="UPDATE ekstrakulikuler,dosen_pengajar  SET jadwal_ekstrakulikuler='$jadwal',nama_dosen='$dosen',status='$status',materi='$materi' WHERE id_ekstrakulikuler=5 AND ekstrakulikuler.dosen_NIP=dosen_pengajar.NIP";
     $result3=mysqli_query($conn,$sql3);
     if($result3){
