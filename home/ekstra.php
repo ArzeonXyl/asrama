@@ -78,8 +78,8 @@ if (isset($_GET['submit'])) {
                                 elseif ($alreadySelected) { ?>
                                     <p class="text-success fw-bold">Sudah Dipilih</p>
                                 <?php } else { ?>
-                                    <form action="#" method="get">
-                                        <input type="hidden" name="no" value="<?= htmlspecialchars($row['id_ekstrakulikuler']); ?>">
+                                    <form action="" method="get">
+                                        <input type="hidden" name="no" value="<?=$row['id_ekstrakulikuler']; ?>">
                                         <button type="submit" name="submit" class="btn btn-primary">Pilih</button>
                                     </form>
                                 <?php } ?>
@@ -95,3 +95,6 @@ if (isset($_GET['submit'])) {
     </div>
 </body>
 </html>
+<?php
+    include "assets/footer.php"
+?>

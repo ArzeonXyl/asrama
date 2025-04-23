@@ -9,6 +9,7 @@
     include "../template/top-bar.php";
 ?>
 <!-- isi konten disini -->
+ 
 <?php
     include "../template/script.php"
 ?>

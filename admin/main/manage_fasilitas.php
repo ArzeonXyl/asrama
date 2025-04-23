@@ -196,4 +196,4 @@ $result_gedung = $conn->query($sql_gedung);
 
 <?php $conn->close(); ?>
 <?php include "../template/script.php";?>
-<?php include "../template/footer.php";?>
+

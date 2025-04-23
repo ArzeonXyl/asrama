@@ -61,6 +61,9 @@ if (isset($_GET['nim'])){
     $query=mysqli_query($conn,$sql2);
     $query=mysqli_query($conn,$sql1);
     $query=mysqli_query($conn,$sql);
+    if($query){
+        echo "<script>alert('Data berhasil dihapus') ;window.location.href='data.php'</script>";
+    }
 }
 echo"<table class='table table-striped table-bordered mt-4'>
     <thead>
@@ -77,7 +80,7 @@ echo"<table class='table table-striped table-bordered mt-4'>
         </tr>
     </thead>
     <tbody>";
-    var_dump(mysqli_fetch_all($result));
+
     foreach ($result as $index => $data) {
         echo "<tr>";
         echo "<th scope='row'>" . ($index + 1) . "</th>";

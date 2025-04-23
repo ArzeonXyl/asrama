@@ -21,7 +21,7 @@ if (isset($_POST['tambah_komentar'])) {
 
     // Tambahkan komentar ke database dengan tanggal
     $query = "INSERT INTO komentar (nim_warga, nama_warga, isi_komentar, id_berita, tanggal) 
-              VALUES ('$nim_warga', '$nama_warga', '$komentar', '$id_berita', NOW())";
+                VALUES ('$nim_warga', '$nama_warga', '$komentar', '$id_berita', NOW())";
     if (mysqli_query($conn, $query)) {
         echo "<div class='alert alert-success'>Komentar berhasil ditambahkan!</div>";
     } else {
@@ -77,7 +77,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Komentar Berita ID <?php echo $id_berita; ?></h1>
+        <h1 class="text-center mb-4">Komentar</h1>
         <a href="berita_penghuni.php"><button class="btn btn-primary mb-4 bi bi-arrow-left-circle"> Kembali</button></a>
     
         <!-- Formulir untuk menambah komentar -->
@@ -103,7 +103,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </div>
                     <div>
                         <?php if ($role === 'admin' || $nim_warga === $komentar['nim_warga']) : ?>
-                            <a href="edit_komentar.php?edit_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="edit_komentar.php?id=<?php echo $id_berita; ?>&edit_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-warning btn-sm">Edit</a>
                             <a href="?id=<?php echo $id_berita; ?>&hapus_komentar_id=<?php echo $komentar['id_komentar']; ?>" class="btn btn-danger btn-sm">Hapus</a>
                         <?php endif; ?>
                     </div>

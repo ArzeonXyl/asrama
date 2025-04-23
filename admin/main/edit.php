@@ -17,7 +17,7 @@
         // var_dump($nama_pengurus);
         $nim_pengurus=$nama_pengurus['nim_pengurus'];
         // echo $nim_pengurus;
-        $result3=mysqli_query($conn,"UPDATE warga_asrama SET nim_warga='$nim' WHERE nim_warga='{$_SESSION['nim_warga']}'");
+        $result3=mysqli_query($conn,"UPDATE warga_asrama SET nim_warga='$nim',jurusan_warga='$jurusan',alamat_warga='$alamat',jenis_kelamin_warga='$jenis_kelamin',no_kamar='$no_kamar',nim_pengurus='$nim_pengurus',nama_warga='$nama' WHERE nim_warga='{$_SESSION['nim_warga']}'");
         if ($result3) { 
             unset($_SESSION['nim_warga']);
             echo "<script>alert('Data berhasil diubah!'); window.location.href='data.php';</script>";
@@ -137,7 +137,7 @@
     }
     ?>
 </div>
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+<?php include "../template/script.php" ?>
+

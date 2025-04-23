@@ -1,6 +1,14 @@
 <?php
-require "../../connect.php";
-
+    include "../template/head.php";
+    include $_SERVER['DOCUMENT_ROOT'] . '/asrama/connect.php';
+?>
+<?php
+    include "../template/sidebar.php";
+?>
+<?php
+    include "../template/top-bar.php";
+?>
+<?php
 // Penanganan penambahan berita
 if (isset($_POST['tambah_berita'])) {
     $judul = mysqli_real_escape_string($conn, $_POST['judul']);
@@ -43,17 +51,12 @@ if ($result->num_rows > 0) {
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>asrama</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-    <?php include 'assets/style.css'; ?>
-    </style>
+
 </head>
 <body>
+    <?php
+        include('../template/content.php');
+    ?>
     <div class="container mt-5">
         <h1 class="text-center mb-4">Pengelolaan Berita Asrama</h1>
 
@@ -86,4 +89,9 @@ if ($result->num_rows > 0) {
     <!-- Link ke Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
+<?php
+    include "../template/script.php"
+?>
+
